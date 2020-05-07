@@ -1,0 +1,690 @@
+Thu May  7 13:54:33 UTC 2020
+Source PDY script to export PDYm7, ..., PDY, ..., PDYp7 variables.
+_=*24648*/usr/bin/env
+ATP_HOME=/opt/cray/atp/1.8.1
+ATP_MRNET_COMM_PATH=/opt/cray/atp/1.8.1/libexec/atp_mrnet_commnode_wrapper
+ATP_POST_LINK_OPTS=-Wl,-L/opt/cray/atp/1.8.1/libApp/ 
+BACIO_LIB4=/gpfs/hps/nco/ops/nwprod/lib/bacio/v2.0.2/intel/libbacio_v2.0.2_4.a
+BACIO_LIB8=/gpfs/hps/nco/ops/nwprod/lib/bacio/v2.0.2/intel/libbacio_v2.0.2_8.a
+BACIO_SRC=/gpfs/hps/nco/ops/nwprod/lib/bacio/v2.0.2/src
+BACIO_VER=v2.0.2
+BASH_FUNC_module%%=() {  eval `/opt/modules/3.2.10.3/bin/modulecmd bash $*`
+}
+BSUB_BLOCK_EXEC_HOST=
+BUFR_LIB4=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_4_64.a
+BUFR_LIB4_DA=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_4_64_DA.a
+BUFR_LIB8=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_8_64.a
+BUFR_LIB8_DA=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_8_64_DA.a
+BUFR_LIBd=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_d_64.a
+BUFR_LIBd_DA=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_d_64_DA.a
+BUFR_SRC=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/src
+BUFR_VER=v11.3.0
+CNVGRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/cnvgrib
+CNVGRIB21_GFS=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/cnvgrib21_gfs
+COLORTERM=1
+COMDATEROOT=/gpfs/hps/nco/ops/com
+COMIN=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+COMINm1=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190711
+COMINm2=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190710
+COMINm3=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190709
+COMLISTROOT=/gpfs/hps/nco/ops/config
+COMOUT=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+COMOUTm1=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190711
+COMP=intel
+COMROOT=/gpfs/hps3/ptmp/Youhua.Tang/com
+COMROOThps=/gpfs/hps/nco/ops/com
+COMROOTp3=/gpfs/dell1/nco/ops/com
+COMROOTp35=/gpfs/dell4/nco/ops/com
+COMROOTp3d1=/gpfs/dell1/nco/ops/com
+COMROOTp3d2=/gpfs/dell2/nco/ops/com
+COMROOTp3d3=/gpfs/dell3/nco/ops/com
+COMROOTp3d4=/gpfs/dell4/nco/ops/com
+COMROOTp3d5=/gpfs/dell5/nco/ops/com
+COMROOTp3d6=/gpfs/dell6/nco/ops/com
+COPYGB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/copygb
+COPYGB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/copygb2
+CPATH=/opt/intel/composer_xe_2015.3.187/ipp/include:/opt/intel/composer_xe_2015.3.187/mkl/include:/opt/intel/composer_xe_2015.3.187/tbb/include
+CPU=x86_64
+CRAYOS_VERSION=5.2.82
+CRAYPE_DIR=/opt/cray/craype/2.3.0
+CRAYPE_NETWORK_TARGET=aries
+CRAYPE_VERSION=2.3.0
+CRAY_ALPS_INCLUDE_OPTS=-I/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/include
+CRAY_ALPS_POST_LINK_OPTS=-L/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/lib64
+CRAY_CPU_TARGET=haswell
+CRAY_DMAPP_INCLUDE_OPTS=-I/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/include -I/opt/cray/gni-headers/4.0-1.0502.10859.7.8.ari/include 
+CRAY_DMAPP_POST_LINK_OPTS=-L/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/lib64
+CRAY_GNI_HEADERS_INCLUDE_OPTS=-I/opt/cray/gni-headers/4.0-1.0502.10859.7.8.ari/include
+CRAY_HDF5_DIR=/opt/cray/hdf5/1.8.13
+CRAY_HDF5_VERSION=1.8.13
+CRAY_IOBUF_DIR=/opt/cray/iobuf/2.0.5
+CRAY_IOBUF_INCLUDE_OPTS=-I/opt/cray/iobuf/2.0.5/include
+CRAY_IOBUF_POST_LINK_OPTS=-Wl,/opt/cray/iobuf/2.0.5/lib/iobuf.o
+CRAY_IOBUF_VERSION=2.0.5
+CRAY_LD_LIBRARY_PATH=/usrx/local/prod/imagemagick/6.8.3/intel/haswell/lib:/opt/cray/hdf5/1.8.13/INTEL/140/lib:/opt/cray/netcdf/4.3.2/INTEL/140/lib:/opt/cray/mpt/7.2.0/gni/mpich2-intel/140/lib:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/lib64:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/lib64:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/lib64:/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/lib64:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/lib64:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/lib64:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/lib64:/opt/cray/libsci/13.0.3/INTEL/140/x86_64/lib:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/lib64
+CRAY_LIBSCI_BASE_DIR=/opt/cray/libsci/13.0.3
+CRAY_LIBSCI_DIR=/opt/cray/libsci/13.0.3
+CRAY_LIBSCI_PREFIX_DIR=/opt/cray/libsci/13.0.3/INTEL/140/x86_64
+CRAY_LIBSCI_VERSION=13.0.3
+CRAY_MPICH2_BASEDIR=/opt/cray/mpt/7.2.0/gni
+CRAY_MPICH2_DIR=/opt/cray/mpt/7.2.0/gni/mpich2-intel/140
+CRAY_MPICH2_ROOTDIR=/opt/cray/mpt/7.2.0
+CRAY_MPICH2_VER=7.2.0
+CRAY_NETCDF_VERSION=4.3.2
+CRAY_PMI_INCLUDE_OPTS=-I/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/include
+CRAY_PMI_POST_LINK_OPTS=-L/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/lib64
+CRAY_PRE_COMPILE_OPTS=-hnetwork=aries
+CRAY_PRGENVINTEL=loaded
+CRAY_RCA_INCLUDE_OPTS=-I/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/include -I/opt/cray/krca/1.0.0-2.0502.67049.8.22.ari/include -I/opt/cray-hss-devel/7.2.0/include 
+CRAY_RCA_POST_LINK_OPTS=-L/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/lib64 -lrca 
+CRAY_SITE_LIST_DIR=/etc/opt/cray/modules
+CRAY_UDREG_INCLUDE_OPTS=-I/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/include
+CRAY_UDREG_POST_LINK_OPTS=-L/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/lib64
+CRAY_UGNI_INCLUDE_OPTS=-I/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/include
+CRAY_UGNI_POST_LINK_OPTS=-L/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/lib64
+CRAY_XPMEM_INCLUDE_OPTS=-I/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/include
+CRAY_XPMEM_POST_LINK_OPTS=-L/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/lib64
+CSHEDIT=emacs
+CVS_RSH=ssh
+CYC=12
+DATA=/gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_cmaq_cs.27977
+DCOMROOT=/gpfs/dell1/nco/ops/dcom
+DEGRIB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/degrib2
+DISPLAY=slogin1:14.0
+DMAPP_ABORT_ON_ERROR=1
+DVS_INCLUDE_OPTS=-I/opt/cray/dvs/2.5_0.9.0-1.0502.2188.1.116.ari/include
+DVS_VERSION=0.9.0
+EMISpath=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/emission/nei2016v1/201907
+END_PDY=20190712
+ENV=/etc/bash.bashrc
+ESMFMKFILE=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/lib/libO/Unicos.intel.64.mpi.default/esmf.mk
+ESMF_LIB=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/lib/libO/Unicos.intel.64.mpi.default -lesmf -lstdc++
+ESMF_MOD=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/mod/modO/Unicos.intel.64.mpi.default
+ESMF_SRC=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src
+ESMF_VER=6_3_0rp1
+ESWRAP_LOGIN=slogin3
+EXECaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/exec
+FCST=YES
+FIXaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/fix
+FROM_HEADER=
+FRPRATIO=1.0
+FSYNC=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/fsync_file
+GADDIR=/u/Youhua.Tang/grads/lib
+GASCRP=/u/Youhua.Tang/grads
+GCC_PATH=/opt/gcc/6.3.0
+GCC_VERSION=6.3.0
+GDBSERVER_MIC=/opt/intel/composer_xe_2015.3.187/debugger/gdb/target/mic/bin/gdbserver
+GDB_CROSS=/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin/gdb-mic
+GDB_HOST=/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin/gdb-ia-mic
+GESROOT=/gpfs/hps/nco/ops/nwges
+GESROOThps=/gpfs/hps/nco/ops/nwges
+GESROOTp3=/gpfs/dell1/nco/ops/nwges
+GESROOTp35=/gpfs/dell4/nco/ops/nwges
+GESROOTp3d1=/gpfs/dell1/nco/ops/nwges
+GESROOTp3d2=/gpfs/dell2/nco/ops/nwges
+GESROOTp3d3=/gpfs/dell3/nco/ops/nwges
+GESROOTp3d4=/gpfs/dell4/nco/ops/nwges
+GESROOTp3d5=/gpfs/dell5/nco/ops/nwges
+GESROOTp3d6=/gpfs/dell6/nco/ops/nwges
+GIT_SSH=/u/Youhua.Tang/bin/ssh-gerrit
+GNU_VERSION=6.3.0
+GRB2INDEX=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/grb2index
+GRBINDEX=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/grbindex
+GRIB2GRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/grib2grib
+G_BROKEN_FILENAMES=1
+HDF5_DIR=/opt/cray/hdf5/1.8.13/INTEL/140
+HDF5_INCLUDE_OPTS=/opt/cray/hdf5/1.8.13/INTEL/140/include
+HDF5_ROOT=/opt/cray/hdf5/1.8.13/INTEL/140
+HISTSIZE=1000
+HOME=/u/Youhua.Tang
+HOMEaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS
+HOST=slogin1
+HOSTNAME=nid00124
+HOSTTYPE=X86_64
+INFODIR=/usr/local/info:/usr/share/info:/usr/info
+INFOPATH=/opt/gcc/6.3.0/snos/share/info:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/share/info/:/usr/local/info:/usr/share/info:/usr/info
+INPUTRC=/etc/inputrc
+INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.3.187/licenses:/opt/intel/licenses:/intel/licenses
+INTEL_MAJOR_VERSION=15.0
+INTEL_MINOR_VERSION=3.187
+INTEL_PATH=/opt/intel/composer_xe_2015.3.187
+INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.3.187/debugger/python/intel64/
+INTEL_VERSION=15.0.3.187
+IOAPI_OFFSET_64=YES
+IOBUF_PARAMS=12M:verbose
+IPPROOT=/opt/intel/composer_xe_2015.3.187/ipp
+JAVA_BINDIR=/usr/lib64/jvm/java/bin
+JAVA_HOME=/usr/lib64/jvm/java
+JAVA_ROOT=/usr/lib64/jvm/java
+JDK_HOME=/usr/lib64/jvm/java
+JRE_HOME=/usr/lib64/jvm/java/jre
+KEEPDATA=YES
+LD_LIBRARY_PATH=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/lib:/opt/gcc/6.3.0/snos/lib64:/usrx/local/prod/python/3.6.3/lib:/usrx/local/prod/zlib/1.2.7/intel/haswell/lib:/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/lib/libO/Unicos.intel.64.mpi.default:-lesmf:-lstdc++:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/lib:/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64:/opt/intel/mic/coi/host-linux-release/lib:/opt/intel/mic/myo/lib:/opt/intel/composer_xe_2015.3.187/mpirt/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/../compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/tools/intel64/perfsys:/opt/intel/composer_xe_2015.3.187/mkl/lib/intel64:/opt/intel/composer_xe_2015.3.187/tbb/lib/intel64/gcc4.1:/opt/intel/composer_xe_2015.3.187/debugger/libipt/intel64/lib
+LESS=-M -I
+LESSCLOSE=lessclose.sh %s %s
+LESSKEY=/etc/lesskey.bin
+LESSOPEN=lessopen.sh %s
+LESS_ADVANCED_PREPROCESSOR=no
+LIBRARYMODULES=acml:alps:cray-dwarf:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-abi:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-tpsl:cray-trilinos:cudatoolkit:fftw:ga:hdf5:hdf5-parallel:iobuf:libfast:netcdf:netcdf-hdf5parallel:ntk:onesided:papi:petsc:petsc-complex:pmi:tpsl:trilinos:xt-libsci:xt-mpich2:xt-mpt:xt-papi:/etc/opt/cray/modules/site_librarymodules
+LIBRARY_PATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/../compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/lib/intel64:/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/mkl/lib/intel64:/opt/intel/composer_xe_2015.3.187/tbb/lib/intel64/gcc4.1
+LIBSCI_BASE_DIR=/opt/cray/libsci/13.0.3
+LIBSCI_VERSION=13.0.3
+LOADEDMODULES=modules/3.2.10.3:eswrap/1.3.3-1.020200.1280.0:switch/1.0-1.0502.60522.1.61.ari:craype-network-aries:dvs/2.5_0.9.0-1.0502.2481.23.7.ari:alps/5.2.4-2.0502.9822.32.1.ari:ncep/1.0:craype-haswell:xt-lsfhpc/9.1.3:intel/15.0.3.187:craype/2.3.0:cray-libsci/13.0.3:udreg/2.3.2-1.0502.10518.2.17.ari:ugni/6.0-1.0502.10863.8.29.ari:pmi/5.0.6-1.0000.10439.140.2.ari:dmapp/7.0.1-1.0502.11080.8.76.ari:gni-headers/4.0-1.0502.10859.7.8.ari:xpmem/0.1-2.0502.64982.5.3.ari:dvs/2.5_0.9.0-1.0502.2188.1.116.ari:alps/5.2.4-2.0502.9774.31.11.ari:rca/1.0.0-2.0502.60530.1.62.ari:atp/1.8.1:PrgEnv-intel/5.2.82:cray-mpich/7.2.0:hpss/4.1.0.3:iobuf/2.0.5:cray-netcdf/4.3.2:cray-hdf5/1.8.13:nco-gnu-sandybridge/4.4.4:imagemagick-intel-haswell/6.8.3:subversion/1.7.16:ESMF-intel-haswell/6_3_0rp1:bufr-intel/11.3.0:bacio-intel/2.0.2:zlib-intel-haswell/1.2.7:grib_util/1.0.3:nemsio-intel/2.2.3:nemsiogfs-intel/2.0.1:w3emc-intel/2.3.0:w3nco-intel/2.0.6:python/3.6.3:gcc/6.3.0:cmake/3.6.2:git/2.18.0:prod_util/1.1.0:prod_envir/1.1.0
+LOGNAME=Youhua.Tang
+LSB_ACCT_FILE=/ufs/tmp/461729.tmpdir/.1588859664.461729.acct
+LSB_AFFINITY_HOSTFILE=/ufs/lsbatch/spool/1588859664.461729.hostAffinityFile
+LSB_BATCH_JID=461729
+LSB_CG_MEMLIMIT=0xbb800000
+LSB_CHKFILENAME=/ufs/lsbatch/spool/1588859664.461729
+LSB_DJOB_HOSTFILE=/ufs/lsbatch/spool/1588859664.461729.hostfile
+LSB_DJOB_RANKFILE=/ufs/lsbatch/spool/1588859664.461729.hostfile
+LSB_ECHKPNT_RSH_CMD=ssh
+LSB_EEXEC_REAL_GID=
+LSB_EEXEC_REAL_UID=
+LSB_EFFECTIVE_RSRCREQ=1*{select[((craylinux&&!vnode) && (type == any)) && (dsrv=0&&prd=0&&psrv=0)] order[indx] rusage[mem=3000.00,dev=1.00]}+576*{select[((craylinux&&vnode) && (type == any)) && (dsrv=0&&prd=0&&psrv=0)] order[indx] span[ptile=24] cu[type=cabinet:pref=config]}
+LSB_ERRORFILE=jaqm_fcst_cs.err
+LSB_EXEC_CLUSTER=NCEP-ORLANDO
+LSB_EXEC_HOSTTYPE=X86_64
+LSB_EXIT_IF_CWD_NOTEXIST=Y
+LSB_EXIT_PRE_ABORT=99
+LSB_JOBEXIT_STAT=0
+LSB_JOBFILENAME=/ufs/lsbatch/spool/1588859664.461729
+LSB_JOBID=461729
+LSB_JOBINDEX=0
+LSB_JOBNAME=jaqm_fcst_v531_cs
+LSB_JOBRES_PID=24573
+LSB_JOB_EXECUSER=Youhua.Tang
+LSB_MAX_NUM_PROCESSORS=577
+LSB_MCPU_HOSTS=nid00124 1 nid00017 24 nid00020 24 nid00021 24 nid00037 24 nid00038 24 nid00040 24 nid00073 24 nid00074 24 nid00283 24 nid00284 24 nid00285 24 nid00289 24 nid00315 24 nid00341 24 nid00350 24 nid00358 24 nid00436 24 nid00437 24 nid00438 24 nid00500 24 nid00509 24 nid00510 24 nid00511 24 nid00520 24 
+LSB_OUTDIR=/u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working
+LSB_OUTPUTFILE=jaqm_fcst_cs.out
+LSB_PROJECT_NAME=CMAQ-T2O
+LSB_QUEUE=debug
+LSB_SUB_HOST=slogin1
+LSB_SUB_RES_REQ= 1*{select[craylinux && !vnode] rusage[mem=3000]} + 576*{select[craylinux && vnode]span[ptile=24] cu[type=cabinet]} 
+LSB_SUB_USER=Youhua.Tang
+LSB_TRAPSIGS=trap # 15 10 12 2 1
+LSB_UNIXGROUP_INT=g01
+LSB_XFER_OP=
+LSFUSER=Youhua.Tang
+LSF_BINDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/bin
+LSF_CGROUP_TOPDIR_KEY=NCEP-ORLANDO
+LSF_EAUTH_AUX_PASS=yes
+LSF_EAUTH_CLIENT=user
+LSF_EAUTH_SERVER=mbatchd@NCEP-ORLANDO
+LSF_ENVDIR=/gpfs/slsf/xt-lsfhpc/conf
+LSF_INVOKE_CMD=bsub
+LSF_JOB_TIMESTAMP_VALUE=1588859671
+LSF_LIBDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/lib
+LSF_LIM_API_NTRIES=1
+LSF_LOGDIR=/gpfs/slsf/xt-lsfhpc/log
+LSF_SERVERDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/etc
+LSF_VERSION=30
+LS_COLORS=no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.avi=01;35:*.bmp=01;35:*.fli=01;35:*.gif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mng=01;35:*.mov=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.tga=01;35:*.tif=01;35:*.xbm=01;35:*.xpm=01;35:*.dl=01;35:*.gl=01;35:*.wmv=01;35:*.aiff=00;32:*.au=00;32:*.mid=00;32:*.mp3=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:
+LS_EXECCWD=/u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working/.
+LS_EXEC_T=START
+LS_JOBPID=24573
+LS_OPTIONS=-N --color=none -T 0
+LS_SUBCWD=/u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working
+MACHTYPE=x86_64-suse-linux
+MAIL=/var/mail/Youhua.Tang
+MANPATH=/usrx/local/dev/git/2.18.0/share/man:/usrx/local/dev/cmake/3.6.2/share/man:/opt/gcc/6.3.0/snos/share/man:/usrx/local/prod/python/3.6.3/share/man:/usrx/local/prod/zlib/1.2.7/intel/haswell/share/man:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/share/man:/usrx/local/prod/imagemagick/6.8.3/intel/haswell/share/man:/usrx/local/prod/nco/4.4.4/gnu/sandybridge/share/man:/opt/cray/netcdf/4.3.2/share/man:/opt/cray/iobuf/2.0.5/man:/opt/cray/mpt/7.2.0/gni/man/mpich2:/opt/cray/atp/1.8.1/man:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/man:/opt/cray/libsci/13.0.3/man:/opt/cray/man/csmlversion:/opt/cray/craype/2.3.0/man:/opt/intel/composer_xe_2015.3.187/man/en_US:/opt/intel/composer_xe_2015.3.187/man/en_US:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/share/man/:/gpfs/slsf/xt-lsfhpc/9.1/man:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/man:/opt/cray/eslogin/eswrap/1.3.3-1.020200.1280.0/man:/opt/modules/3.2.10.3/share/man:/opt/cray/share/man:/usr/local/man:/usr/share/man:/opt/cray/share/man:/cm/local/apps/environment-modules/current/share/man:/opt/cray/man
+MDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/mdate
+MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/mic:/opt/intel/composer_xe_2015.3.187/mpirt/lib/mic:/opt/intel/mic/coi/device-linux-release/lib:/opt/intel/mic/myo/lib:/opt/intel/composer_xe_2015.3.187/ipp/lib/lib/mic:/opt/intel/mic/coi/device-linux-release/lib:/opt/intel/mic/myo/lib:/opt/intel/composer_xe_2015.3.187/compiler/lib/mic:/opt/intel/composer_xe_2015.3.187/mkl/lib/mic:/opt/intel/composer_xe_2015.3.187/tbb/lib/mic
+MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/mic:/opt/intel/composer_xe_2015.3.187/mpirt/lib/mic:/opt/intel/composer_xe_2015.3.187/tbb/lib/mic
+MINICOM=-c on
+MKLROOT=/opt/intel/composer_xe_2015.3.187/mkl
+MODULEPATH=/usrx/local/dev/modulefiles:/usrx/local/prod/modulefiles:/gpfs/hps/nco/ops/nwprod/lib/modulefiles:/gpfs/hps/nco/ops/nwprod/modulefiles:/opt/cray/alt-modulefiles:/opt/cray/craype/default/alt-modulefiles:/opt/cray/ari/modulefiles:/opt/modulefiles
+MODULESHOME=/opt/modules/3.2.10.3
+MODULE_VERSION=3.2.10
+MODULE_VERSION_STACK=3.2.10
+MORE=-sl
+MPICH_ABORT_ON_ERROR=1
+MPICH_DIR=/opt/cray/mpt/7.2.0/gni/mpich2-intel/140
+MPM_LAUNCHER=/opt/intel/composer_xe_2015.3.187/debugger/mpm/bin/start_mpm.sh
+MYPARA9=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para
+NCO_BINDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge/bin
+NCO_INCDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge/include
+NCO_INCLUDE=-I/usrx/local/prod/nco/4.4.4/gnu/sandybridge/include
+NCO_LDFLAGS_C=-L/usrx/local/prod/nco/4.4.4/gnu/sandybridge/lib
+NCO_LDFLAGS_CXX=-L/usrx/local/prod/nco/4.4.4/gnu/sandybridge/lib
+NCO_LIBDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge/lib
+NCO_ROOTDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge
+NDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/ndate
+NEMSIOGFS_INC=/gpfs/hps/nco/ops/nwprod/lib/nemsiogfs/v2.0.1/intel/include/nemsiogfs_v2.0.1
+NEMSIOGFS_LIB=/gpfs/hps/nco/ops/nwprod/lib/nemsiogfs/v2.0.1/intel/libnemsiogfs_v2.0.1.a
+NEMSIOGFS_SRC=/gpfs/hps/nco/ops/nwprod/lib/nemsiogfs/v2.0.1/src
+NEMSIOGFS_VER=v2.0.1
+NEMSIO_INC=/gpfs/hps/nco/ops/nwprod/lib/nemsio/v2.2.3/intel/include/nemsio_v2.2.3
+NEMSIO_LIB=/gpfs/hps/nco/ops/nwprod/lib/nemsio/v2.2.3/intel/libnemsio_v2.2.3.a
+NEMSIO_SRC=/gpfs/hps/nco/ops/nwprod/lib/nemsio/v2.2.3/src
+NEMSIO_VER=v2.2.3
+NET=aqm
+NETCDF_DIR=/opt/cray/netcdf/4.3.2/INTEL/140
+NHOUR=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/nhour
+NLSPATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/ipp/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64/share/locale/%l_%t/%N
+NNTPSERVER=news
+NODES=24
+NWROOT=/u/Youhua.Tang/noscrub/nwdev
+NWROOThps=/gpfs/hps/nco/ops/nwprod
+NWROOTp1=/nwprod
+NWROOTp3=/gpfs/dell1/nco/ops/nwprod
+NWROOTp35=/gpfs/dell4/nco/ops/nwprod
+OMP_NUM_THREADS=1
+OSTYPE=linux
+OUTGRIB=0
+PAGER=less
+PARAFLAG=YES
+PARMaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/parm
+PATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/bin:/usrx/local/dev/git/2.18.0/bin:/usrx/local/dev/cmake/3.6.2/bin:/opt/gcc/6.3.0/bin:/usrx/local/prod/python/3.6.3/bin:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/bin:/usrx/local/prod/imagemagick/6.8.3/intel/haswell/bin:/usrx/local/prod/nco/4.4.4/gnu/sandybridge/bin:/opt/cray/hdf5/1.8.13/bin:/opt/cray/netcdf/4.3.2/bin:/usrx/local/prod/hpss:/opt/cray/mpt/7.2.0/gni/bin:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/bin:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/sbin:/opt/cray/dvs/2.5_0.9.0-1.0502.2188.1.116.ari/bin:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/bin:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/bin:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/bin:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/bin:/opt/cray/craype/2.3.0/bin:/opt/intel/composer_xe_2015.3.187/bin/intel64:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/etc:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/sbin:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/bin:/opt/cray/dvs/2.5_0.9.0-1.0502.2481.23.7.ari/bin:/opt/cray/switch/1.0-1.0502.60522.1.61.ari/bin:/opt/cray/eslogin/eswrap/1.3.3-1.020200.1280.0/bin:/opt/modules/3.2.10.3/bin:/u/Youhua.Tang/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/opt/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/sbin:/usr/sbin:.:/usr/lib/qt3/bin:/usrx/local/grads/2.0.2/bin:/usrx/local/hpss:/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec:.:/opt/cray/bin:/usrx/local/prod/zlib/1.2.7/intel/haswell/include
+PCOMROOT=/gpfs/hps/nco/ops/pcom
+PDY=20190712
+PDYm1=20190711
+PDYm2=20190710
+PDYm3=20190709
+PDYm4=20190708
+PDYm5=20190707
+PDYm6=20190706
+PDYm7=20190705
+PDYp1=20190713
+PDYp2=20190714
+PDYp3=20190715
+PDYp4=20190716
+PDYp5=20190717
+PDYp6=20190718
+PDYp7=20190719
+PELOCAL_PRGENV=true
+PE_CRAY_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/parallel-netcdf/1.6.0/CRAY/8.3/lib/pkgconfig:/opt/cray/netcdf/4.3.2/CRAY/83/lib/pkgconfig:/opt/cray/ga/5.3.0.1/CRAY/83/lib/pkgconfig:/opt/cray/hdf5/1.8.13/CRAY/83/lib/pkgconfig:/opt/cray/hdf5-parallel/1.8.13/CRAY/83/lib/pkgconfig:/opt/cray/netcdf-hdf5parallel/4.3.2/CRAY/83/lib/pkgconfig
+PE_CRAY_FIXED_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/CRAY/83/lib/pkgconfig:/opt/cray/netcdf/4.3.2/CRAY/83/lib/pkgconfig
+PE_CXX_PKGCONFIG_LIBS=hdf5_hl_cpp:hdf5_cpp:netcdf_c++4:mpichcxx
+PE_ENV=INTEL
+PE_FFTW_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+PE_FFTW_DEFAULT_TARGET_haswell=haswell
+PE_FFTW_DEFAULT_TARGET_interlagos=interlagos
+PE_FFTW_DEFAULT_TARGET_sandybridge=sandybridge
+PE_FFTW_DEFAULT_TARGET_x86_64=x86_64
+PE_FFTW_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/fftw/3.3.4.2/@PE_FFTW_DEFAULT_TARGET@/lib/pkgconfig
+PE_FORTRAN_PKGCONFIG_LIBS=hdf5hl_fortran:hdf5_fortran:netcdff:mpichf90
+PE_GA_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_GA_DEFAULT_GENCOMPS_GNU=49 48
+PE_GA_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/ga/5.3.0.1/@PRGENV@/@PE_GA_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_GA_DEFAULT_VOLATILE_PRGENV=GNU
+PE_HDF5_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_HDF5_DEFAULT_GENCOMPS_GNU=49 48
+PE_HDF5_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/@PRGENV@/@PE_HDF5_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_HDF5_DEFAULT_VOLATILE_PRGENV=GNU
+PE_HDF5_DIR=/opt/cray/hdf5/1.8.13
+PE_HDF5_FIXED_PRGENV=CRAY INTEL
+PE_HDF5_FORTRAN_PKGCONFIG_LIBS=hdf5hl_fortran:hdf5_fortran
+PE_HDF5_GENCOMPS_GNU=49 48
+PE_HDF5_MODULE_NAME=cray-hdf5
+PE_HDF5_PARALLEL_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_HDF5_PARALLEL_DEFAULT_GENCOMPS_GNU=49 48
+PE_HDF5_PARALLEL_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+PE_HDF5_PARALLEL_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/hdf5-parallel/1.8.13/@PRGENV@/@PE_HDF5_PARALLEL_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_HDF5_PARALLEL_DEFAULT_VOLATILE_PRGENV=GNU
+PE_HDF5_PKGCONFIG_LIBS=hdf5_hl:hdf5
+PE_HDF5_VOLATILE_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/@PRGENV@/@PE_HDF5_GENCOMPS@/lib/pkgconfig
+PE_HDF5_VOLATILE_PRGENV=GNU
+PE_HDF5__CXX_PKGCONFIG_LIBS=hdf5_hl_cpp:hdf5_cpp
+PE_INTEL_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/mpich2-intel/140/lib/pkgconfig:/opt/cray/parallel-netcdf/1.6.0/INTEL/14.0/lib/pkgconfig:/opt/cray/netcdf/4.3.2/INTEL/140/lib/pkgconfig:/opt/cray/ga/5.3.0.1/INTEL/140/lib/pkgconfig:/opt/cray/hdf5/1.8.13/INTEL/140/lib/pkgconfig:/opt/cray/hdf5-parallel/1.8.13/INTEL/140/lib/pkgconfig:/opt/cray/netcdf-hdf5parallel/4.3.2/INTEL/140/lib/pkgconfig
+PE_INTEL_FIXED_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/INTEL/140/lib/pkgconfig:/opt/cray/netcdf/4.3.2/INTEL/140/lib/pkgconfig:/opt/cray/mpt/7.2.0/gni/mpich2-intel/140/lib/pkgconfig
+PE_LIBSCI_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_LIBSCI_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_LIBSCI_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_LIBSCI_DEFAULT_OMP_REQUIRES_openmp=_mp
+PE_LIBSCI_DEFAULT_PKGCONFIG_VARIABLES=PE_LIBSCI_DEFAULT_OMP_REQUIRES_@openmp@
+PE_LIBSCI_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+PE_LIBSCI_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/libsci/13.0.3/@PRGENV@/@PE_LIBSCI_DEFAULT_GENCOMPS@/@PE_LIBSCI_DEFAULT_TARGET@/lib/pkgconfig
+PE_LIBSCI_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_LIBSCI_GENCOMPS_CRAY_x86_64=83
+PE_LIBSCI_GENCOMPS_GNU_x86_64=49 48
+PE_LIBSCI_GENCOMPS_INTEL_x86_64=140
+PE_LIBSCI_MODULE_NAME=cray-libsci/13.0.3
+PE_LIBSCI_OMP_REQUIRES_openmp=_mp
+PE_LIBSCI_PKGCONFIG_LIBS=libsci_mpi:libsci
+PE_LIBSCI_PKGCONFIG_VARIABLES=PE_LIBSCI_OMP_REQUIRES_@openmp@
+PE_LIBSCI_REQUIRED_PRODUCTS=PE_MPICH
+PE_LIBSCI_VOLATILE_PKGCONFIG_PATH=/opt/cray/libsci/13.0.3/@PRGENV@/@PE_LIBSCI_GENCOMPS@/@PE_LIBSCI_TARGET@/lib/pkgconfig
+PE_LIBSCI_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_MPICH_DEFAULT_DIR_CRAY_DEFAULT64=64
+PE_MPICH_DEFAULT_FIXED_PRGENV=INTEL
+PE_MPICH_DEFAULT_GENCOMPS_CRAY=83
+PE_MPICH_DEFAULT_GENCOMPS_GNU=49 48
+PE_MPICH_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/mpich2-@PRGENV@@PE_MPICH_DEFAULT_DIR_DEFAULT64@/@PE_MPICH_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_MPICH_DEFAULT_VOLATILE_PRGENV=CRAY GNU
+PE_MPICH_DIR_CRAY_DEFAULT64=64
+PE_MPICH_FIXED_PRGENV=INTEL
+PE_MPICH_GENCOMPS_CRAY=83
+PE_MPICH_GENCOMPS_GNU=49 48
+PE_MPICH_MODULE_NAME=cray-mpich
+PE_MPICH_MULTITHREADED_LIBS_multithreaded=_mt
+PE_MPICH_NV_LIBS_nvidia20=-lcudart
+PE_MPICH_NV_LIBS_nvidia35=-lcudart
+PE_MPICH_PKGCONFIG_VARIABLES=PE_MPICH_NV_LIBS_@accelerator@:PE_MPICH_MULTITHREADED_LIBS_@multithreaded@
+PE_MPICH_TARGET_VAR_nvidia20=-lcudart
+PE_MPICH_TARGET_VAR_nvidia35=-lcudart
+PE_MPICH_VOLATILE_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/mpich2-@PRGENV@@PE_MPICH_DIR_DEFAULT64@/@PE_MPICH_GENCOMPS@/lib/pkgconfig
+PE_MPICH_VOLATILE_PRGENV=CRAY GNU
+PE_NETCDF_BASEDIR=/opt/cray/netcdf/4.3.2
+PE_NETCDF_CXX_PKGCONFIG_LIBS=netcdf_c++4
+PE_NETCDF_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_NETCDF_DEFAULT_GENCOMPS_GNU=49 48
+PE_NETCDF_DEFAULT_REQUIRED_PRODUCTS=PE_HDF5
+PE_NETCDF_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/netcdf/4.3.2/@PRGENV@/@PE_NETCDF_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_NETCDF_DEFAULT_VOLATILE_PRGENV=GNU
+PE_NETCDF_FIXED_PRGENV=CRAY INTEL
+PE_NETCDF_FORTRAN_PKGCONFIG_LIBS=netcdff
+PE_NETCDF_GENCOMPS_GNU=49 48
+PE_NETCDF_HDF5PARALLEL_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_NETCDF_HDF5PARALLEL_DEFAULT_GENCOMPS_GNU=49 48
+PE_NETCDF_HDF5PARALLEL_DEFAULT_REQUIRED_PRODUCTS=PE_HDF5_PARALLEL PE_MPICH
+PE_NETCDF_HDF5PARALLEL_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/netcdf-hdf5parallel/4.3.2/@PRGENV@/@PE_NETCDF_HDF5PARALLEL_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_NETCDF_HDF5PARALLEL_DEFAULT_VOLATILE_PRGENV=GNU
+PE_NETCDF_MODULE_NAME=cray-netcdf
+PE_NETCDF_PKGCONFIG_LIBS=netcdf
+PE_NETCDF_REQUIRED_PRODUCTS=PE_HDF5
+PE_NETCDF_VOLATILE_PKGCONFIG_PATH=/opt/cray/netcdf/4.3.2/@PRGENV@/@PE_NETCDF_GENCOMPS@/lib/pkgconfig
+PE_NETCDF_VOLATILE_PRGENV=GNU
+PE_PAPI_DEFAULT_ACCEL_LIBS_nvidia35=,-lcupti,-lcudart,-lcuda
+PE_PAPI_DEFAULT_PKGCONFIG_VARIABLES=PE_PAPI_ACCEL_LIBS_@accelerator@
+PE_PAPI_DEFAULT_TARGET_VAR_nvidia35=,-lcupti,-lcudart,-lcuda
+PE_PARALLEL_NETCDF_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_PARALLEL_NETCDF_DEFAULT_GENCOMPILERS_GNU=4.9 4.8
+PE_PARALLEL_NETCDF_DEFAULT_GENCOMPS_GNU=49 48
+PE_PARALLEL_NETCDF_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/parallel-netcdf/1.6.0/@PRGENV@/@PE_PARALLEL_NETCDF_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_PARALLEL_NETCDF_DEFAULT_VOLATILE_PRGENV=GNU
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_haswell=83
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_interlagos=83
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_sandybridge=83
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_PETSC_DEFAULT_GENCOMPS_GNU_haswell=49 48
+PE_PETSC_DEFAULT_GENCOMPS_GNU_interlagos=49 48
+PE_PETSC_DEFAULT_GENCOMPS_GNU_sandybridge=49 48
+PE_PETSC_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_haswell=140
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_interlagos=140
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_sandybridge=140
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_PETSC_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH:PE_LIBSCI:PE_TPSL
+PE_PETSC_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/petsc/3.5.3.0/complex/@PRGENV@/@PE_PETSC_DEFAULT_GENCOMPS@/@PE_PETSC_DEFAULT_TARGET@/lib/pkgconfig
+PE_PETSC_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_PKGCONFIG_DEFAULT_PRODUCTS=PE_TRILINOS:PE_MPICH:PE_PARALLEL_NETCDF:PE_NETCDF:PE_GA:PE_HDF5:PE_FFTW:PE_TPSL:PE_HDF5_PARALLEL:PE_LIBSCI:PE_NETCDF_HDF5PARALLEL:PE_PETSC
+PE_PKGCONFIG_LIBS=hdf5_hl:hdf5:netcdf:iobuf:mpich:AtpSigHandler:cray-rca:libsci_mpi:libsci
+PE_PKGCONFIG_PRODUCTS=PE_HDF5:PE_NETCDF:PE_MPICH:PE_LIBSCI
+PE_PKGCONFIG_PRODUCTS_DEFAULT=PE_PAPI
+PE_PKG_CONFIG_PATH=/opt/cray/cti/1.0.2/lib/pkgconfig
+PE_PRODUCT_LIST=CRAY_RCA:CRAY_XPMEM:CRAY_DMAPP:CRAY_PMI:CRAY_UGNI:CRAY_UDREG:CRAY_LIBSCI:CRAYPE:INTEL:CRAYPE_HASWELL:CRAY_ALPS:DVS
+PE_SMA_DIR_CRAY_DEFAULT64=64
+PE_SMA_DIR_PGI_DEFAULT64=64
+PE_SMA_VOLATILE_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/sma@PE_SMA_DIR_DEFAULT64@/lib64/pkgconfig
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_haswell=83
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_interlagos=83
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_sandybridge=83
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_TPSL_DEFAULT_GENCOMPS_GNU_haswell=49 48
+PE_TPSL_DEFAULT_GENCOMPS_GNU_interlagos=49 48
+PE_TPSL_DEFAULT_GENCOMPS_GNU_sandybridge=49 48
+PE_TPSL_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_haswell=140
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_interlagos=140
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_sandybridge=140
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_TPSL_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH:PE_LIBSCI
+PE_TPSL_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/tpsl/1.4.4/@PRGENV@/@PE_TPSL_DEFAULT_GENCOMPS@/@PE_TPSL_DEFAULT_TARGET@/lib/pkgconfig
+PE_TPSL_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_TRILINOS_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_TRILINOS_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_TRILINOS_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_TRILINOS_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH:PE_HDF5_PARALLEL:PE_NETCDF_HDF5PARALLEL:PE_LIBSCI:PE_TPSL
+PE_TRILINOS_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/trilinos/11.12.1.2/@PRGENV@/@PE_TRILINOS_DEFAULT_GENCOMPS@/@PE_TRILINOS_DEFAULT_TARGET@/lib/pkgconfig
+PE_TRILINOS_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PKGCONFIG_ENABLED=1
+PKG_CONFIG_PATH=/opt/cray/iobuf/2.0.5/lib/pkgconfig:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/lib64/pkgconfig:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/lib64/pkgconfig:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/lib64/pkgconfig:/opt/cray/gni-headers/4.0-1.0502.10859.7.8.ari/lib64/pkgconfig:/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/lib64/pkgconfig:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/lib64/pkgconfig:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/lib64/pkgconfig:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/lib64/pkgconfig:/opt/cray/craype/2.3.0/pkg-config:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/lib64/pkgconfig:/opt/cray/switch/1.0-1.0502.60522.1.61.ari/lib64/pkgconfig:/opt/cray/atp/1.8.1/lib/pkgconfig
+PKG_CONFIG_PATH_DEFAULT=/opt/cray/papi/5.4.0.1/lib64/pkgconfig
+PRGENVMODULES=PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-pathscale:PrgEnv-pgi
+PROFILEREAD=true
+PS4= $SECONDS + 
+PWD=/gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_cmaq_cs.27977
+PYTHONPATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush
+PYTHONSTARTUP=/etc/pythonstart
+QTDIR=/usr/lib/qt3
+QT_SYSTEM_DIR=/usr/share/desktop-data
+RCLOCAL_PRGENV=true
+RUN=aqm
+RUN_ENVIR=notnco
+SBD_KRB5CCNAME_VAL=
+SDK_HOME=/usr/lib64/jvm/java
+SENDCOM=YES
+SENDDBN=NO
+SENDECF=NO
+SHELL=/bin/bash
+SHLVL=5
+SHMEM_ABORT_ON_ERROR=1
+SITE=SURGE
+SLURM_PROLOG=/opt/cray/atp/1.8.1/libexec/slurm_prolog.ksh
+SSH_CLIENT=192.58.2.81 33736 22
+SSH_CONNECTION=192.58.2.81 33736 140.90.226.6 22
+SSH_TTY=/dev/pts/13
+TARGETMODULES=craype-abudhabi:craype-abudhabi-cu:craype-accel-host:craype-accel-nvidia20:craype-accel-nvidia30:craype-accel-nvidia35:craype-barcelona:craype-broadwell:craype-haswell:craype-hugepages128K:craype-hugepages128M:craype-hugepages16M:craype-hugepages256M:craype-hugepages2M:craype-hugepages32M:craype-hugepages4M:craype-hugepages512K:craype-hugepages512M:craype-hugepages64M:craype-hugepages8M:craype-intel-knc:craype-interlagos:craype-interlagos-cu:craype-istanbul:craype-ivybridge:craype-mc12:craype-mc8:craype-mic-knl:craype-network-aries:craype-network-gemini:craype-network-infiniband:craype-network-none:craype-network-seastar:craype-sandybridge:craype-shanghai:craype-target-compute_node:craype-target-local_host:craype-target-native:craype-xeon:xtpe-barcelona:xtpe-interlagos:xtpe-interlagos-cu:xtpe-istanbul:xtpe-mc12:xtpe-mc8:xtpe-network-gemini:xtpe-network-seastar:xtpe-shanghai:xtpe-target-native:xtpe-xeon:/etc/opt/cray/modules/site_targetmodules
+TBBROOT=/opt/intel/composer_xe_2015.3.187/tbb
+TOCGRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/tocgrib
+TOCGRIB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/tocgrib2
+TOCGRIB2SUPER=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/tocgrib2super
+TOOLMODULES=apprentice:apprentice2:atp:chapel:cray-lgdb:cray-snplauncher:craypat:craypkg-gen:ddt:gdb:iobuf:papi:perftools:perftools-lite:stat:totalview:xt-craypat:xt-lgdb:xt-papi:xt-totalview:/etc/opt/cray/modules/site_toolmodules
+USER=Youhua.Tang
+USERMODULES=PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-pathscale:PrgEnv-pgi:acml:alps:apprentice:apprentice2:atp:blcr:cce:chapel:cray-ccdb:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-lgdb:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-compat:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-snplauncher:cray-tpsl:cray-trilinos:craypat:craype:craypkg-gen:cudatoolkit:ddt:fftw:ga:gcc:hdf5:hdf5-parallel:intel:iobuf:java:lgdb:libfast:libsci_acc:mpich1:netcdf:netcdf-hdf5parallel:netcdf-nofsync:netcdf-nofsync-hdf5parallel:ntk:onesided:papi:parallel-netcdf:pathscale:perftools:perftools-lite:petsc:petsc-complex:pgi:pmi:stat:totalview:tpsl:trilinos:xt-asyncpe:xt-craypat:xt-lgdb:xt-libsci:xt-mpich2:xt-mpt:xt-papi:xt-shmem:xt-totalview:/etc/opt/cray/modules/site_usermodules
+USHaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/ush
+UTILROOT=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0
+UTILaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/util
+W3EMC_INC4=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/include/w3emc_v2.3.0_4
+W3EMC_INC8=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/include/w3emc_v2.3.0_8
+W3EMC_INCd=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/include/w3emc_v2.3.0_d
+W3EMC_LIB4=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/libw3emc_v2.3.0_4.a
+W3EMC_LIB8=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/libw3emc_v2.3.0_8.a
+W3EMC_LIBd=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/libw3emc_v2.3.0_d.a
+W3EMC_SRC=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/src
+W3EMC_VER=v2.3.0
+W3NCO_LIB4=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/intel/libw3nco_v2.0.6_4.a
+W3NCO_LIB8=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/intel/libw3nco_v2.0.6_8.a
+W3NCO_LIBd=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/intel/libw3nco_v2.0.6_d.a
+W3NCO_SRC=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/src
+W3NCO_VER=v2.0.6
+WGRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/wgrib
+WGRIB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/wgrib2
+WINDOWMANAGER=
+XAUTHLOCALHOSTNAME=slogin1
+XCURSOR_THEME=crystalwhite
+XDG_CONFIG_DIRS=/etc/xdg
+XDG_DATA_DIRS=/usr/share:/etc/opt/kde3/share:/opt/kde3/share
+XKEYSYMDB=/usr/share/X11/XKeysymDB
+XLIB_SKIP_ARGB_VISUALS=1
+XLSF_UIDDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/lib/uid
+XNLSPATH=/usr/share/X11/nls
+XTOS_VERSION=5.2.82
+XTPE_NETWORK_TARGET=aries
+Z_INC=/usrx/local/prod/zlib/1.2.7/intel/haswell/include
+Z_LIB=/usrx/local/prod/zlib/1.2.7/intel/haswell/lib/libz.a
+Z_SRC=/usrx/local/prod/zlib/1.2.7/intel/haswell/src
+Z_VER=1.2.7
+_AST_FEATURES=UNIVERSE - att
+_LMFILES_=/opt/modulefiles/modules/3.2.10.3:/opt/modulefiles/eswrap/1.3.3-1.020200.1280.0:/opt/cray/ari/modulefiles/switch/1.0-1.0502.60522.1.61.ari:/opt/cray/craype/default/modulefiles/craype-network-aries:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2481.23.7.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9822.32.1.ari:/opt/modulefiles/ncep/1.0:/opt/cray/craype/default/alt-modulefiles/craype-haswell:/opt/modulefiles/xt-lsfhpc/9.1.3:/opt/modulefiles/intel/15.0.3.187:/opt/cray/alt-modulefiles/craype/2.3.0:/opt/cray/alt-modulefiles/cray-libsci/13.0.3:/opt/cray/ari/modulefiles/udreg/2.3.2-1.0502.10518.2.17.ari:/opt/cray/ari/modulefiles/ugni/6.0-1.0502.10863.8.29.ari:/opt/cray/ari/modulefiles/pmi/5.0.6-1.0000.10439.140.2.ari:/opt/cray/ari/modulefiles/dmapp/7.0.1-1.0502.11080.8.76.ari:/opt/cray/ari/modulefiles/gni-headers/4.0-1.0502.10859.7.8.ari:/opt/cray/ari/modulefiles/xpmem/0.1-2.0502.64982.5.3.ari:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2188.1.116.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9774.31.11.ari:/opt/cray/ari/modulefiles/rca/1.0.0-2.0502.60530.1.62.ari:/opt/cray/alt-modulefiles/atp/1.8.1:/opt/cray/alt-modulefiles/PrgEnv-intel/5.2.82:/opt/cray/alt-modulefiles/cray-mpich/7.2.0:/usrx/local/prod/modulefiles/hpss/4.1.0.3:/opt/cray/alt-modulefiles/iobuf/2.0.5:/opt/cray/alt-modulefiles/cray-netcdf/4.3.2:/opt/cray/alt-modulefiles/cray-hdf5/1.8.13:/usrx/local/prod/modulefiles/nco-gnu-sandybridge/4.4.4:/usrx/local/prod/modulefiles/imagemagick-intel-haswell/6.8.3:/usrx/local/prod/modulefiles/subversion/1.7.16:/usrx/local/prod/modulefiles/ESMF-intel-haswell/6_3_0rp1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bufr-intel/11.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bacio-intel/2.0.2:/usrx/local/prod/modulefiles/zlib-intel-haswell/1.2.7:/gpfs/hps/nco/ops/nwprod/modulefiles/grib_util/1.0.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsio-intel/2.2.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsiogfs-intel/2.0.1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3emc-intel/2.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3nco-intel/2.0.6:/usrx/local/prod/modulefiles/python/3.6.3:/opt/modulefiles/gcc/6.3.0:/usrx/local/dev/modulefiles/cmake/3.6.2:/usrx/local/dev/modulefiles/git/2.18.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_util/1.1.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_envir/1.1.0
+__LSF_JOB_TMPDIR__=/ufs/tmp/461729.tmpdir
+cmaq_ver=v5.3.1
+cyc=12
+cycle=t12z
+envir=para
+jlogfile=/gpfs/hps3/ptmp/Youhua.Tang/com/logs/jlogfiles/jlogfile.27977
+job=aqm_cmaq_cs
+kernelrelease=3.0.101-0.47.106.59.1.17833.1.PTF-default
+machine=g
+model=cmaq
+pgmout=OUTPUT.24648
+pid=27977
+today=2020050713
+usr_tmp=/gpfs/hps3/ptmp/Youhua.Tang
+usrdir=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang
+yyyymm=201907
+A__z="*SHLVL
+WARM
+/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+EXECUTE X.u2c
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@nid00124>
+Subject: Job 461729: <jaqm_fcst_v531_cs> in cluster <NCEP-ORLANDO> Exited
+
+Job <jaqm_fcst_v531_cs> was submitted from host <slogin1> by user <Youhua.Tang> in cluster <NCEP-ORLANDO> at Thu May  7 13:54:24 2020.
+Job was executed on host(s) <1*nid00124>, in queue <debug>, as user <Youhua.Tang> in cluster <NCEP-ORLANDO> at Thu May  7 13:54:31 2020.
+                            <24*nid00017>
+                            <24*nid00020>
+                            <24*nid00021>
+                            <24*nid00037>
+                            <24*nid00038>
+                            <24*nid00040>
+                            <24*nid00073>
+                            <24*nid00074>
+                            <24*nid00283>
+                            <24*nid00284>
+                            <24*nid00285>
+                            <24*nid00289>
+                            <24*nid00315>
+                            <24*nid00341>
+                            <24*nid00350>
+                            <24*nid00358>
+                            <24*nid00436>
+                            <24*nid00437>
+                            <24*nid00438>
+                            <24*nid00500>
+                            <24*nid00509>
+                            <24*nid00510>
+                            <24*nid00511>
+                            <24*nid00520>
+</u/Youhua.Tang> was used as the home directory.
+</u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working/.> was used as the working directory.
+Started at Thu May  7 13:54:31 2020.
+Terminated at Thu May  7 14:21:16 2020.
+Results reported at Thu May  7 14:21:16 2020.
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/ksh
+#BSUB -J jaqm_fcst_v531_cs 
+#BSUB -o jaqm_fcst_cs.out 
+#BSUB -e jaqm_fcst_cs.err 
+##BSUB -q devhigh 
+#BSUB -q debug 
+##BSUB -extsched "CRAYLINUX[]" -R "1*{select[craylinux && !vnode]} + 24*{select[craylinux && vnode] span [ptile=24]}"
+#BSUB -M 3000
+#BSUB -W 00:25
+#BSUB -P CMAQ-T2O 
+#BSUB -cwd .
+#BSUB -extsched 'CRAYLINUX[]'
+
+#%include <head.h>
+#%include <envir-xc40.h>
+#
+source /opt/modules/default/init/ksh 
+module unload PrgEnv-cray
+module load PrgEnv-intel
+module load iobuf
+module load prod_util
+module load prod_envir
+
+export NODES=24
+export IOBUF_PARAMS="12M:verbose"
+
+set -ax
+
+ulimit -s unlimited
+
+export RUN_ENVIR=notnco
+export COMROOT=/gpfs/hps3/ptmp/${USER}/com
+export NWROOT=/u/${USER}/noscrub/nwdev
+export NWROOTp1=/nwprod
+export cmaq_ver=v5.3.1
+export envir=para
+export job=aqm_cmaq_cs
+#
+export PARAFLAG=YES
+
+export SENDCOM=YES
+export SENDDBN=NO
+export SENDECF=NO
+
+export FCST=YES
+ 
+${HOMEaqm}/jobs/JAQM_FORECAST_CS
+
+err=$?
+if [ "${PARAFLAG}" = "YES" ]
+
+(... more ...)
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   1.00 sec.
+    Max Memory :                                 27 MB
+    Average Memory :                             22.02 MB
+    Total Requested Memory :                     3000.00 MB
+    Delta Memory :                               2973.00 MB
+    Max Swap :                                   -
+    Max Processes :                              6
+    Max Threads :                                7
+    Run time :                                   1543 sec.
+    Turnaround time :                            1612 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <jaqm_fcst_cs.err> for stderr output of this job.
+
+Data collected from /ufs/RUR/output/rur.output.NCEP-ORLANDO@461729
+------------------------------------------------------------------------
+
+ALPS Resource Utilization Report (RUR) Summary for LSF Job: 461729
+
+STATUS:
+
+
+          APP START:                 2020-05-07:13:54:35 UTC
+          APP STOP:                  2020-05-07:14:19:46 UTC
+          exit codes:                140 
+          core files:                0
+
+CPU:
+
+
+          stime:                    1686.356000 s
+          utime:                    827104.796000 s
+
+MEMORY:
+
+
+          max_rss:                  279.67 MiB
+          accumulated max_rss:      279.67 MiB
+          active(anon):             794.24 MiB
+          active(file):             35.09 MiB
+          inactive(anon):           60.89 MiB
+          inactive(file):           175.26 MiB
+          majfaults:                0
+          minfaults:                47434730
+          pageswpcnt:               0
+
+I/O: 
+
+
+          rcalls:                   3115058
+          wcalls:                   2624229
+          rchar:                    6478730.69 MiB
+          wchar:                    33509.21 MiB
+          bkiowait:                 2.1902848840 s

@@ -1,0 +1,3739 @@
+Thu May  7 17:44:00 UTC 2020
+Source PDY script to export PDYm7, ..., PDY, ..., PDYp7 variables.
+_=*13963*/usr/bin/env
+ATP_HOME=/opt/cray/atp/1.8.1
+ATP_MRNET_COMM_PATH=/opt/cray/atp/1.8.1/libexec/atp_mrnet_commnode_wrapper
+ATP_POST_LINK_OPTS=-Wl,-L/opt/cray/atp/1.8.1/libApp/ 
+BACIO_LIB4=/gpfs/hps/nco/ops/nwprod/lib/bacio/v2.0.2/intel/libbacio_v2.0.2_4.a
+BACIO_LIB8=/gpfs/hps/nco/ops/nwprod/lib/bacio/v2.0.2/intel/libbacio_v2.0.2_8.a
+BACIO_SRC=/gpfs/hps/nco/ops/nwprod/lib/bacio/v2.0.2/src
+BACIO_VER=v2.0.2
+BASH_FUNC_module%%=() {  eval `/opt/modules/3.2.10.3/bin/modulecmd bash $*`
+}
+BSUB_BLOCK_EXEC_HOST=
+BUFR_LIB4=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_4_64.a
+BUFR_LIB4_DA=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_4_64_DA.a
+BUFR_LIB8=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_8_64.a
+BUFR_LIB8_DA=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_8_64_DA.a
+BUFR_LIBd=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_d_64.a
+BUFR_LIBd_DA=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/intel/libbufr_v11.3.0_d_64_DA.a
+BUFR_SRC=/gpfs/hps/nco/ops/nwprod/lib/bufr/v11.3.0/src
+BUFR_VER=v11.3.0
+CNVGRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/cnvgrib
+CNVGRIB21_GFS=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/cnvgrib21_gfs
+COLORTERM=1
+COMDATEROOT=/gpfs/hps/nco/ops/com
+COMIN=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+COMINm1=/gpfs/hps/nco/ops/com/aqm/para/aqm.20190711
+COMLISTROOT=/gpfs/hps/nco/ops/config
+COMOUT=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+COMOUTm1=/gpfs/hps/nco/ops/com/aqm/para/aqm.20190711
+COMP=intel
+COMROOT=/gpfs/hps/nco/ops/com
+COMROOThps=/gpfs/hps/nco/ops/com
+COMROOTp3=/gpfs/dell1/nco/ops/com
+COMROOTp35=/gpfs/dell4/nco/ops/com
+COMROOTp3d1=/gpfs/dell1/nco/ops/com
+COMROOTp3d2=/gpfs/dell2/nco/ops/com
+COMROOTp3d3=/gpfs/dell3/nco/ops/com
+COMROOTp3d4=/gpfs/dell4/nco/ops/com
+COMROOTp3d5=/gpfs/dell5/nco/ops/com
+COMROOTp3d6=/gpfs/dell6/nco/ops/com
+COPYGB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/copygb
+COPYGB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/copygb2
+CPATH=/opt/intel/composer_xe_2015.3.187/ipp/include:/opt/intel/composer_xe_2015.3.187/mkl/include:/opt/intel/composer_xe_2015.3.187/tbb/include
+CPU=x86_64
+CRAYOS_VERSION=5.2.82
+CRAYPE_DIR=/opt/cray/craype/2.3.0
+CRAYPE_NETWORK_TARGET=aries
+CRAYPE_VERSION=2.3.0
+CRAY_ALPS_INCLUDE_OPTS=-I/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/include
+CRAY_ALPS_POST_LINK_OPTS=-L/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/lib64
+CRAY_CPU_TARGET=haswell
+CRAY_DMAPP_INCLUDE_OPTS=-I/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/include -I/opt/cray/gni-headers/4.0-1.0502.10859.7.8.ari/include 
+CRAY_DMAPP_POST_LINK_OPTS=-L/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/lib64
+CRAY_GNI_HEADERS_INCLUDE_OPTS=-I/opt/cray/gni-headers/4.0-1.0502.10859.7.8.ari/include
+CRAY_HDF5_DIR=/opt/cray/hdf5/1.8.13
+CRAY_HDF5_VERSION=1.8.13
+CRAY_IOBUF_DIR=/opt/cray/iobuf/2.0.5
+CRAY_IOBUF_INCLUDE_OPTS=-I/opt/cray/iobuf/2.0.5/include
+CRAY_IOBUF_POST_LINK_OPTS=-Wl,/opt/cray/iobuf/2.0.5/lib/iobuf.o
+CRAY_IOBUF_VERSION=2.0.5
+CRAY_LD_LIBRARY_PATH=/usrx/local/prod/imagemagick/6.8.3/intel/haswell/lib:/opt/cray/hdf5/1.8.13/INTEL/140/lib:/opt/cray/netcdf/4.3.2/INTEL/140/lib:/opt/cray/mpt/7.2.0/gni/mpich2-intel/140/lib:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/lib64:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/lib64:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/lib64:/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/lib64:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/lib64:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/lib64:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/lib64:/opt/cray/libsci/13.0.3/INTEL/140/x86_64/lib:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/lib64
+CRAY_LIBSCI_BASE_DIR=/opt/cray/libsci/13.0.3
+CRAY_LIBSCI_DIR=/opt/cray/libsci/13.0.3
+CRAY_LIBSCI_PREFIX_DIR=/opt/cray/libsci/13.0.3/INTEL/140/x86_64
+CRAY_LIBSCI_VERSION=13.0.3
+CRAY_MPICH2_BASEDIR=/opt/cray/mpt/7.2.0/gni
+CRAY_MPICH2_DIR=/opt/cray/mpt/7.2.0/gni/mpich2-intel/140
+CRAY_MPICH2_ROOTDIR=/opt/cray/mpt/7.2.0
+CRAY_MPICH2_VER=7.2.0
+CRAY_NETCDF_VERSION=4.3.2
+CRAY_PMI_INCLUDE_OPTS=-I/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/include
+CRAY_PMI_POST_LINK_OPTS=-L/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/lib64
+CRAY_PRE_COMPILE_OPTS=-hnetwork=aries
+CRAY_PRGENVINTEL=loaded
+CRAY_RCA_INCLUDE_OPTS=-I/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/include -I/opt/cray/krca/1.0.0-2.0502.67049.8.22.ari/include -I/opt/cray-hss-devel/7.2.0/include 
+CRAY_RCA_POST_LINK_OPTS=-L/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/lib64 -lrca 
+CRAY_SITE_LIST_DIR=/etc/opt/cray/modules
+CRAY_UDREG_INCLUDE_OPTS=-I/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/include
+CRAY_UDREG_POST_LINK_OPTS=-L/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/lib64
+CRAY_UGNI_INCLUDE_OPTS=-I/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/include
+CRAY_UGNI_POST_LINK_OPTS=-L/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/lib64
+CRAY_XPMEM_INCLUDE_OPTS=-I/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/include
+CRAY_XPMEM_POST_LINK_OPTS=-L/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/lib64
+CSHEDIT=emacs
+CVS_RSH=ssh
+CYC=12
+DATA=/gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_prep_cs.21884
+DAYOFYEAR=193
+DCOMROOT=/gpfs/dell1/nco/ops/dcom
+DEGRIB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/degrib2
+DISPLAY=slogin1:14.0
+DMAPP_ABORT_ON_ERROR=1
+DVS_INCLUDE_OPTS=-I/opt/cray/dvs/2.5_0.9.0-1.0502.2188.1.116.ari/include
+DVS_VERSION=0.9.0
+END_PDY=20190712
+ENV=/etc/bash.bashrc
+ESMFMKFILE=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/lib/libO/Unicos.intel.64.mpi.default/esmf.mk
+ESMF_LIB=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/lib/libO/Unicos.intel.64.mpi.default -lesmf -lstdc++
+ESMF_MOD=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/mod/modO/Unicos.intel.64.mpi.default
+ESMF_SRC=/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src
+ESMF_VER=6_3_0rp1
+ESWRAP_LOGIN=slogin3
+EXECaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/exec
+FCST=YES
+FIXaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/fix
+FROM_HEADER=
+FRPRATIO=1.0
+FSYNC=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/fsync_file
+FV3CHEMFOLDER=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+FV3CHEM_DIR=/ngac/prod
+GADDIR=/u/Youhua.Tang/grads/lib
+GASCRP=/u/Youhua.Tang/grads
+GCC_PATH=/opt/gcc/6.3.0
+GCC_VERSION=6.3.0
+GDBSERVER_MIC=/opt/intel/composer_xe_2015.3.187/debugger/gdb/target/mic/bin/gdbserver
+GDB_CROSS=/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin/gdb-mic
+GDB_HOST=/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin/gdb-ia-mic
+GESROOT=/gpfs/hps/nco/ops/nwges
+GESROOThps=/gpfs/hps/nco/ops/nwges
+GESROOTp3=/gpfs/dell1/nco/ops/nwges
+GESROOTp35=/gpfs/dell4/nco/ops/nwges
+GESROOTp3d1=/gpfs/dell1/nco/ops/nwges
+GESROOTp3d2=/gpfs/dell2/nco/ops/nwges
+GESROOTp3d3=/gpfs/dell3/nco/ops/nwges
+GESROOTp3d4=/gpfs/dell4/nco/ops/nwges
+GESROOTp3d5=/gpfs/dell5/nco/ops/nwges
+GESROOTp3d6=/gpfs/dell6/nco/ops/nwges
+GIT_SSH=/u/Youhua.Tang/bin/ssh-gerrit
+GNU_VERSION=6.3.0
+GRB2INDEX=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/grb2index
+GRBINDEX=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/grbindex
+GRIB2GRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/grib2grib
+G_BROKEN_FILENAMES=1
+HDF5_DIR=/opt/cray/hdf5/1.8.13/INTEL/140
+HDF5_INCLUDE_OPTS=/opt/cray/hdf5/1.8.13/INTEL/140/include
+HDF5_ROOT=/opt/cray/hdf5/1.8.13/INTEL/140
+HISTSIZE=1000
+HOME=/u/Youhua.Tang
+HOMEaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS
+HOST=slogin1
+HOSTNAME=nid00252
+HOSTTYPE=X86_64
+INFODIR=/usr/local/info:/usr/share/info:/usr/info
+INFOPATH=/opt/gcc/6.3.0/snos/share/info:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64/share/info/:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/share/info/:/usr/local/info:/usr/share/info:/usr/info
+INPUTRC=/etc/inputrc
+INTEL_LICENSE_FILE=/opt/intel/composer_xe_2015.3.187/licenses:/opt/intel/licenses:/intel/licenses
+INTEL_MAJOR_VERSION=15.0
+INTEL_MINOR_VERSION=3.187
+INTEL_PATH=/opt/intel/composer_xe_2015.3.187
+INTEL_PYTHONHOME=/opt/intel/composer_xe_2015.3.187/debugger/python/intel64/
+INTEL_VERSION=15.0.3.187
+IOAPI_OFFSET_64=YES
+IOBUF_PARAMS=*:verbose:size=16M:count=4
+IPPROOT=/opt/intel/composer_xe_2015.3.187/ipp
+InMetDir=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+JAVA_BINDIR=/usr/lib64/jvm/java/bin
+JAVA_HOME=/usr/lib64/jvm/java
+JAVA_ROOT=/usr/lib64/jvm/java
+JDK_HOME=/usr/lib64/jvm/java
+JRE_HOME=/usr/lib64/jvm/java/jre
+KEEPDATA=YES
+LD_LIBRARY_PATH=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/lib:/opt/gcc/6.3.0/snos/lib64:/usrx/local/prod/python/3.6.3/lib:/usrx/local/prod/zlib/1.2.7/intel/haswell/lib:/usrx/local/prod/ESMF/6_3_0rp1/intel/haswell/src/lib/libO/Unicos.intel.64.mpi.default:-lesmf:-lstdc++:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/lib:/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64:/opt/intel/mic/coi/host-linux-release/lib:/opt/intel/mic/myo/lib:/opt/intel/composer_xe_2015.3.187/mpirt/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/../compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/tools/intel64/perfsys:/opt/intel/composer_xe_2015.3.187/mkl/lib/intel64:/opt/intel/composer_xe_2015.3.187/tbb/lib/intel64/gcc4.1:/opt/intel/composer_xe_2015.3.187/debugger/libipt/intel64/lib
+LESS=-M -I
+LESSCLOSE=lessclose.sh %s %s
+LESSKEY=/etc/lesskey.bin
+LESSOPEN=lessopen.sh %s
+LESS_ADVANCED_PREPROCESSOR=no
+LIBRARYMODULES=acml:alps:cray-dwarf:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-abi:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-tpsl:cray-trilinos:cudatoolkit:fftw:ga:hdf5:hdf5-parallel:iobuf:libfast:netcdf:netcdf-hdf5parallel:ntk:onesided:papi:petsc:petsc-complex:pmi:tpsl:trilinos:xt-libsci:xt-mpich2:xt-mpt:xt-papi:/etc/opt/cray/modules/site_librarymodules
+LIBRARY_PATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/../compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/ipp/lib/intel64:/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64:/opt/intel/composer_xe_2015.3.187/mkl/lib/intel64:/opt/intel/composer_xe_2015.3.187/tbb/lib/intel64/gcc4.1
+LIBSCI_BASE_DIR=/opt/cray/libsci/13.0.3
+LIBSCI_VERSION=13.0.3
+LOADEDMODULES=modules/3.2.10.3:eswrap/1.3.3-1.020200.1280.0:switch/1.0-1.0502.60522.1.61.ari:craype-network-aries:dvs/2.5_0.9.0-1.0502.2481.23.7.ari:alps/5.2.4-2.0502.9822.32.1.ari:ncep/1.0:craype-haswell:xt-lsfhpc/9.1.3:intel/15.0.3.187:craype/2.3.0:cray-libsci/13.0.3:udreg/2.3.2-1.0502.10518.2.17.ari:ugni/6.0-1.0502.10863.8.29.ari:pmi/5.0.6-1.0000.10439.140.2.ari:dmapp/7.0.1-1.0502.11080.8.76.ari:gni-headers/4.0-1.0502.10859.7.8.ari:xpmem/0.1-2.0502.64982.5.3.ari:dvs/2.5_0.9.0-1.0502.2188.1.116.ari:alps/5.2.4-2.0502.9774.31.11.ari:rca/1.0.0-2.0502.60530.1.62.ari:atp/1.8.1:PrgEnv-intel/5.2.82:cray-mpich/7.2.0:hpss/4.1.0.3:iobuf/2.0.5:cray-netcdf/4.3.2:cray-hdf5/1.8.13:nco-gnu-sandybridge/4.4.4:imagemagick-intel-haswell/6.8.3:subversion/1.7.16:ESMF-intel-haswell/6_3_0rp1:bufr-intel/11.3.0:bacio-intel/2.0.2:zlib-intel-haswell/1.2.7:grib_util/1.0.3:nemsio-intel/2.2.3:nemsiogfs-intel/2.0.1:w3emc-intel/2.3.0:w3nco-intel/2.0.6:python/3.6.3:gcc/6.3.0:cmake/3.6.2:git/2.18.0:prod_util/1.1.0:prod_envir/1.1.0
+LOGNAME=Youhua.Tang
+LSB_ACCT_FILE=/ufs/tmp/464690.tmpdir/.1588873438.464690.acct
+LSB_AFFINITY_HOSTFILE=/ufs/lsbatch/spool/1588873438.464690.hostAffinityFile
+LSB_BATCH_JID=464690
+LSB_CG_MEMLIMIT=0xbb800000
+LSB_CHKFILENAME=/ufs/lsbatch/spool/1588873438.464690
+LSB_DJOB_HOSTFILE=/ufs/lsbatch/spool/1588873438.464690.hostfile
+LSB_DJOB_RANKFILE=/ufs/lsbatch/spool/1588873438.464690.hostfile
+LSB_ECHKPNT_RSH_CMD=ssh
+LSB_EEXEC_REAL_GID=
+LSB_EEXEC_REAL_UID=
+LSB_EFFECTIVE_RSRCREQ=1*{select[((craylinux&&!vnode) && (type == any)) && (dsrv=0&&prd=0&&psrv=0)] order[indx] rusage[mem=3000.00,dev=1.00]}+240*{select[((craylinux&&vnode) && (type == any)) && (dsrv=0&&prd=0&&psrv=0)] order[indx] span[ptile=24] cu[type=cabinet:pref=config]}
+LSB_ERRORFILE=jaqm_prep_5x.err
+LSB_EXEC_CLUSTER=NCEP-ORLANDO
+LSB_EXEC_HOSTTYPE=X86_64
+LSB_EXIT_IF_CWD_NOTEXIST=Y
+LSB_EXIT_PRE_ABORT=99
+LSB_HOSTS=nid00252 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00236 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00239 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00243 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00244 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00245 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00247 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00248 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00498 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00499 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657 nid00657
+LSB_JOBEXIT_STAT=0
+LSB_JOBFILENAME=/ufs/lsbatch/spool/1588873438.464690
+LSB_JOBID=464690
+LSB_JOBINDEX=0
+LSB_JOBNAME=aqm_prep_5x
+LSB_JOBRES_PID=13766
+LSB_JOB_EXECUSER=Youhua.Tang
+LSB_MAX_NUM_PROCESSORS=241
+LSB_MCPU_HOSTS=nid00252 1 nid00236 24 nid00239 24 nid00243 24 nid00244 24 nid00245 24 nid00247 24 nid00248 24 nid00498 24 nid00499 24 nid00657 24 
+LSB_OUTDIR=/u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working
+LSB_OUTPUTFILE=jaqm_prep_5x.out
+LSB_PROJECT_NAME=CMAQ-T2O
+LSB_QUEUE=debug
+LSB_SUB_HOST=slogin1
+LSB_SUB_RES_REQ= 1*{select[craylinux && !vnode] rusage[mem=3000]} + 240*{select[craylinux && vnode]span[ptile=24] cu[type=cabinet]} 
+LSB_SUB_USER=Youhua.Tang
+LSB_TRAPSIGS=trap # 15 10 12 2 1
+LSB_UNIXGROUP_INT=g01
+LSB_XFER_OP=
+LSFUSER=Youhua.Tang
+LSF_BINDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/bin
+LSF_CGROUP_TOPDIR_KEY=NCEP-ORLANDO
+LSF_EAUTH_AUX_PASS=yes
+LSF_EAUTH_CLIENT=user
+LSF_EAUTH_SERVER=mbatchd@NCEP-ORLANDO
+LSF_ENVDIR=/gpfs/slsf/xt-lsfhpc/conf
+LSF_INVOKE_CMD=bsub
+LSF_JOB_TIMESTAMP_VALUE=1588873438
+LSF_LIBDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/lib
+LSF_LIM_API_NTRIES=1
+LSF_LOGDIR=/gpfs/slsf/xt-lsfhpc/log
+LSF_SERVERDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/etc
+LSF_VERSION=30
+LS_COLORS=no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.avi=01;35:*.bmp=01;35:*.fli=01;35:*.gif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mng=01;35:*.mov=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.tga=01;35:*.tif=01;35:*.xbm=01;35:*.xpm=01;35:*.dl=01;35:*.gl=01;35:*.wmv=01;35:*.aiff=00;32:*.au=00;32:*.mid=00;32:*.mp3=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:
+LS_EXECCWD=/u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working/.
+LS_EXEC_T=START
+LS_JOBPID=13766
+LS_OPTIONS=-N --color=none -T 0
+LS_SUBCWD=/u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working
+MACHTYPE=x86_64-suse-linux
+MAIL=/var/mail/Youhua.Tang
+MANPATH=/usrx/local/dev/git/2.18.0/share/man:/usrx/local/dev/cmake/3.6.2/share/man:/opt/gcc/6.3.0/snos/share/man:/usrx/local/prod/python/3.6.3/share/man:/usrx/local/prod/zlib/1.2.7/intel/haswell/share/man:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/share/man:/usrx/local/prod/imagemagick/6.8.3/intel/haswell/share/man:/usrx/local/prod/nco/4.4.4/gnu/sandybridge/share/man:/opt/cray/netcdf/4.3.2/share/man:/opt/cray/iobuf/2.0.5/man:/opt/cray/mpt/7.2.0/gni/man/mpich2:/opt/cray/atp/1.8.1/man:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/man:/opt/cray/libsci/13.0.3/man:/opt/cray/man/csmlversion:/opt/cray/craype/2.3.0/man:/opt/intel/composer_xe_2015.3.187/man/en_US:/opt/intel/composer_xe_2015.3.187/man/en_US:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64/share/man/:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/share/man/:/gpfs/slsf/xt-lsfhpc/9.1/man:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/man:/opt/cray/eslogin/eswrap/1.3.3-1.020200.1280.0/man:/opt/modules/3.2.10.3/share/man:/opt/cray/share/man:/usr/local/man:/usr/share/man:/opt/cray/share/man:/cm/local/apps/environment-modules/current/share/man:/opt/cray/man
+MDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/mdate
+MIC_LD_LIBRARY_PATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/mic:/opt/intel/composer_xe_2015.3.187/mpirt/lib/mic:/opt/intel/mic/coi/device-linux-release/lib:/opt/intel/mic/myo/lib:/opt/intel/composer_xe_2015.3.187/ipp/lib/lib/mic:/opt/intel/mic/coi/device-linux-release/lib:/opt/intel/mic/myo/lib:/opt/intel/composer_xe_2015.3.187/compiler/lib/mic:/opt/intel/composer_xe_2015.3.187/mkl/lib/mic:/opt/intel/composer_xe_2015.3.187/tbb/lib/mic
+MIC_LIBRARY_PATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/mic:/opt/intel/composer_xe_2015.3.187/mpirt/lib/mic:/opt/intel/composer_xe_2015.3.187/tbb/lib/mic
+MINICOM=-c on
+MKLROOT=/opt/intel/composer_xe_2015.3.187/mkl
+MODULEPATH=/usrx/local/dev/modulefiles:/usrx/local/prod/modulefiles:/gpfs/hps/nco/ops/nwprod/lib/modulefiles:/gpfs/hps/nco/ops/nwprod/modulefiles:/opt/cray/alt-modulefiles:/opt/cray/craype/default/alt-modulefiles:/opt/cray/ari/modulefiles:/opt/modulefiles
+MODULESHOME=/opt/modules/3.2.10.3
+MODULE_VERSION=3.2.10
+MODULE_VERSION_STACK=3.2.10
+MORE=-sl
+MPICH_ABORT_ON_ERROR=1
+MPICH_DIR=/opt/cray/mpt/7.2.0/gni/mpich2-intel/140
+MPM_LAUNCHER=/opt/intel/composer_xe_2015.3.187/debugger/mpm/bin/start_mpm.sh
+MYPARA9=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para
+Mn=07
+NCO_BINDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge/bin
+NCO_INCDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge/include
+NCO_INCLUDE=-I/usrx/local/prod/nco/4.4.4/gnu/sandybridge/include
+NCO_LDFLAGS_C=-L/usrx/local/prod/nco/4.4.4/gnu/sandybridge/lib
+NCO_LDFLAGS_CXX=-L/usrx/local/prod/nco/4.4.4/gnu/sandybridge/lib
+NCO_LIBDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge/lib
+NCO_ROOTDIR=/usrx/local/prod/nco/4.4.4/gnu/sandybridge
+NDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/ndate
+NEMSIOGFS_INC=/gpfs/hps/nco/ops/nwprod/lib/nemsiogfs/v2.0.1/intel/include/nemsiogfs_v2.0.1
+NEMSIOGFS_LIB=/gpfs/hps/nco/ops/nwprod/lib/nemsiogfs/v2.0.1/intel/libnemsiogfs_v2.0.1.a
+NEMSIOGFS_SRC=/gpfs/hps/nco/ops/nwprod/lib/nemsiogfs/v2.0.1/src
+NEMSIOGFS_VER=v2.0.1
+NEMSIO_INC=/gpfs/hps/nco/ops/nwprod/lib/nemsio/v2.2.3/intel/include/nemsio_v2.2.3
+NEMSIO_LIB=/gpfs/hps/nco/ops/nwprod/lib/nemsio/v2.2.3/intel/libnemsio_v2.2.3.a
+NEMSIO_SRC=/gpfs/hps/nco/ops/nwprod/lib/nemsio/v2.2.3/src
+NEMSIO_VER=v2.2.3
+NET=aqm
+NETCDF_DIR=/opt/cray/netcdf/4.3.2/INTEL/140
+NHOUR=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/nhour
+NLSPATH=/opt/intel/composer_xe_2015.3.187/compiler/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/ipp/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/mkl/lib/intel64/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/share/locale/%l_%t/%N:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64/share/locale/%l_%t/%N
+NNTPSERVER=news
+NODES=10
+NWROOT=/gpfs/hps/nco/ops/nwprod
+NWROOThps=/gpfs/hps/nco/ops/nwprod
+NWROOTp3=/gpfs/dell1/nco/ops/nwprod
+NWROOTp35=/gpfs/dell4/nco/ops/nwprod
+OMP_NUM_THREADS=1
+OSTYPE=linux
+OUTGRIB=0
+PAGER=less
+PARAFLAG=YES
+PARMaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/parm
+PATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/bin:/usrx/local/dev/git/2.18.0/bin:/usrx/local/dev/cmake/3.6.2/bin:/opt/gcc/6.3.0/bin:/usrx/local/prod/python/3.6.3/bin:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/bin:/usrx/local/prod/imagemagick/6.8.3/intel/haswell/bin:/usrx/local/prod/nco/4.4.4/gnu/sandybridge/bin:/opt/cray/hdf5/1.8.13/bin:/opt/cray/netcdf/4.3.2/bin:/usrx/local/prod/hpss:/opt/cray/mpt/7.2.0/gni/bin:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/bin:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/sbin:/opt/cray/dvs/2.5_0.9.0-1.0502.2188.1.116.ari/bin:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/bin:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/bin:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/bin:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/bin:/opt/cray/craype/2.3.0/bin:/opt/intel/composer_xe_2015.3.187/bin/intel64:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/etc:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/sbin:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/bin:/opt/cray/dvs/2.5_0.9.0-1.0502.2481.23.7.ari/bin:/opt/cray/switch/1.0-1.0502.60522.1.61.ari/bin:/opt/cray/eslogin/eswrap/1.3.3-1.020200.1280.0/bin:/opt/modules/3.2.10.3/bin:/u/Youhua.Tang/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/opt/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/sbin:/usr/sbin:.:/usr/lib/qt3/bin:/usrx/local/grads/2.0.2/bin:/usrx/local/hpss:/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec:.:/opt/cray/bin:/usrx/local/prod/zlib/1.2.7/intel/haswell/include
+PCOMROOT=/gpfs/hps/nco/ops/pcom
+PDY=20190712
+PDYm1=20190711
+PDYm2=20190710
+PDYm3=20190709
+PDYm4=20190708
+PDYm5=20190707
+PDYm6=20190706
+PDYm7=20190705
+PDYp1=20190713
+PDYp2=20190714
+PDYp3=20190715
+PDYp4=20190716
+PDYp5=20190717
+PDYp6=20190718
+PDYp7=20190719
+PELOCAL_PRGENV=true
+PE_CRAY_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/parallel-netcdf/1.6.0/CRAY/8.3/lib/pkgconfig:/opt/cray/netcdf/4.3.2/CRAY/83/lib/pkgconfig:/opt/cray/ga/5.3.0.1/CRAY/83/lib/pkgconfig:/opt/cray/hdf5/1.8.13/CRAY/83/lib/pkgconfig:/opt/cray/hdf5-parallel/1.8.13/CRAY/83/lib/pkgconfig:/opt/cray/netcdf-hdf5parallel/4.3.2/CRAY/83/lib/pkgconfig
+PE_CRAY_FIXED_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/CRAY/83/lib/pkgconfig:/opt/cray/netcdf/4.3.2/CRAY/83/lib/pkgconfig
+PE_CXX_PKGCONFIG_LIBS=hdf5_hl_cpp:hdf5_cpp:netcdf_c++4:mpichcxx
+PE_ENV=INTEL
+PE_FFTW_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+PE_FFTW_DEFAULT_TARGET_haswell=haswell
+PE_FFTW_DEFAULT_TARGET_interlagos=interlagos
+PE_FFTW_DEFAULT_TARGET_sandybridge=sandybridge
+PE_FFTW_DEFAULT_TARGET_x86_64=x86_64
+PE_FFTW_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/fftw/3.3.4.2/@PE_FFTW_DEFAULT_TARGET@/lib/pkgconfig
+PE_FORTRAN_PKGCONFIG_LIBS=hdf5hl_fortran:hdf5_fortran:netcdff:mpichf90
+PE_GA_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_GA_DEFAULT_GENCOMPS_GNU=49 48
+PE_GA_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/ga/5.3.0.1/@PRGENV@/@PE_GA_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_GA_DEFAULT_VOLATILE_PRGENV=GNU
+PE_HDF5_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_HDF5_DEFAULT_GENCOMPS_GNU=49 48
+PE_HDF5_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/@PRGENV@/@PE_HDF5_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_HDF5_DEFAULT_VOLATILE_PRGENV=GNU
+PE_HDF5_DIR=/opt/cray/hdf5/1.8.13
+PE_HDF5_FIXED_PRGENV=CRAY INTEL
+PE_HDF5_FORTRAN_PKGCONFIG_LIBS=hdf5hl_fortran:hdf5_fortran
+PE_HDF5_GENCOMPS_GNU=49 48
+PE_HDF5_MODULE_NAME=cray-hdf5
+PE_HDF5_PARALLEL_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_HDF5_PARALLEL_DEFAULT_GENCOMPS_GNU=49 48
+PE_HDF5_PARALLEL_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+PE_HDF5_PARALLEL_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/hdf5-parallel/1.8.13/@PRGENV@/@PE_HDF5_PARALLEL_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_HDF5_PARALLEL_DEFAULT_VOLATILE_PRGENV=GNU
+PE_HDF5_PKGCONFIG_LIBS=hdf5_hl:hdf5
+PE_HDF5_VOLATILE_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/@PRGENV@/@PE_HDF5_GENCOMPS@/lib/pkgconfig
+PE_HDF5_VOLATILE_PRGENV=GNU
+PE_HDF5__CXX_PKGCONFIG_LIBS=hdf5_hl_cpp:hdf5_cpp
+PE_INTEL_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/mpich2-intel/140/lib/pkgconfig:/opt/cray/parallel-netcdf/1.6.0/INTEL/14.0/lib/pkgconfig:/opt/cray/netcdf/4.3.2/INTEL/140/lib/pkgconfig:/opt/cray/ga/5.3.0.1/INTEL/140/lib/pkgconfig:/opt/cray/hdf5/1.8.13/INTEL/140/lib/pkgconfig:/opt/cray/hdf5-parallel/1.8.13/INTEL/140/lib/pkgconfig:/opt/cray/netcdf-hdf5parallel/4.3.2/INTEL/140/lib/pkgconfig
+PE_INTEL_FIXED_PKGCONFIG_PATH=/opt/cray/hdf5/1.8.13/INTEL/140/lib/pkgconfig:/opt/cray/netcdf/4.3.2/INTEL/140/lib/pkgconfig:/opt/cray/mpt/7.2.0/gni/mpich2-intel/140/lib/pkgconfig
+PE_LIBSCI_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_LIBSCI_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_LIBSCI_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_LIBSCI_DEFAULT_OMP_REQUIRES_openmp=_mp
+PE_LIBSCI_DEFAULT_PKGCONFIG_VARIABLES=PE_LIBSCI_DEFAULT_OMP_REQUIRES_@openmp@
+PE_LIBSCI_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+PE_LIBSCI_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/libsci/13.0.3/@PRGENV@/@PE_LIBSCI_DEFAULT_GENCOMPS@/@PE_LIBSCI_DEFAULT_TARGET@/lib/pkgconfig
+PE_LIBSCI_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_LIBSCI_GENCOMPS_CRAY_x86_64=83
+PE_LIBSCI_GENCOMPS_GNU_x86_64=49 48
+PE_LIBSCI_GENCOMPS_INTEL_x86_64=140
+PE_LIBSCI_MODULE_NAME=cray-libsci/13.0.3
+PE_LIBSCI_OMP_REQUIRES_openmp=_mp
+PE_LIBSCI_PKGCONFIG_LIBS=libsci_mpi:libsci
+PE_LIBSCI_PKGCONFIG_VARIABLES=PE_LIBSCI_OMP_REQUIRES_@openmp@
+PE_LIBSCI_REQUIRED_PRODUCTS=PE_MPICH
+PE_LIBSCI_VOLATILE_PKGCONFIG_PATH=/opt/cray/libsci/13.0.3/@PRGENV@/@PE_LIBSCI_GENCOMPS@/@PE_LIBSCI_TARGET@/lib/pkgconfig
+PE_LIBSCI_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_MPICH_DEFAULT_DIR_CRAY_DEFAULT64=64
+PE_MPICH_DEFAULT_FIXED_PRGENV=INTEL
+PE_MPICH_DEFAULT_GENCOMPS_CRAY=83
+PE_MPICH_DEFAULT_GENCOMPS_GNU=49 48
+PE_MPICH_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/mpich2-@PRGENV@@PE_MPICH_DEFAULT_DIR_DEFAULT64@/@PE_MPICH_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_MPICH_DEFAULT_VOLATILE_PRGENV=CRAY GNU
+PE_MPICH_DIR_CRAY_DEFAULT64=64
+PE_MPICH_FIXED_PRGENV=INTEL
+PE_MPICH_GENCOMPS_CRAY=83
+PE_MPICH_GENCOMPS_GNU=49 48
+PE_MPICH_MODULE_NAME=cray-mpich
+PE_MPICH_MULTITHREADED_LIBS_multithreaded=_mt
+PE_MPICH_NV_LIBS_nvidia20=-lcudart
+PE_MPICH_NV_LIBS_nvidia35=-lcudart
+PE_MPICH_PKGCONFIG_VARIABLES=PE_MPICH_NV_LIBS_@accelerator@:PE_MPICH_MULTITHREADED_LIBS_@multithreaded@
+PE_MPICH_TARGET_VAR_nvidia20=-lcudart
+PE_MPICH_TARGET_VAR_nvidia35=-lcudart
+PE_MPICH_VOLATILE_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/mpich2-@PRGENV@@PE_MPICH_DIR_DEFAULT64@/@PE_MPICH_GENCOMPS@/lib/pkgconfig
+PE_MPICH_VOLATILE_PRGENV=CRAY GNU
+PE_NETCDF_BASEDIR=/opt/cray/netcdf/4.3.2
+PE_NETCDF_CXX_PKGCONFIG_LIBS=netcdf_c++4
+PE_NETCDF_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_NETCDF_DEFAULT_GENCOMPS_GNU=49 48
+PE_NETCDF_DEFAULT_REQUIRED_PRODUCTS=PE_HDF5
+PE_NETCDF_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/netcdf/4.3.2/@PRGENV@/@PE_NETCDF_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_NETCDF_DEFAULT_VOLATILE_PRGENV=GNU
+PE_NETCDF_FIXED_PRGENV=CRAY INTEL
+PE_NETCDF_FORTRAN_PKGCONFIG_LIBS=netcdff
+PE_NETCDF_GENCOMPS_GNU=49 48
+PE_NETCDF_HDF5PARALLEL_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_NETCDF_HDF5PARALLEL_DEFAULT_GENCOMPS_GNU=49 48
+PE_NETCDF_HDF5PARALLEL_DEFAULT_REQUIRED_PRODUCTS=PE_HDF5_PARALLEL PE_MPICH
+PE_NETCDF_HDF5PARALLEL_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/netcdf-hdf5parallel/4.3.2/@PRGENV@/@PE_NETCDF_HDF5PARALLEL_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_NETCDF_HDF5PARALLEL_DEFAULT_VOLATILE_PRGENV=GNU
+PE_NETCDF_MODULE_NAME=cray-netcdf
+PE_NETCDF_PKGCONFIG_LIBS=netcdf
+PE_NETCDF_REQUIRED_PRODUCTS=PE_HDF5
+PE_NETCDF_VOLATILE_PKGCONFIG_PATH=/opt/cray/netcdf/4.3.2/@PRGENV@/@PE_NETCDF_GENCOMPS@/lib/pkgconfig
+PE_NETCDF_VOLATILE_PRGENV=GNU
+PE_PAPI_DEFAULT_ACCEL_LIBS_nvidia35=,-lcupti,-lcudart,-lcuda
+PE_PAPI_DEFAULT_PKGCONFIG_VARIABLES=PE_PAPI_ACCEL_LIBS_@accelerator@
+PE_PAPI_DEFAULT_TARGET_VAR_nvidia35=,-lcupti,-lcudart,-lcuda
+PE_PARALLEL_NETCDF_DEFAULT_FIXED_PRGENV=CRAY INTEL
+PE_PARALLEL_NETCDF_DEFAULT_GENCOMPILERS_GNU=4.9 4.8
+PE_PARALLEL_NETCDF_DEFAULT_GENCOMPS_GNU=49 48
+PE_PARALLEL_NETCDF_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/parallel-netcdf/1.6.0/@PRGENV@/@PE_PARALLEL_NETCDF_DEFAULT_GENCOMPS@/lib/pkgconfig
+PE_PARALLEL_NETCDF_DEFAULT_VOLATILE_PRGENV=GNU
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_haswell=83
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_interlagos=83
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_sandybridge=83
+PE_PETSC_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_PETSC_DEFAULT_GENCOMPS_GNU_haswell=49 48
+PE_PETSC_DEFAULT_GENCOMPS_GNU_interlagos=49 48
+PE_PETSC_DEFAULT_GENCOMPS_GNU_sandybridge=49 48
+PE_PETSC_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_haswell=140
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_interlagos=140
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_sandybridge=140
+PE_PETSC_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_PETSC_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH:PE_LIBSCI:PE_TPSL
+PE_PETSC_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/petsc/3.5.3.0/complex/@PRGENV@/@PE_PETSC_DEFAULT_GENCOMPS@/@PE_PETSC_DEFAULT_TARGET@/lib/pkgconfig
+PE_PETSC_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_PKGCONFIG_DEFAULT_PRODUCTS=PE_TRILINOS:PE_MPICH:PE_PARALLEL_NETCDF:PE_NETCDF:PE_GA:PE_HDF5:PE_FFTW:PE_TPSL:PE_HDF5_PARALLEL:PE_LIBSCI:PE_NETCDF_HDF5PARALLEL:PE_PETSC
+PE_PKGCONFIG_LIBS=hdf5_hl:hdf5:netcdf:iobuf:mpich:AtpSigHandler:cray-rca:libsci_mpi:libsci
+PE_PKGCONFIG_PRODUCTS=PE_HDF5:PE_NETCDF:PE_MPICH:PE_LIBSCI
+PE_PKGCONFIG_PRODUCTS_DEFAULT=PE_PAPI
+PE_PKG_CONFIG_PATH=/opt/cray/cti/1.0.2/lib/pkgconfig
+PE_PRODUCT_LIST=CRAY_RCA:CRAY_XPMEM:CRAY_DMAPP:CRAY_PMI:CRAY_UGNI:CRAY_UDREG:CRAY_LIBSCI:CRAYPE:INTEL:CRAYPE_HASWELL:CRAY_ALPS:DVS
+PE_SMA_DIR_CRAY_DEFAULT64=64
+PE_SMA_DIR_PGI_DEFAULT64=64
+PE_SMA_VOLATILE_PKGCONFIG_PATH=/opt/cray/mpt/7.2.0/gni/sma@PE_SMA_DIR_DEFAULT64@/lib64/pkgconfig
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_haswell=83
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_interlagos=83
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_sandybridge=83
+PE_TPSL_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_TPSL_DEFAULT_GENCOMPS_GNU_haswell=49 48
+PE_TPSL_DEFAULT_GENCOMPS_GNU_interlagos=49 48
+PE_TPSL_DEFAULT_GENCOMPS_GNU_sandybridge=49 48
+PE_TPSL_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_haswell=140
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_interlagos=140
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_sandybridge=140
+PE_TPSL_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_TPSL_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH:PE_LIBSCI
+PE_TPSL_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/tpsl/1.4.4/@PRGENV@/@PE_TPSL_DEFAULT_GENCOMPS@/@PE_TPSL_DEFAULT_TARGET@/lib/pkgconfig
+PE_TPSL_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PE_TRILINOS_DEFAULT_GENCOMPS_CRAY_x86_64=83
+PE_TRILINOS_DEFAULT_GENCOMPS_GNU_x86_64=49 48
+PE_TRILINOS_DEFAULT_GENCOMPS_INTEL_x86_64=140
+PE_TRILINOS_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH:PE_HDF5_PARALLEL:PE_NETCDF_HDF5PARALLEL:PE_LIBSCI:PE_TPSL
+PE_TRILINOS_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/trilinos/11.12.1.2/@PRGENV@/@PE_TRILINOS_DEFAULT_GENCOMPS@/@PE_TRILINOS_DEFAULT_TARGET@/lib/pkgconfig
+PE_TRILINOS_DEFAULT_VOLATILE_PRGENV=CRAY GNU INTEL
+PKGCONFIG_ENABLED=1
+PKG_CONFIG_PATH=/opt/cray/iobuf/2.0.5/lib/pkgconfig:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/lib64/pkgconfig:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/lib64/pkgconfig:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/lib64/pkgconfig:/opt/cray/gni-headers/4.0-1.0502.10859.7.8.ari/lib64/pkgconfig:/opt/cray/dmapp/7.0.1-1.0502.11080.8.76.ari/lib64/pkgconfig:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/lib64/pkgconfig:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/lib64/pkgconfig:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/lib64/pkgconfig:/opt/cray/craype/2.3.0/pkg-config:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/lib64/pkgconfig:/opt/cray/switch/1.0-1.0502.60522.1.61.ari/lib64/pkgconfig:/opt/cray/atp/1.8.1/lib/pkgconfig
+PKG_CONFIG_PATH_DEFAULT=/opt/cray/papi/5.4.0.1/lib64/pkgconfig
+PRGENVMODULES=PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-pathscale:PrgEnv-pgi
+PROFILEREAD=true
+PS4= $SECONDS + 
+PWD=/gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_prep_cs.21884
+PYTHONPATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush
+PYTHONSTARTUP=/etc/pythonstart
+QTDIR=/usr/lib/qt3
+QT_SYSTEM_DIR=/usr/share/desktop-data
+RCLOCAL_PRGENV=true
+RUN=aqm
+RUN_ENVIR=aqm
+SBD_KRB5CCNAME_VAL=
+SDK_HOME=/usr/lib64/jvm/java
+SENDCOM=YES
+SENDDBN=YES
+SENDDBN_NTC=YES
+SENDECF=YES
+SHELL=/bin/bash
+SHLVL=5
+SHMEM_ABORT_ON_ERROR=1
+SINGLECYC=YES
+SITE=SURGE
+SLURM_PROLOG=/opt/cray/atp/1.8.1/libexec/slurm_prolog.ksh
+SSH_CLIENT=192.58.2.81 33736 22
+SSH_CONNECTION=192.58.2.81 33736 140.90.226.6 22
+SSH_TTY=/dev/pts/13
+TARGETMODULES=craype-abudhabi:craype-abudhabi-cu:craype-accel-host:craype-accel-nvidia20:craype-accel-nvidia30:craype-accel-nvidia35:craype-barcelona:craype-broadwell:craype-haswell:craype-hugepages128K:craype-hugepages128M:craype-hugepages16M:craype-hugepages256M:craype-hugepages2M:craype-hugepages32M:craype-hugepages4M:craype-hugepages512K:craype-hugepages512M:craype-hugepages64M:craype-hugepages8M:craype-intel-knc:craype-interlagos:craype-interlagos-cu:craype-istanbul:craype-ivybridge:craype-mc12:craype-mc8:craype-mic-knl:craype-network-aries:craype-network-gemini:craype-network-infiniband:craype-network-none:craype-network-seastar:craype-sandybridge:craype-shanghai:craype-target-compute_node:craype-target-local_host:craype-target-native:craype-xeon:xtpe-barcelona:xtpe-interlagos:xtpe-interlagos-cu:xtpe-istanbul:xtpe-mc12:xtpe-mc8:xtpe-network-gemini:xtpe-network-seastar:xtpe-shanghai:xtpe-target-native:xtpe-xeon:/etc/opt/cray/modules/site_targetmodules
+TBBROOT=/opt/intel/composer_xe_2015.3.187/tbb
+TOCGRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/tocgrib
+TOCGRIB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/tocgrib2
+TOCGRIB2SUPER=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/tocgrib2super
+TOOLMODULES=apprentice:apprentice2:atp:chapel:cray-lgdb:cray-snplauncher:craypat:craypkg-gen:ddt:gdb:iobuf:papi:perftools:perftools-lite:stat:totalview:xt-craypat:xt-lgdb:xt-papi:xt-totalview:/etc/opt/cray/modules/site_toolmodules
+USER=Youhua.Tang
+USERMODULES=PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-pathscale:PrgEnv-pgi:acml:alps:apprentice:apprentice2:atp:blcr:cce:chapel:cray-ccdb:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-lgdb:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-compat:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-snplauncher:cray-tpsl:cray-trilinos:craypat:craype:craypkg-gen:cudatoolkit:ddt:fftw:ga:gcc:hdf5:hdf5-parallel:intel:iobuf:java:lgdb:libfast:libsci_acc:mpich1:netcdf:netcdf-hdf5parallel:netcdf-nofsync:netcdf-nofsync-hdf5parallel:ntk:onesided:papi:parallel-netcdf:pathscale:perftools:perftools-lite:petsc:petsc-complex:pgi:pmi:stat:totalview:tpsl:trilinos:xt-asyncpe:xt-craypat:xt-lgdb:xt-libsci:xt-mpich2:xt-mpt:xt-papi:xt-shmem:xt-totalview:/etc/opt/cray/modules/site_usermodules
+USHaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/ush
+UTILROOT=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0
+UTILaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/util
+W3EMC_INC4=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/include/w3emc_v2.3.0_4
+W3EMC_INC8=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/include/w3emc_v2.3.0_8
+W3EMC_INCd=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/include/w3emc_v2.3.0_d
+W3EMC_LIB4=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/libw3emc_v2.3.0_4.a
+W3EMC_LIB8=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/libw3emc_v2.3.0_8.a
+W3EMC_LIBd=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/intel/libw3emc_v2.3.0_d.a
+W3EMC_SRC=/gpfs/hps/nco/ops/nwprod/lib/w3emc/v2.3.0/src
+W3EMC_VER=v2.3.0
+W3NCO_LIB4=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/intel/libw3nco_v2.0.6_4.a
+W3NCO_LIB8=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/intel/libw3nco_v2.0.6_8.a
+W3NCO_LIBd=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/intel/libw3nco_v2.0.6_d.a
+W3NCO_SRC=/gpfs/hps/nco/ops/nwprod/lib/w3nco/v2.0.6/src
+W3NCO_VER=v2.0.6
+WGRIB=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/wgrib
+WGRIB2=/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec/wgrib2
+WINDOWMANAGER=
+XAUTHLOCALHOSTNAME=slogin1
+XCURSOR_THEME=crystalwhite
+XDG_CONFIG_DIRS=/etc/xdg
+XDG_DATA_DIRS=/usr/share:/etc/opt/kde3/share:/opt/kde3/share
+XKEYSYMDB=/usr/share/X11/XKeysymDB
+XLIB_SKIP_ARGB_VISUALS=1
+XLSF_UIDDIR=/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/lib/uid
+XNLSPATH=/usr/share/X11/nls
+XTOS_VERSION=5.2.82
+XTPE_NETWORK_TARGET=aries
+Z_INC=/usrx/local/prod/zlib/1.2.7/intel/haswell/include
+Z_LIB=/usrx/local/prod/zlib/1.2.7/intel/haswell/lib/libz.a
+Z_SRC=/usrx/local/prod/zlib/1.2.7/intel/haswell/src
+Z_VER=1.2.7
+_LMFILES_=/opt/modulefiles/modules/3.2.10.3:/opt/modulefiles/eswrap/1.3.3-1.020200.1280.0:/opt/cray/ari/modulefiles/switch/1.0-1.0502.60522.1.61.ari:/opt/cray/craype/default/modulefiles/craype-network-aries:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2481.23.7.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9822.32.1.ari:/opt/modulefiles/ncep/1.0:/opt/cray/craype/default/alt-modulefiles/craype-haswell:/opt/modulefiles/xt-lsfhpc/9.1.3:/opt/modulefiles/intel/15.0.3.187:/opt/cray/alt-modulefiles/craype/2.3.0:/opt/cray/alt-modulefiles/cray-libsci/13.0.3:/opt/cray/ari/modulefiles/udreg/2.3.2-1.0502.10518.2.17.ari:/opt/cray/ari/modulefiles/ugni/6.0-1.0502.10863.8.29.ari:/opt/cray/ari/modulefiles/pmi/5.0.6-1.0000.10439.140.2.ari:/opt/cray/ari/modulefiles/dmapp/7.0.1-1.0502.11080.8.76.ari:/opt/cray/ari/modulefiles/gni-headers/4.0-1.0502.10859.7.8.ari:/opt/cray/ari/modulefiles/xpmem/0.1-2.0502.64982.5.3.ari:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2188.1.116.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9774.31.11.ari:/opt/cray/ari/modulefiles/rca/1.0.0-2.0502.60530.1.62.ari:/opt/cray/alt-modulefiles/atp/1.8.1:/opt/cray/alt-modulefiles/PrgEnv-intel/5.2.82:/opt/cray/alt-modulefiles/cray-mpich/7.2.0:/usrx/local/prod/modulefiles/hpss/4.1.0.3:/opt/cray/alt-modulefiles/iobuf/2.0.5:/opt/cray/alt-modulefiles/cray-netcdf/4.3.2:/opt/cray/alt-modulefiles/cray-hdf5/1.8.13:/usrx/local/prod/modulefiles/nco-gnu-sandybridge/4.4.4:/usrx/local/prod/modulefiles/imagemagick-intel-haswell/6.8.3:/usrx/local/prod/modulefiles/subversion/1.7.16:/usrx/local/prod/modulefiles/ESMF-intel-haswell/6_3_0rp1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bufr-intel/11.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bacio-intel/2.0.2:/usrx/local/prod/modulefiles/zlib-intel-haswell/1.2.7:/gpfs/hps/nco/ops/nwprod/modulefiles/grib_util/1.0.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsio-intel/2.2.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsiogfs-intel/2.0.1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3emc-intel/2.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3nco-intel/2.0.6:/usrx/local/prod/modulefiles/python/3.6.3:/opt/modulefiles/gcc/6.3.0:/usrx/local/dev/modulefiles/cmake/3.6.2:/usrx/local/dev/modulefiles/git/2.18.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_util/1.1.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_envir/1.1.0
+__LSF_JOB_TMPDIR__=/ufs/tmp/464690.tmpdir
+cmaq_ver=v5.3.1
+cyc=12
+cycle=t12z
+envir=para
+jlogfile=/gpfs/hps3/ptmp/Youhua.Tang/com/logs/jlogfiles/jlogfile.21884
+job=aqm_prep_cs
+jobid=aqm_prep_cs.464690
+kernelrelease=3.0.101-0.47.106.59.1.17833.1.PTF-default
+machine=g
+model=cmaq
+pgmout=OUTPUT.13963
+pid=21884
+today=2020050717
+usr_tmp=/gpfs/hps3/ptmp/Youhua.Tang
+usrdir=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang
+A__z="*SHLVL
+ jsdate,jstime=     2019193       60000        2019
+  Converting factor for CO               is    35.70000      0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  Converting factor for CO               is    35.70000      0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  Converting factor for CO               is    35.70000      0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  Converting factor for SO2              is   0.0000000E+00  0.0000000E+00
+  0.0000000E+00   15.62500      0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  Converting factor for NH3              is   0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00   58.82000      0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  Converting factor for BC               is   0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  Converting factor for OC               is   0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+  Converting factor for PM2.5            is   0.0000000E+00  0.0000000E+00
+  0.0000000E+00  0.0000000E+00  0.0000000E+00   94.90000       461.8000    
+   13.70000       1.323000       12.60000      0.6075000       3.858000    
+   41.50000      0.4340000       29.40000      0.3140000      0.0000000E+00
+   5.733500       323.2000       8.791500       1.818500      5.1500000E-02
+                                                                     
+     This program uses the EPA-AREAL/MCNC-EnvPgms/BAMS Models-3      
+     I/O Applications Programming Interface, [I/O API] which is      
+     built on top of the netCDF I/O library (Copyright 1993, 1996    
+     University Corporation for Atmospheric Research/Unidata         
+     Program) and the PVM parallel-programming library (from         
+     Oak Ridge National Laboratory).                                 
+     Copyright (C) 1992-2002 MCNC,                                   
+     (C) 1992-2018 Carlie J. Coats, Jr.,                             
+     (C) 2003-2012 Baron Advanced Meteorological Systems, LLC, and   
+     (C) 2014-2019 UNC Institute for the Environment.                
+     Released under the GNU LGPL  License, version 2.1.  See URL     
+                                                                     
+         https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html     
+                                                                     
+     for conditions of use.                                          
+                                                                     
+     ioapi-3.2: $Id: init3.F90 136 2019-10-16 13:57:49Z coats $
+     Version with PARMS3.EXT/PARAMETER::MXVARS3= 2048
+     netCDF version 4.3.2 of Aug  7 2014 13:39:15 $
+      
+      
+     Missing environment variable EXECUTION_ID
+     I/O API not yet initialized
+     Value for IOAPI_CHECK_HEADERS not defined;returning default:   FALSE
+      
+     "TOPO" opened as OLD:READ-ONLY   
+     File name "/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/fix/aqm_gridcro2d.landfac.5x.ncf"
+     File type GRDDED3 
+     Execution ID "mcip"
+     Grid name "AQF_CONUS"
+     Dimensions: 265 rows, 442 cols, 1 lays, 31 vbles
+     NetCDF ID:     65536  opened as READONLY            
+     Time-independent data.
+     Value for GRID_NAME:  'AQF_CONUS_5x'
+     Value for GRID_NAME:  'AQF_CONUS_5x'
+     Value for IOAPI_ISPH:  '20'
+     Value for IOAPI_ISPH:  '20'
+     INITSPHERES:  input sphere Normal Sphere (MM5 & WRF-ARW) R=6370000
+
+     File "GRIDDESC" opened for input on unit:  99
+     /gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/parm/aqm_griddesc05
+
+ read gbbepx file
+ id_file=      131072
+ nlon,nlat=        3600        1801
+ read CO              
+ read NOx             
+ read SO2             
+ read NH3             
+ read OC              
+ read BC              
+ read PM2.5           
+ start processing
+ total fire points         204
+     
+     Value for IOAPI_CHECK_HEADERS not defined;returning default:   FALSE
+     Value for IOAPI_OFFSET_64:  YES returning TRUE
+     Value for IOAPI_CFMETA not defined;returning default:   FALSE
+     Value for IOAPI_CMAQMETA not defined; returning defaultval ':  'NONE'
+     Value for IOAPI_CMAQMETA not defined; returning defaultval ':  'NONE'
+     Value for IOAPI_SMOKEMETA not defined; returning defaultval ':  'NONE'
+     Value for IOAPI_SMOKEMETA not defined; returning defaultval ':  'NONE'
+     Value for IOAPI_TEXTMETA not defined; returning defaultval ':  'NONE'
+     Value for IOAPI_TEXTMETA not defined; returning defaultval ':  'NONE'
+      
+     "STACK_GROUP" opened as UNKNOWN(R-W)    
+     File name "aqm.t12z.fire_location_cs.ncf"
+     File type GRDDED3 
+     Execution ID "????????????????"
+     Grid name "AQF_CONUS"
+     Dimensions: 204 rows, 1 cols, 1 lays, 17 vbles
+     NetCDF ID:    131072  opened as READWRITE           
+     Starting date and time  2019193:060000 (6:00:00   July 12, 2019)
+     Timestep                          010000 (1:00:00 hh:mm:ss)
+     Maximum current record number         0
+     Value for IOAPI_LOG_WRITE not defined;returning default:   TRUE
+     ISTACK written to STACK_GROUP for   2019193:060000
+     LATITUDE written to STACK_GROUP for   2019193:060000
+     LONGITUDE written to STACK_GROUP for   2019193:060000
+     STKDM written to STACK_GROUP for   2019193:060000
+     STKHT written to STACK_GROUP for   2019193:060000
+     STKTK written to STACK_GROUP for   2019193:060000
+     STKVE written to STACK_GROUP for   2019193:060000
+     STKFLW written to STACK_GROUP for   2019193:060000
+     STKCNT written to STACK_GROUP for   2019193:060000
+     ROW written to STACK_GROUP for   2019193:060000
+     COL written to STACK_GROUP for   2019193:060000
+     XLOCA written to STACK_GROUP for   2019193:060000
+     YLOCA written to STACK_GROUP for   2019193:060000
+     IFIP written to STACK_GROUP for   2019193:060000
+     LMAJOR written to STACK_GROUP for   2019193:060000
+     LPING written to STACK_GROUP for   2019193:060000
+     ACRESBURNED written to STACK_GROUP for   2019193:060000
+     Closing file STACK_GROUP
+      
+     "PTFIRE" opened as UNKNOWN(R-W)    
+     File name "aqm.t12z.fire_emi_cs.ncf"
+     File type GRDDED3 
+     Execution ID "????????????????"
+     Grid name "AQF_CONUS"
+     Dimensions: 204 rows, 1 cols, 1 lays, 23 vbles
+     NetCDF ID:    131072  opened as READWRITE           
+     Starting date and time  2019193:060000 (6:00:00   July 12, 2019)
+     Timestep                          010000 (1:00:00 hh:mm:ss)
+     Maximum current record number         0
+     CO written to PTFIRE for   2019193:060000
+     NO written to PTFIRE for   2019193:060000
+     NO2 written to PTFIRE for   2019193:060000
+     SO2 written to PTFIRE for   2019193:060000
+     NH3 written to PTFIRE for   2019193:060000
+     PEC written to PTFIRE for   2019193:060000
+     POC written to PTFIRE for   2019193:060000
+     PMOTHR written to PTFIRE for   2019193:060000
+     PNO3 written to PTFIRE for   2019193:060000
+     PSO4 written to PTFIRE for   2019193:060000
+     PAL written to PTFIRE for   2019193:060000
+     PCA written to PTFIRE for   2019193:060000
+     PCL written to PTFIRE for   2019193:060000
+     PFE written to PTFIRE for   2019193:060000
+     PK written to PTFIRE for   2019193:060000
+     PMG written to PTFIRE for   2019193:060000
+     PMN written to PTFIRE for   2019193:060000
+     PNA written to PTFIRE for   2019193:060000
+     PNCOM written to PTFIRE for   2019193:060000
+     PNH4 written to PTFIRE for   2019193:060000
+     PSI written to PTFIRE for   2019193:060000
+     PTI written to PTFIRE for   2019193:060000
+     HFLUX written to PTFIRE for   2019193:060000
+     CO written to PTFIRE for   2019193:070000
+     NO written to PTFIRE for   2019193:070000
+     NO2 written to PTFIRE for   2019193:070000
+     SO2 written to PTFIRE for   2019193:070000
+     NH3 written to PTFIRE for   2019193:070000
+     PEC written to PTFIRE for   2019193:070000
+     POC written to PTFIRE for   2019193:070000
+     PMOTHR written to PTFIRE for   2019193:070000
+     PNO3 written to PTFIRE for   2019193:070000
+     PSO4 written to PTFIRE for   2019193:070000
+     PAL written to PTFIRE for   2019193:070000
+     PCA written to PTFIRE for   2019193:070000
+     PCL written to PTFIRE for   2019193:070000
+     PFE written to PTFIRE for   2019193:070000
+     PK written to PTFIRE for   2019193:070000
+     PMG written to PTFIRE for   2019193:070000
+     PMN written to PTFIRE for   2019193:070000
+     PNA written to PTFIRE for   2019193:070000
+     PNCOM written to PTFIRE for   2019193:070000
+     PNH4 written to PTFIRE for   2019193:070000
+     PSI written to PTFIRE for   2019193:070000
+     PTI written to PTFIRE for   2019193:070000
+     HFLUX written to PTFIRE for   2019193:070000
+     CO written to PTFIRE for   2019193:080000
+     NO written to PTFIRE for   2019193:080000
+     NO2 written to PTFIRE for   2019193:080000
+     SO2 written to PTFIRE for   2019193:080000
+     NH3 written to PTFIRE for   2019193:080000
+     PEC written to PTFIRE for   2019193:080000
+     POC written to PTFIRE for   2019193:080000
+     PMOTHR written to PTFIRE for   2019193:080000
+     PNO3 written to PTFIRE for   2019193:080000
+     PSO4 written to PTFIRE for   2019193:080000
+     PAL written to PTFIRE for   2019193:080000
+     PCA written to PTFIRE for   2019193:080000
+     PCL written to PTFIRE for   2019193:080000
+     PFE written to PTFIRE for   2019193:080000
+     PK written to PTFIRE for   2019193:080000
+     PMG written to PTFIRE for   2019193:080000
+     PMN written to PTFIRE for   2019193:080000
+     PNA written to PTFIRE for   2019193:080000
+     PNCOM written to PTFIRE for   2019193:080000
+     PNH4 written to PTFIRE for   2019193:080000
+     PSI written to PTFIRE for   2019193:080000
+     PTI written to PTFIRE for   2019193:080000
+     HFLUX written to PTFIRE for   2019193:080000
+     CO written to PTFIRE for   2019193:090000
+     NO written to PTFIRE for   2019193:090000
+     NO2 written to PTFIRE for   2019193:090000
+     SO2 written to PTFIRE for   2019193:090000
+     NH3 written to PTFIRE for   2019193:090000
+     PEC written to PTFIRE for   2019193:090000
+     POC written to PTFIRE for   2019193:090000
+     PMOTHR written to PTFIRE for   2019193:090000
+     PNO3 written to PTFIRE for   2019193:090000
+     PSO4 written to PTFIRE for   2019193:090000
+     PAL written to PTFIRE for   2019193:090000
+     PCA written to PTFIRE for   2019193:090000
+     PCL written to PTFIRE for   2019193:090000
+     PFE written to PTFIRE for   2019193:090000
+     PK written to PTFIRE for   2019193:090000
+     PMG written to PTFIRE for   2019193:090000
+     PMN written to PTFIRE for   2019193:090000
+     PNA written to PTFIRE for   2019193:090000
+     PNCOM written to PTFIRE for   2019193:090000
+     PNH4 written to PTFIRE for   2019193:090000
+     PSI written to PTFIRE for   2019193:090000
+     PTI written to PTFIRE for   2019193:090000
+     HFLUX written to PTFIRE for   2019193:090000
+     CO written to PTFIRE for   2019193:100000
+     NO written to PTFIRE for   2019193:100000
+     NO2 written to PTFIRE for   2019193:100000
+     SO2 written to PTFIRE for   2019193:100000
+     NH3 written to PTFIRE for   2019193:100000
+     PEC written to PTFIRE for   2019193:100000
+     POC written to PTFIRE for   2019193:100000
+     PMOTHR written to PTFIRE for   2019193:100000
+     PNO3 written to PTFIRE for   2019193:100000
+     PSO4 written to PTFIRE for   2019193:100000
+     PAL written to PTFIRE for   2019193:100000
+     PCA written to PTFIRE for   2019193:100000
+     PCL written to PTFIRE for   2019193:100000
+     PFE written to PTFIRE for   2019193:100000
+     PK written to PTFIRE for   2019193:100000
+     PMG written to PTFIRE for   2019193:100000
+     PMN written to PTFIRE for   2019193:100000
+     PNA written to PTFIRE for   2019193:100000
+     PNCOM written to PTFIRE for   2019193:100000
+     PNH4 written to PTFIRE for   2019193:100000
+     PSI written to PTFIRE for   2019193:100000
+     PTI written to PTFIRE for   2019193:100000
+     HFLUX written to PTFIRE for   2019193:100000
+     CO written to PTFIRE for   2019193:110000
+     NO written to PTFIRE for   2019193:110000
+     NO2 written to PTFIRE for   2019193:110000
+     SO2 written to PTFIRE for   2019193:110000
+     NH3 written to PTFIRE for   2019193:110000
+     PEC written to PTFIRE for   2019193:110000
+     POC written to PTFIRE for   2019193:110000
+     PMOTHR written to PTFIRE for   2019193:110000
+     PNO3 written to PTFIRE for   2019193:110000
+     PSO4 written to PTFIRE for   2019193:110000
+     PAL written to PTFIRE for   2019193:110000
+     PCA written to PTFIRE for   2019193:110000
+     PCL written to PTFIRE for   2019193:110000
+     PFE written to PTFIRE for   2019193:110000
+     PK written to PTFIRE for   2019193:110000
+     PMG written to PTFIRE for   2019193:110000
+     PMN written to PTFIRE for   2019193:110000
+     PNA written to PTFIRE for   2019193:110000
+     PNCOM written to PTFIRE for   2019193:110000
+     PNH4 written to PTFIRE for   2019193:110000
+     PSI written to PTFIRE for   2019193:110000
+     PTI written to PTFIRE for   2019193:110000
+     HFLUX written to PTFIRE for   2019193:110000
+     CO written to PTFIRE for   2019193:120000
+     NO written to PTFIRE for   2019193:120000
+     NO2 written to PTFIRE for   2019193:120000
+     SO2 written to PTFIRE for   2019193:120000
+     NH3 written to PTFIRE for   2019193:120000
+     PEC written to PTFIRE for   2019193:120000
+     POC written to PTFIRE for   2019193:120000
+     PMOTHR written to PTFIRE for   2019193:120000
+     PNO3 written to PTFIRE for   2019193:120000
+     PSO4 written to PTFIRE for   2019193:120000
+     PAL written to PTFIRE for   2019193:120000
+     PCA written to PTFIRE for   2019193:120000
+     PCL written to PTFIRE for   2019193:120000
+     PFE written to PTFIRE for   2019193:120000
+     PK written to PTFIRE for   2019193:120000
+     PMG written to PTFIRE for   2019193:120000
+     PMN written to PTFIRE for   2019193:120000
+     PNA written to PTFIRE for   2019193:120000
+     PNCOM written to PTFIRE for   2019193:120000
+     PNH4 written to PTFIRE for   2019193:120000
+     PSI written to PTFIRE for   2019193:120000
+     PTI written to PTFIRE for   2019193:120000
+     HFLUX written to PTFIRE for   2019193:120000
+     CO written to PTFIRE for   2019193:130000
+     NO written to PTFIRE for   2019193:130000
+     NO2 written to PTFIRE for   2019193:130000
+     SO2 written to PTFIRE for   2019193:130000
+     NH3 written to PTFIRE for   2019193:130000
+     PEC written to PTFIRE for   2019193:130000
+     POC written to PTFIRE for   2019193:130000
+     PMOTHR written to PTFIRE for   2019193:130000
+     PNO3 written to PTFIRE for   2019193:130000
+     PSO4 written to PTFIRE for   2019193:130000
+     PAL written to PTFIRE for   2019193:130000
+     PCA written to PTFIRE for   2019193:130000
+     PCL written to PTFIRE for   2019193:130000
+     PFE written to PTFIRE for   2019193:130000
+     PK written to PTFIRE for   2019193:130000
+     PMG written to PTFIRE for   2019193:130000
+     PMN written to PTFIRE for   2019193:130000
+     PNA written to PTFIRE for   2019193:130000
+     PNCOM written to PTFIRE for   2019193:130000
+     PNH4 written to PTFIRE for   2019193:130000
+     PSI written to PTFIRE for   2019193:130000
+     PTI written to PTFIRE for   2019193:130000
+     HFLUX written to PTFIRE for   2019193:130000
+     CO written to PTFIRE for   2019193:140000
+     NO written to PTFIRE for   2019193:140000
+     NO2 written to PTFIRE for   2019193:140000
+     SO2 written to PTFIRE for   2019193:140000
+     NH3 written to PTFIRE for   2019193:140000
+     PEC written to PTFIRE for   2019193:140000
+     POC written to PTFIRE for   2019193:140000
+     PMOTHR written to PTFIRE for   2019193:140000
+     PNO3 written to PTFIRE for   2019193:140000
+     PSO4 written to PTFIRE for   2019193:140000
+     PAL written to PTFIRE for   2019193:140000
+     PCA written to PTFIRE for   2019193:140000
+     PCL written to PTFIRE for   2019193:140000
+     PFE written to PTFIRE for   2019193:140000
+     PK written to PTFIRE for   2019193:140000
+     PMG written to PTFIRE for   2019193:140000
+     PMN written to PTFIRE for   2019193:140000
+     PNA written to PTFIRE for   2019193:140000
+     PNCOM written to PTFIRE for   2019193:140000
+     PNH4 written to PTFIRE for   2019193:140000
+     PSI written to PTFIRE for   2019193:140000
+     PTI written to PTFIRE for   2019193:140000
+     HFLUX written to PTFIRE for   2019193:140000
+     CO written to PTFIRE for   2019193:150000
+     NO written to PTFIRE for   2019193:150000
+     NO2 written to PTFIRE for   2019193:150000
+     SO2 written to PTFIRE for   2019193:150000
+     NH3 written to PTFIRE for   2019193:150000
+     PEC written to PTFIRE for   2019193:150000
+     POC written to PTFIRE for   2019193:150000
+     PMOTHR written to PTFIRE for   2019193:150000
+     PNO3 written to PTFIRE for   2019193:150000
+     PSO4 written to PTFIRE for   2019193:150000
+     PAL written to PTFIRE for   2019193:150000
+     PCA written to PTFIRE for   2019193:150000
+     PCL written to PTFIRE for   2019193:150000
+     PFE written to PTFIRE for   2019193:150000
+     PK written to PTFIRE for   2019193:150000
+     PMG written to PTFIRE for   2019193:150000
+     PMN written to PTFIRE for   2019193:150000
+     PNA written to PTFIRE for   2019193:150000
+     PNCOM written to PTFIRE for   2019193:150000
+     PNH4 written to PTFIRE for   2019193:150000
+     PSI written to PTFIRE for   2019193:150000
+     PTI written to PTFIRE for   2019193:150000
+     HFLUX written to PTFIRE for   2019193:150000
+     CO written to PTFIRE for   2019193:160000
+     NO written to PTFIRE for   2019193:160000
+     NO2 written to PTFIRE for   2019193:160000
+     SO2 written to PTFIRE for   2019193:160000
+     NH3 written to PTFIRE for   2019193:160000
+     PEC written to PTFIRE for   2019193:160000
+     POC written to PTFIRE for   2019193:160000
+     PMOTHR written to PTFIRE for   2019193:160000
+     PNO3 written to PTFIRE for   2019193:160000
+     PSO4 written to PTFIRE for   2019193:160000
+     PAL written to PTFIRE for   2019193:160000
+     PCA written to PTFIRE for   2019193:160000
+     PCL written to PTFIRE for   2019193:160000
+     PFE written to PTFIRE for   2019193:160000
+     PK written to PTFIRE for   2019193:160000
+     PMG written to PTFIRE for   2019193:160000
+     PMN written to PTFIRE for   2019193:160000
+     PNA written to PTFIRE for   2019193:160000
+     PNCOM written to PTFIRE for   2019193:160000
+     PNH4 written to PTFIRE for   2019193:160000
+     PSI written to PTFIRE for   2019193:160000
+     PTI written to PTFIRE for   2019193:160000
+     HFLUX written to PTFIRE for   2019193:160000
+     CO written to PTFIRE for   2019193:170000
+     NO written to PTFIRE for   2019193:170000
+     NO2 written to PTFIRE for   2019193:170000
+     SO2 written to PTFIRE for   2019193:170000
+     NH3 written to PTFIRE for   2019193:170000
+     PEC written to PTFIRE for   2019193:170000
+     POC written to PTFIRE for   2019193:170000
+     PMOTHR written to PTFIRE for   2019193:170000
+     PNO3 written to PTFIRE for   2019193:170000
+     PSO4 written to PTFIRE for   2019193:170000
+     PAL written to PTFIRE for   2019193:170000
+     PCA written to PTFIRE for   2019193:170000
+     PCL written to PTFIRE for   2019193:170000
+     PFE written to PTFIRE for   2019193:170000
+     PK written to PTFIRE for   2019193:170000
+     PMG written to PTFIRE for   2019193:170000
+     PMN written to PTFIRE for   2019193:170000
+     PNA written to PTFIRE for   2019193:170000
+     PNCOM written to PTFIRE for   2019193:170000
+     PNH4 written to PTFIRE for   2019193:170000
+     PSI written to PTFIRE for   2019193:170000
+     PTI written to PTFIRE for   2019193:170000
+     HFLUX written to PTFIRE for   2019193:170000
+     CO written to PTFIRE for   2019193:180000
+     NO written to PTFIRE for   2019193:180000
+     NO2 written to PTFIRE for   2019193:180000
+     SO2 written to PTFIRE for   2019193:180000
+     NH3 written to PTFIRE for   2019193:180000
+     PEC written to PTFIRE for   2019193:180000
+     POC written to PTFIRE for   2019193:180000
+     PMOTHR written to PTFIRE for   2019193:180000
+     PNO3 written to PTFIRE for   2019193:180000
+     PSO4 written to PTFIRE for   2019193:180000
+     PAL written to PTFIRE for   2019193:180000
+     PCA written to PTFIRE for   2019193:180000
+     PCL written to PTFIRE for   2019193:180000
+     PFE written to PTFIRE for   2019193:180000
+     PK written to PTFIRE for   2019193:180000
+     PMG written to PTFIRE for   2019193:180000
+     PMN written to PTFIRE for   2019193:180000
+     PNA written to PTFIRE for   2019193:180000
+     PNCOM written to PTFIRE for   2019193:180000
+     PNH4 written to PTFIRE for   2019193:180000
+     PSI written to PTFIRE for   2019193:180000
+     PTI written to PTFIRE for   2019193:180000
+     HFLUX written to PTFIRE for   2019193:180000
+     CO written to PTFIRE for   2019193:190000
+     NO written to PTFIRE for   2019193:190000
+     NO2 written to PTFIRE for   2019193:190000
+     SO2 written to PTFIRE for   2019193:190000
+     NH3 written to PTFIRE for   2019193:190000
+     PEC written to PTFIRE for   2019193:190000
+     POC written to PTFIRE for   2019193:190000
+     PMOTHR written to PTFIRE for   2019193:190000
+     PNO3 written to PTFIRE for   2019193:190000
+     PSO4 written to PTFIRE for   2019193:190000
+     PAL written to PTFIRE for   2019193:190000
+     PCA written to PTFIRE for   2019193:190000
+     PCL written to PTFIRE for   2019193:190000
+     PFE written to PTFIRE for   2019193:190000
+     PK written to PTFIRE for   2019193:190000
+     PMG written to PTFIRE for   2019193:190000
+     PMN written to PTFIRE for   2019193:190000
+     PNA written to PTFIRE for   2019193:190000
+     PNCOM written to PTFIRE for   2019193:190000
+     PNH4 written to PTFIRE for   2019193:190000
+     PSI written to PTFIRE for   2019193:190000
+     PTI written to PTFIRE for   2019193:190000
+     HFLUX written to PTFIRE for   2019193:190000
+     CO written to PTFIRE for   2019193:200000
+     NO written to PTFIRE for   2019193:200000
+     NO2 written to PTFIRE for   2019193:200000
+     SO2 written to PTFIRE for   2019193:200000
+     NH3 written to PTFIRE for   2019193:200000
+     PEC written to PTFIRE for   2019193:200000
+     POC written to PTFIRE for   2019193:200000
+     PMOTHR written to PTFIRE for   2019193:200000
+     PNO3 written to PTFIRE for   2019193:200000
+     PSO4 written to PTFIRE for   2019193:200000
+     PAL written to PTFIRE for   2019193:200000
+     PCA written to PTFIRE for   2019193:200000
+     PCL written to PTFIRE for   2019193:200000
+     PFE written to PTFIRE for   2019193:200000
+     PK written to PTFIRE for   2019193:200000
+     PMG written to PTFIRE for   2019193:200000
+     PMN written to PTFIRE for   2019193:200000
+     PNA written to PTFIRE for   2019193:200000
+     PNCOM written to PTFIRE for   2019193:200000
+     PNH4 written to PTFIRE for   2019193:200000
+     PSI written to PTFIRE for   2019193:200000
+     PTI written to PTFIRE for   2019193:200000
+     HFLUX written to PTFIRE for   2019193:200000
+     CO written to PTFIRE for   2019193:210000
+     NO written to PTFIRE for   2019193:210000
+     NO2 written to PTFIRE for   2019193:210000
+     SO2 written to PTFIRE for   2019193:210000
+     NH3 written to PTFIRE for   2019193:210000
+     PEC written to PTFIRE for   2019193:210000
+     POC written to PTFIRE for   2019193:210000
+     PMOTHR written to PTFIRE for   2019193:210000
+     PNO3 written to PTFIRE for   2019193:210000
+     PSO4 written to PTFIRE for   2019193:210000
+     PAL written to PTFIRE for   2019193:210000
+     PCA written to PTFIRE for   2019193:210000
+     PCL written to PTFIRE for   2019193:210000
+     PFE written to PTFIRE for   2019193:210000
+     PK written to PTFIRE for   2019193:210000
+     PMG written to PTFIRE for   2019193:210000
+     PMN written to PTFIRE for   2019193:210000
+     PNA written to PTFIRE for   2019193:210000
+     PNCOM written to PTFIRE for   2019193:210000
+     PNH4 written to PTFIRE for   2019193:210000
+     PSI written to PTFIRE for   2019193:210000
+     PTI written to PTFIRE for   2019193:210000
+     HFLUX written to PTFIRE for   2019193:210000
+     CO written to PTFIRE for   2019193:220000
+     NO written to PTFIRE for   2019193:220000
+     NO2 written to PTFIRE for   2019193:220000
+     SO2 written to PTFIRE for   2019193:220000
+     NH3 written to PTFIRE for   2019193:220000
+     PEC written to PTFIRE for   2019193:220000
+     POC written to PTFIRE for   2019193:220000
+     PMOTHR written to PTFIRE for   2019193:220000
+     PNO3 written to PTFIRE for   2019193:220000
+     PSO4 written to PTFIRE for   2019193:220000
+     PAL written to PTFIRE for   2019193:220000
+     PCA written to PTFIRE for   2019193:220000
+     PCL written to PTFIRE for   2019193:220000
+     PFE written to PTFIRE for   2019193:220000
+     PK written to PTFIRE for   2019193:220000
+     PMG written to PTFIRE for   2019193:220000
+     PMN written to PTFIRE for   2019193:220000
+     PNA written to PTFIRE for   2019193:220000
+     PNCOM written to PTFIRE for   2019193:220000
+     PNH4 written to PTFIRE for   2019193:220000
+     PSI written to PTFIRE for   2019193:220000
+     PTI written to PTFIRE for   2019193:220000
+     HFLUX written to PTFIRE for   2019193:220000
+     CO written to PTFIRE for   2019193:230000
+     NO written to PTFIRE for   2019193:230000
+     NO2 written to PTFIRE for   2019193:230000
+     SO2 written to PTFIRE for   2019193:230000
+     NH3 written to PTFIRE for   2019193:230000
+     PEC written to PTFIRE for   2019193:230000
+     POC written to PTFIRE for   2019193:230000
+     PMOTHR written to PTFIRE for   2019193:230000
+     PNO3 written to PTFIRE for   2019193:230000
+     PSO4 written to PTFIRE for   2019193:230000
+     PAL written to PTFIRE for   2019193:230000
+     PCA written to PTFIRE for   2019193:230000
+     PCL written to PTFIRE for   2019193:230000
+     PFE written to PTFIRE for   2019193:230000
+     PK written to PTFIRE for   2019193:230000
+     PMG written to PTFIRE for   2019193:230000
+     PMN written to PTFIRE for   2019193:230000
+     PNA written to PTFIRE for   2019193:230000
+     PNCOM written to PTFIRE for   2019193:230000
+     PNH4 written to PTFIRE for   2019193:230000
+     PSI written to PTFIRE for   2019193:230000
+     PTI written to PTFIRE for   2019193:230000
+     HFLUX written to PTFIRE for   2019193:230000
+     CO written to PTFIRE for   2019194:000000
+     NO written to PTFIRE for   2019194:000000
+     NO2 written to PTFIRE for   2019194:000000
+     SO2 written to PTFIRE for   2019194:000000
+     NH3 written to PTFIRE for   2019194:000000
+     PEC written to PTFIRE for   2019194:000000
+     POC written to PTFIRE for   2019194:000000
+     PMOTHR written to PTFIRE for   2019194:000000
+     PNO3 written to PTFIRE for   2019194:000000
+     PSO4 written to PTFIRE for   2019194:000000
+     PAL written to PTFIRE for   2019194:000000
+     PCA written to PTFIRE for   2019194:000000
+     PCL written to PTFIRE for   2019194:000000
+     PFE written to PTFIRE for   2019194:000000
+     PK written to PTFIRE for   2019194:000000
+     PMG written to PTFIRE for   2019194:000000
+     PMN written to PTFIRE for   2019194:000000
+     PNA written to PTFIRE for   2019194:000000
+     PNCOM written to PTFIRE for   2019194:000000
+     PNH4 written to PTFIRE for   2019194:000000
+     PSI written to PTFIRE for   2019194:000000
+     PTI written to PTFIRE for   2019194:000000
+     HFLUX written to PTFIRE for   2019194:000000
+     CO written to PTFIRE for   2019194:010000
+     NO written to PTFIRE for   2019194:010000
+     NO2 written to PTFIRE for   2019194:010000
+     SO2 written to PTFIRE for   2019194:010000
+     NH3 written to PTFIRE for   2019194:010000
+     PEC written to PTFIRE for   2019194:010000
+     POC written to PTFIRE for   2019194:010000
+     PMOTHR written to PTFIRE for   2019194:010000
+     PNO3 written to PTFIRE for   2019194:010000
+     PSO4 written to PTFIRE for   2019194:010000
+     PAL written to PTFIRE for   2019194:010000
+     PCA written to PTFIRE for   2019194:010000
+     PCL written to PTFIRE for   2019194:010000
+     PFE written to PTFIRE for   2019194:010000
+     PK written to PTFIRE for   2019194:010000
+     PMG written to PTFIRE for   2019194:010000
+     PMN written to PTFIRE for   2019194:010000
+     PNA written to PTFIRE for   2019194:010000
+     PNCOM written to PTFIRE for   2019194:010000
+     PNH4 written to PTFIRE for   2019194:010000
+     PSI written to PTFIRE for   2019194:010000
+     PTI written to PTFIRE for   2019194:010000
+     HFLUX written to PTFIRE for   2019194:010000
+     CO written to PTFIRE for   2019194:020000
+     NO written to PTFIRE for   2019194:020000
+     NO2 written to PTFIRE for   2019194:020000
+     SO2 written to PTFIRE for   2019194:020000
+     NH3 written to PTFIRE for   2019194:020000
+     PEC written to PTFIRE for   2019194:020000
+     POC written to PTFIRE for   2019194:020000
+     PMOTHR written to PTFIRE for   2019194:020000
+     PNO3 written to PTFIRE for   2019194:020000
+     PSO4 written to PTFIRE for   2019194:020000
+     PAL written to PTFIRE for   2019194:020000
+     PCA written to PTFIRE for   2019194:020000
+     PCL written to PTFIRE for   2019194:020000
+     PFE written to PTFIRE for   2019194:020000
+     PK written to PTFIRE for   2019194:020000
+     PMG written to PTFIRE for   2019194:020000
+     PMN written to PTFIRE for   2019194:020000
+     PNA written to PTFIRE for   2019194:020000
+     PNCOM written to PTFIRE for   2019194:020000
+     PNH4 written to PTFIRE for   2019194:020000
+     PSI written to PTFIRE for   2019194:020000
+     PTI written to PTFIRE for   2019194:020000
+     HFLUX written to PTFIRE for   2019194:020000
+     CO written to PTFIRE for   2019194:030000
+     NO written to PTFIRE for   2019194:030000
+     NO2 written to PTFIRE for   2019194:030000
+     SO2 written to PTFIRE for   2019194:030000
+     NH3 written to PTFIRE for   2019194:030000
+     PEC written to PTFIRE for   2019194:030000
+     POC written to PTFIRE for   2019194:030000
+     PMOTHR written to PTFIRE for   2019194:030000
+     PNO3 written to PTFIRE for   2019194:030000
+     PSO4 written to PTFIRE for   2019194:030000
+     PAL written to PTFIRE for   2019194:030000
+     PCA written to PTFIRE for   2019194:030000
+     PCL written to PTFIRE for   2019194:030000
+     PFE written to PTFIRE for   2019194:030000
+     PK written to PTFIRE for   2019194:030000
+     PMG written to PTFIRE for   2019194:030000
+     PMN written to PTFIRE for   2019194:030000
+     PNA written to PTFIRE for   2019194:030000
+     PNCOM written to PTFIRE for   2019194:030000
+     PNH4 written to PTFIRE for   2019194:030000
+     PSI written to PTFIRE for   2019194:030000
+     PTI written to PTFIRE for   2019194:030000
+     HFLUX written to PTFIRE for   2019194:030000
+     CO written to PTFIRE for   2019194:040000
+     NO written to PTFIRE for   2019194:040000
+     NO2 written to PTFIRE for   2019194:040000
+     SO2 written to PTFIRE for   2019194:040000
+     NH3 written to PTFIRE for   2019194:040000
+     PEC written to PTFIRE for   2019194:040000
+     POC written to PTFIRE for   2019194:040000
+     PMOTHR written to PTFIRE for   2019194:040000
+     PNO3 written to PTFIRE for   2019194:040000
+     PSO4 written to PTFIRE for   2019194:040000
+     PAL written to PTFIRE for   2019194:040000
+     PCA written to PTFIRE for   2019194:040000
+     PCL written to PTFIRE for   2019194:040000
+     PFE written to PTFIRE for   2019194:040000
+     PK written to PTFIRE for   2019194:040000
+     PMG written to PTFIRE for   2019194:040000
+     PMN written to PTFIRE for   2019194:040000
+     PNA written to PTFIRE for   2019194:040000
+     PNCOM written to PTFIRE for   2019194:040000
+     PNH4 written to PTFIRE for   2019194:040000
+     PSI written to PTFIRE for   2019194:040000
+     PTI written to PTFIRE for   2019194:040000
+     HFLUX written to PTFIRE for   2019194:040000
+     CO written to PTFIRE for   2019194:050000
+     NO written to PTFIRE for   2019194:050000
+     NO2 written to PTFIRE for   2019194:050000
+     SO2 written to PTFIRE for   2019194:050000
+     NH3 written to PTFIRE for   2019194:050000
+     PEC written to PTFIRE for   2019194:050000
+     POC written to PTFIRE for   2019194:050000
+     PMOTHR written to PTFIRE for   2019194:050000
+     PNO3 written to PTFIRE for   2019194:050000
+     PSO4 written to PTFIRE for   2019194:050000
+     PAL written to PTFIRE for   2019194:050000
+     PCA written to PTFIRE for   2019194:050000
+     PCL written to PTFIRE for   2019194:050000
+     PFE written to PTFIRE for   2019194:050000
+     PK written to PTFIRE for   2019194:050000
+     PMG written to PTFIRE for   2019194:050000
+     PMN written to PTFIRE for   2019194:050000
+     PNA written to PTFIRE for   2019194:050000
+     PNCOM written to PTFIRE for   2019194:050000
+     PNH4 written to PTFIRE for   2019194:050000
+     PSI written to PTFIRE for   2019194:050000
+     PTI written to PTFIRE for   2019194:050000
+     HFLUX written to PTFIRE for   2019194:050000
+     CO written to PTFIRE for   2019194:060000
+     NO written to PTFIRE for   2019194:060000
+     NO2 written to PTFIRE for   2019194:060000
+     SO2 written to PTFIRE for   2019194:060000
+     NH3 written to PTFIRE for   2019194:060000
+     PEC written to PTFIRE for   2019194:060000
+     POC written to PTFIRE for   2019194:060000
+     PMOTHR written to PTFIRE for   2019194:060000
+     PNO3 written to PTFIRE for   2019194:060000
+     PSO4 written to PTFIRE for   2019194:060000
+     PAL written to PTFIRE for   2019194:060000
+     PCA written to PTFIRE for   2019194:060000
+     PCL written to PTFIRE for   2019194:060000
+     PFE written to PTFIRE for   2019194:060000
+     PK written to PTFIRE for   2019194:060000
+     PMG written to PTFIRE for   2019194:060000
+     PMN written to PTFIRE for   2019194:060000
+     PNA written to PTFIRE for   2019194:060000
+     PNCOM written to PTFIRE for   2019194:060000
+     PNH4 written to PTFIRE for   2019194:060000
+     PSI written to PTFIRE for   2019194:060000
+     PTI written to PTFIRE for   2019194:060000
+     HFLUX written to PTFIRE for   2019194:060000
+     CO written to PTFIRE for   2019194:070000
+     NO written to PTFIRE for   2019194:070000
+     NO2 written to PTFIRE for   2019194:070000
+     SO2 written to PTFIRE for   2019194:070000
+     NH3 written to PTFIRE for   2019194:070000
+     PEC written to PTFIRE for   2019194:070000
+     POC written to PTFIRE for   2019194:070000
+     PMOTHR written to PTFIRE for   2019194:070000
+     PNO3 written to PTFIRE for   2019194:070000
+     PSO4 written to PTFIRE for   2019194:070000
+     PAL written to PTFIRE for   2019194:070000
+     PCA written to PTFIRE for   2019194:070000
+     PCL written to PTFIRE for   2019194:070000
+     PFE written to PTFIRE for   2019194:070000
+     PK written to PTFIRE for   2019194:070000
+     PMG written to PTFIRE for   2019194:070000
+     PMN written to PTFIRE for   2019194:070000
+     PNA written to PTFIRE for   2019194:070000
+     PNCOM written to PTFIRE for   2019194:070000
+     PNH4 written to PTFIRE for   2019194:070000
+     PSI written to PTFIRE for   2019194:070000
+     PTI written to PTFIRE for   2019194:070000
+     HFLUX written to PTFIRE for   2019194:070000
+     CO written to PTFIRE for   2019194:080000
+     NO written to PTFIRE for   2019194:080000
+     NO2 written to PTFIRE for   2019194:080000
+     SO2 written to PTFIRE for   2019194:080000
+     NH3 written to PTFIRE for   2019194:080000
+     PEC written to PTFIRE for   2019194:080000
+     POC written to PTFIRE for   2019194:080000
+     PMOTHR written to PTFIRE for   2019194:080000
+     PNO3 written to PTFIRE for   2019194:080000
+     PSO4 written to PTFIRE for   2019194:080000
+     PAL written to PTFIRE for   2019194:080000
+     PCA written to PTFIRE for   2019194:080000
+     PCL written to PTFIRE for   2019194:080000
+     PFE written to PTFIRE for   2019194:080000
+     PK written to PTFIRE for   2019194:080000
+     PMG written to PTFIRE for   2019194:080000
+     PMN written to PTFIRE for   2019194:080000
+     PNA written to PTFIRE for   2019194:080000
+     PNCOM written to PTFIRE for   2019194:080000
+     PNH4 written to PTFIRE for   2019194:080000
+     PSI written to PTFIRE for   2019194:080000
+     PTI written to PTFIRE for   2019194:080000
+     HFLUX written to PTFIRE for   2019194:080000
+     CO written to PTFIRE for   2019194:090000
+     NO written to PTFIRE for   2019194:090000
+     NO2 written to PTFIRE for   2019194:090000
+     SO2 written to PTFIRE for   2019194:090000
+     NH3 written to PTFIRE for   2019194:090000
+     PEC written to PTFIRE for   2019194:090000
+     POC written to PTFIRE for   2019194:090000
+     PMOTHR written to PTFIRE for   2019194:090000
+     PNO3 written to PTFIRE for   2019194:090000
+     PSO4 written to PTFIRE for   2019194:090000
+     PAL written to PTFIRE for   2019194:090000
+     PCA written to PTFIRE for   2019194:090000
+     PCL written to PTFIRE for   2019194:090000
+     PFE written to PTFIRE for   2019194:090000
+     PK written to PTFIRE for   2019194:090000
+     PMG written to PTFIRE for   2019194:090000
+     PMN written to PTFIRE for   2019194:090000
+     PNA written to PTFIRE for   2019194:090000
+     PNCOM written to PTFIRE for   2019194:090000
+     PNH4 written to PTFIRE for   2019194:090000
+     PSI written to PTFIRE for   2019194:090000
+     PTI written to PTFIRE for   2019194:090000
+     HFLUX written to PTFIRE for   2019194:090000
+     CO written to PTFIRE for   2019194:100000
+     NO written to PTFIRE for   2019194:100000
+     NO2 written to PTFIRE for   2019194:100000
+     SO2 written to PTFIRE for   2019194:100000
+     NH3 written to PTFIRE for   2019194:100000
+     PEC written to PTFIRE for   2019194:100000
+     POC written to PTFIRE for   2019194:100000
+     PMOTHR written to PTFIRE for   2019194:100000
+     PNO3 written to PTFIRE for   2019194:100000
+     PSO4 written to PTFIRE for   2019194:100000
+     PAL written to PTFIRE for   2019194:100000
+     PCA written to PTFIRE for   2019194:100000
+     PCL written to PTFIRE for   2019194:100000
+     PFE written to PTFIRE for   2019194:100000
+     PK written to PTFIRE for   2019194:100000
+     PMG written to PTFIRE for   2019194:100000
+     PMN written to PTFIRE for   2019194:100000
+     PNA written to PTFIRE for   2019194:100000
+     PNCOM written to PTFIRE for   2019194:100000
+     PNH4 written to PTFIRE for   2019194:100000
+     PSI written to PTFIRE for   2019194:100000
+     PTI written to PTFIRE for   2019194:100000
+     HFLUX written to PTFIRE for   2019194:100000
+     CO written to PTFIRE for   2019194:110000
+     NO written to PTFIRE for   2019194:110000
+     NO2 written to PTFIRE for   2019194:110000
+     SO2 written to PTFIRE for   2019194:110000
+     NH3 written to PTFIRE for   2019194:110000
+     PEC written to PTFIRE for   2019194:110000
+     POC written to PTFIRE for   2019194:110000
+     PMOTHR written to PTFIRE for   2019194:110000
+     PNO3 written to PTFIRE for   2019194:110000
+     PSO4 written to PTFIRE for   2019194:110000
+     PAL written to PTFIRE for   2019194:110000
+     PCA written to PTFIRE for   2019194:110000
+     PCL written to PTFIRE for   2019194:110000
+     PFE written to PTFIRE for   2019194:110000
+     PK written to PTFIRE for   2019194:110000
+     PMG written to PTFIRE for   2019194:110000
+     PMN written to PTFIRE for   2019194:110000
+     PNA written to PTFIRE for   2019194:110000
+     PNCOM written to PTFIRE for   2019194:110000
+     PNH4 written to PTFIRE for   2019194:110000
+     PSI written to PTFIRE for   2019194:110000
+     PTI written to PTFIRE for   2019194:110000
+     HFLUX written to PTFIRE for   2019194:110000
+     CO written to PTFIRE for   2019194:120000
+     NO written to PTFIRE for   2019194:120000
+     NO2 written to PTFIRE for   2019194:120000
+     SO2 written to PTFIRE for   2019194:120000
+     NH3 written to PTFIRE for   2019194:120000
+     PEC written to PTFIRE for   2019194:120000
+     POC written to PTFIRE for   2019194:120000
+     PMOTHR written to PTFIRE for   2019194:120000
+     PNO3 written to PTFIRE for   2019194:120000
+     PSO4 written to PTFIRE for   2019194:120000
+     PAL written to PTFIRE for   2019194:120000
+     PCA written to PTFIRE for   2019194:120000
+     PCL written to PTFIRE for   2019194:120000
+     PFE written to PTFIRE for   2019194:120000
+     PK written to PTFIRE for   2019194:120000
+     PMG written to PTFIRE for   2019194:120000
+     PMN written to PTFIRE for   2019194:120000
+     PNA written to PTFIRE for   2019194:120000
+     PNCOM written to PTFIRE for   2019194:120000
+     PNH4 written to PTFIRE for   2019194:120000
+     PSI written to PTFIRE for   2019194:120000
+     PTI written to PTFIRE for   2019194:120000
+     HFLUX written to PTFIRE for   2019194:120000
+     CO written to PTFIRE for   2019194:130000
+     NO written to PTFIRE for   2019194:130000
+     NO2 written to PTFIRE for   2019194:130000
+     SO2 written to PTFIRE for   2019194:130000
+     NH3 written to PTFIRE for   2019194:130000
+     PEC written to PTFIRE for   2019194:130000
+     POC written to PTFIRE for   2019194:130000
+     PMOTHR written to PTFIRE for   2019194:130000
+     PNO3 written to PTFIRE for   2019194:130000
+     PSO4 written to PTFIRE for   2019194:130000
+     PAL written to PTFIRE for   2019194:130000
+     PCA written to PTFIRE for   2019194:130000
+     PCL written to PTFIRE for   2019194:130000
+     PFE written to PTFIRE for   2019194:130000
+     PK written to PTFIRE for   2019194:130000
+     PMG written to PTFIRE for   2019194:130000
+     PMN written to PTFIRE for   2019194:130000
+     PNA written to PTFIRE for   2019194:130000
+     PNCOM written to PTFIRE for   2019194:130000
+     PNH4 written to PTFIRE for   2019194:130000
+     PSI written to PTFIRE for   2019194:130000
+     PTI written to PTFIRE for   2019194:130000
+     HFLUX written to PTFIRE for   2019194:130000
+     CO written to PTFIRE for   2019194:140000
+     NO written to PTFIRE for   2019194:140000
+     NO2 written to PTFIRE for   2019194:140000
+     SO2 written to PTFIRE for   2019194:140000
+     NH3 written to PTFIRE for   2019194:140000
+     PEC written to PTFIRE for   2019194:140000
+     POC written to PTFIRE for   2019194:140000
+     PMOTHR written to PTFIRE for   2019194:140000
+     PNO3 written to PTFIRE for   2019194:140000
+     PSO4 written to PTFIRE for   2019194:140000
+     PAL written to PTFIRE for   2019194:140000
+     PCA written to PTFIRE for   2019194:140000
+     PCL written to PTFIRE for   2019194:140000
+     PFE written to PTFIRE for   2019194:140000
+     PK written to PTFIRE for   2019194:140000
+     PMG written to PTFIRE for   2019194:140000
+     PMN written to PTFIRE for   2019194:140000
+     PNA written to PTFIRE for   2019194:140000
+     PNCOM written to PTFIRE for   2019194:140000
+     PNH4 written to PTFIRE for   2019194:140000
+     PSI written to PTFIRE for   2019194:140000
+     PTI written to PTFIRE for   2019194:140000
+     HFLUX written to PTFIRE for   2019194:140000
+     CO written to PTFIRE for   2019194:150000
+     NO written to PTFIRE for   2019194:150000
+     NO2 written to PTFIRE for   2019194:150000
+     SO2 written to PTFIRE for   2019194:150000
+     NH3 written to PTFIRE for   2019194:150000
+     PEC written to PTFIRE for   2019194:150000
+     POC written to PTFIRE for   2019194:150000
+     PMOTHR written to PTFIRE for   2019194:150000
+     PNO3 written to PTFIRE for   2019194:150000
+     PSO4 written to PTFIRE for   2019194:150000
+     PAL written to PTFIRE for   2019194:150000
+     PCA written to PTFIRE for   2019194:150000
+     PCL written to PTFIRE for   2019194:150000
+     PFE written to PTFIRE for   2019194:150000
+     PK written to PTFIRE for   2019194:150000
+     PMG written to PTFIRE for   2019194:150000
+     PMN written to PTFIRE for   2019194:150000
+     PNA written to PTFIRE for   2019194:150000
+     PNCOM written to PTFIRE for   2019194:150000
+     PNH4 written to PTFIRE for   2019194:150000
+     PSI written to PTFIRE for   2019194:150000
+     PTI written to PTFIRE for   2019194:150000
+     HFLUX written to PTFIRE for   2019194:150000
+     CO written to PTFIRE for   2019194:160000
+     NO written to PTFIRE for   2019194:160000
+     NO2 written to PTFIRE for   2019194:160000
+     SO2 written to PTFIRE for   2019194:160000
+     NH3 written to PTFIRE for   2019194:160000
+     PEC written to PTFIRE for   2019194:160000
+     POC written to PTFIRE for   2019194:160000
+     PMOTHR written to PTFIRE for   2019194:160000
+     PNO3 written to PTFIRE for   2019194:160000
+     PSO4 written to PTFIRE for   2019194:160000
+     PAL written to PTFIRE for   2019194:160000
+     PCA written to PTFIRE for   2019194:160000
+     PCL written to PTFIRE for   2019194:160000
+     PFE written to PTFIRE for   2019194:160000
+     PK written to PTFIRE for   2019194:160000
+     PMG written to PTFIRE for   2019194:160000
+     PMN written to PTFIRE for   2019194:160000
+     PNA written to PTFIRE for   2019194:160000
+     PNCOM written to PTFIRE for   2019194:160000
+     PNH4 written to PTFIRE for   2019194:160000
+     PSI written to PTFIRE for   2019194:160000
+     PTI written to PTFIRE for   2019194:160000
+     HFLUX written to PTFIRE for   2019194:160000
+     CO written to PTFIRE for   2019194:170000
+     NO written to PTFIRE for   2019194:170000
+     NO2 written to PTFIRE for   2019194:170000
+     SO2 written to PTFIRE for   2019194:170000
+     NH3 written to PTFIRE for   2019194:170000
+     PEC written to PTFIRE for   2019194:170000
+     POC written to PTFIRE for   2019194:170000
+     PMOTHR written to PTFIRE for   2019194:170000
+     PNO3 written to PTFIRE for   2019194:170000
+     PSO4 written to PTFIRE for   2019194:170000
+     PAL written to PTFIRE for   2019194:170000
+     PCA written to PTFIRE for   2019194:170000
+     PCL written to PTFIRE for   2019194:170000
+     PFE written to PTFIRE for   2019194:170000
+     PK written to PTFIRE for   2019194:170000
+     PMG written to PTFIRE for   2019194:170000
+     PMN written to PTFIRE for   2019194:170000
+     PNA written to PTFIRE for   2019194:170000
+     PNCOM written to PTFIRE for   2019194:170000
+     PNH4 written to PTFIRE for   2019194:170000
+     PSI written to PTFIRE for   2019194:170000
+     PTI written to PTFIRE for   2019194:170000
+     HFLUX written to PTFIRE for   2019194:170000
+     CO written to PTFIRE for   2019194:180000
+     NO written to PTFIRE for   2019194:180000
+     NO2 written to PTFIRE for   2019194:180000
+     SO2 written to PTFIRE for   2019194:180000
+     NH3 written to PTFIRE for   2019194:180000
+     PEC written to PTFIRE for   2019194:180000
+     POC written to PTFIRE for   2019194:180000
+     PMOTHR written to PTFIRE for   2019194:180000
+     PNO3 written to PTFIRE for   2019194:180000
+     PSO4 written to PTFIRE for   2019194:180000
+     PAL written to PTFIRE for   2019194:180000
+     PCA written to PTFIRE for   2019194:180000
+     PCL written to PTFIRE for   2019194:180000
+     PFE written to PTFIRE for   2019194:180000
+     PK written to PTFIRE for   2019194:180000
+     PMG written to PTFIRE for   2019194:180000
+     PMN written to PTFIRE for   2019194:180000
+     PNA written to PTFIRE for   2019194:180000
+     PNCOM written to PTFIRE for   2019194:180000
+     PNH4 written to PTFIRE for   2019194:180000
+     PSI written to PTFIRE for   2019194:180000
+     PTI written to PTFIRE for   2019194:180000
+     HFLUX written to PTFIRE for   2019194:180000
+     CO written to PTFIRE for   2019194:190000
+     NO written to PTFIRE for   2019194:190000
+     NO2 written to PTFIRE for   2019194:190000
+     SO2 written to PTFIRE for   2019194:190000
+     NH3 written to PTFIRE for   2019194:190000
+     PEC written to PTFIRE for   2019194:190000
+     POC written to PTFIRE for   2019194:190000
+     PMOTHR written to PTFIRE for   2019194:190000
+     PNO3 written to PTFIRE for   2019194:190000
+     PSO4 written to PTFIRE for   2019194:190000
+     PAL written to PTFIRE for   2019194:190000
+     PCA written to PTFIRE for   2019194:190000
+     PCL written to PTFIRE for   2019194:190000
+     PFE written to PTFIRE for   2019194:190000
+     PK written to PTFIRE for   2019194:190000
+     PMG written to PTFIRE for   2019194:190000
+     PMN written to PTFIRE for   2019194:190000
+     PNA written to PTFIRE for   2019194:190000
+     PNCOM written to PTFIRE for   2019194:190000
+     PNH4 written to PTFIRE for   2019194:190000
+     PSI written to PTFIRE for   2019194:190000
+     PTI written to PTFIRE for   2019194:190000
+     HFLUX written to PTFIRE for   2019194:190000
+     CO written to PTFIRE for   2019194:200000
+     NO written to PTFIRE for   2019194:200000
+     NO2 written to PTFIRE for   2019194:200000
+     SO2 written to PTFIRE for   2019194:200000
+     NH3 written to PTFIRE for   2019194:200000
+     PEC written to PTFIRE for   2019194:200000
+     POC written to PTFIRE for   2019194:200000
+     PMOTHR written to PTFIRE for   2019194:200000
+     PNO3 written to PTFIRE for   2019194:200000
+     PSO4 written to PTFIRE for   2019194:200000
+     PAL written to PTFIRE for   2019194:200000
+     PCA written to PTFIRE for   2019194:200000
+     PCL written to PTFIRE for   2019194:200000
+     PFE written to PTFIRE for   2019194:200000
+     PK written to PTFIRE for   2019194:200000
+     PMG written to PTFIRE for   2019194:200000
+     PMN written to PTFIRE for   2019194:200000
+     PNA written to PTFIRE for   2019194:200000
+     PNCOM written to PTFIRE for   2019194:200000
+     PNH4 written to PTFIRE for   2019194:200000
+     PSI written to PTFIRE for   2019194:200000
+     PTI written to PTFIRE for   2019194:200000
+     HFLUX written to PTFIRE for   2019194:200000
+     CO written to PTFIRE for   2019194:210000
+     NO written to PTFIRE for   2019194:210000
+     NO2 written to PTFIRE for   2019194:210000
+     SO2 written to PTFIRE for   2019194:210000
+     NH3 written to PTFIRE for   2019194:210000
+     PEC written to PTFIRE for   2019194:210000
+     POC written to PTFIRE for   2019194:210000
+     PMOTHR written to PTFIRE for   2019194:210000
+     PNO3 written to PTFIRE for   2019194:210000
+     PSO4 written to PTFIRE for   2019194:210000
+     PAL written to PTFIRE for   2019194:210000
+     PCA written to PTFIRE for   2019194:210000
+     PCL written to PTFIRE for   2019194:210000
+     PFE written to PTFIRE for   2019194:210000
+     PK written to PTFIRE for   2019194:210000
+     PMG written to PTFIRE for   2019194:210000
+     PMN written to PTFIRE for   2019194:210000
+     PNA written to PTFIRE for   2019194:210000
+     PNCOM written to PTFIRE for   2019194:210000
+     PNH4 written to PTFIRE for   2019194:210000
+     PSI written to PTFIRE for   2019194:210000
+     PTI written to PTFIRE for   2019194:210000
+     HFLUX written to PTFIRE for   2019194:210000
+     CO written to PTFIRE for   2019194:220000
+     NO written to PTFIRE for   2019194:220000
+     NO2 written to PTFIRE for   2019194:220000
+     SO2 written to PTFIRE for   2019194:220000
+     NH3 written to PTFIRE for   2019194:220000
+     PEC written to PTFIRE for   2019194:220000
+     POC written to PTFIRE for   2019194:220000
+     PMOTHR written to PTFIRE for   2019194:220000
+     PNO3 written to PTFIRE for   2019194:220000
+     PSO4 written to PTFIRE for   2019194:220000
+     PAL written to PTFIRE for   2019194:220000
+     PCA written to PTFIRE for   2019194:220000
+     PCL written to PTFIRE for   2019194:220000
+     PFE written to PTFIRE for   2019194:220000
+     PK written to PTFIRE for   2019194:220000
+     PMG written to PTFIRE for   2019194:220000
+     PMN written to PTFIRE for   2019194:220000
+     PNA written to PTFIRE for   2019194:220000
+     PNCOM written to PTFIRE for   2019194:220000
+     PNH4 written to PTFIRE for   2019194:220000
+     PSI written to PTFIRE for   2019194:220000
+     PTI written to PTFIRE for   2019194:220000
+     HFLUX written to PTFIRE for   2019194:220000
+     CO written to PTFIRE for   2019194:230000
+     NO written to PTFIRE for   2019194:230000
+     NO2 written to PTFIRE for   2019194:230000
+     SO2 written to PTFIRE for   2019194:230000
+     NH3 written to PTFIRE for   2019194:230000
+     PEC written to PTFIRE for   2019194:230000
+     POC written to PTFIRE for   2019194:230000
+     PMOTHR written to PTFIRE for   2019194:230000
+     PNO3 written to PTFIRE for   2019194:230000
+     PSO4 written to PTFIRE for   2019194:230000
+     PAL written to PTFIRE for   2019194:230000
+     PCA written to PTFIRE for   2019194:230000
+     PCL written to PTFIRE for   2019194:230000
+     PFE written to PTFIRE for   2019194:230000
+     PK written to PTFIRE for   2019194:230000
+     PMG written to PTFIRE for   2019194:230000
+     PMN written to PTFIRE for   2019194:230000
+     PNA written to PTFIRE for   2019194:230000
+     PNCOM written to PTFIRE for   2019194:230000
+     PNH4 written to PTFIRE for   2019194:230000
+     PSI written to PTFIRE for   2019194:230000
+     PTI written to PTFIRE for   2019194:230000
+     HFLUX written to PTFIRE for   2019194:230000
+     CO written to PTFIRE for   2019195:000000
+     NO written to PTFIRE for   2019195:000000
+     NO2 written to PTFIRE for   2019195:000000
+     SO2 written to PTFIRE for   2019195:000000
+     NH3 written to PTFIRE for   2019195:000000
+     PEC written to PTFIRE for   2019195:000000
+     POC written to PTFIRE for   2019195:000000
+     PMOTHR written to PTFIRE for   2019195:000000
+     PNO3 written to PTFIRE for   2019195:000000
+     PSO4 written to PTFIRE for   2019195:000000
+     PAL written to PTFIRE for   2019195:000000
+     PCA written to PTFIRE for   2019195:000000
+     PCL written to PTFIRE for   2019195:000000
+     PFE written to PTFIRE for   2019195:000000
+     PK written to PTFIRE for   2019195:000000
+     PMG written to PTFIRE for   2019195:000000
+     PMN written to PTFIRE for   2019195:000000
+     PNA written to PTFIRE for   2019195:000000
+     PNCOM written to PTFIRE for   2019195:000000
+     PNH4 written to PTFIRE for   2019195:000000
+     PSI written to PTFIRE for   2019195:000000
+     PTI written to PTFIRE for   2019195:000000
+     HFLUX written to PTFIRE for   2019195:000000
+     CO written to PTFIRE for   2019195:010000
+     NO written to PTFIRE for   2019195:010000
+     NO2 written to PTFIRE for   2019195:010000
+     SO2 written to PTFIRE for   2019195:010000
+     NH3 written to PTFIRE for   2019195:010000
+     PEC written to PTFIRE for   2019195:010000
+     POC written to PTFIRE for   2019195:010000
+     PMOTHR written to PTFIRE for   2019195:010000
+     PNO3 written to PTFIRE for   2019195:010000
+     PSO4 written to PTFIRE for   2019195:010000
+     PAL written to PTFIRE for   2019195:010000
+     PCA written to PTFIRE for   2019195:010000
+     PCL written to PTFIRE for   2019195:010000
+     PFE written to PTFIRE for   2019195:010000
+     PK written to PTFIRE for   2019195:010000
+     PMG written to PTFIRE for   2019195:010000
+     PMN written to PTFIRE for   2019195:010000
+     PNA written to PTFIRE for   2019195:010000
+     PNCOM written to PTFIRE for   2019195:010000
+     PNH4 written to PTFIRE for   2019195:010000
+     PSI written to PTFIRE for   2019195:010000
+     PTI written to PTFIRE for   2019195:010000
+     HFLUX written to PTFIRE for   2019195:010000
+     CO written to PTFIRE for   2019195:020000
+     NO written to PTFIRE for   2019195:020000
+     NO2 written to PTFIRE for   2019195:020000
+     SO2 written to PTFIRE for   2019195:020000
+     NH3 written to PTFIRE for   2019195:020000
+     PEC written to PTFIRE for   2019195:020000
+     POC written to PTFIRE for   2019195:020000
+     PMOTHR written to PTFIRE for   2019195:020000
+     PNO3 written to PTFIRE for   2019195:020000
+     PSO4 written to PTFIRE for   2019195:020000
+     PAL written to PTFIRE for   2019195:020000
+     PCA written to PTFIRE for   2019195:020000
+     PCL written to PTFIRE for   2019195:020000
+     PFE written to PTFIRE for   2019195:020000
+     PK written to PTFIRE for   2019195:020000
+     PMG written to PTFIRE for   2019195:020000
+     PMN written to PTFIRE for   2019195:020000
+     PNA written to PTFIRE for   2019195:020000
+     PNCOM written to PTFIRE for   2019195:020000
+     PNH4 written to PTFIRE for   2019195:020000
+     PSI written to PTFIRE for   2019195:020000
+     PTI written to PTFIRE for   2019195:020000
+     HFLUX written to PTFIRE for   2019195:020000
+     CO written to PTFIRE for   2019195:030000
+     NO written to PTFIRE for   2019195:030000
+     NO2 written to PTFIRE for   2019195:030000
+     SO2 written to PTFIRE for   2019195:030000
+     NH3 written to PTFIRE for   2019195:030000
+     PEC written to PTFIRE for   2019195:030000
+     POC written to PTFIRE for   2019195:030000
+     PMOTHR written to PTFIRE for   2019195:030000
+     PNO3 written to PTFIRE for   2019195:030000
+     PSO4 written to PTFIRE for   2019195:030000
+     PAL written to PTFIRE for   2019195:030000
+     PCA written to PTFIRE for   2019195:030000
+     PCL written to PTFIRE for   2019195:030000
+     PFE written to PTFIRE for   2019195:030000
+     PK written to PTFIRE for   2019195:030000
+     PMG written to PTFIRE for   2019195:030000
+     PMN written to PTFIRE for   2019195:030000
+     PNA written to PTFIRE for   2019195:030000
+     PNCOM written to PTFIRE for   2019195:030000
+     PNH4 written to PTFIRE for   2019195:030000
+     PSI written to PTFIRE for   2019195:030000
+     PTI written to PTFIRE for   2019195:030000
+     HFLUX written to PTFIRE for   2019195:030000
+     CO written to PTFIRE for   2019195:040000
+     NO written to PTFIRE for   2019195:040000
+     NO2 written to PTFIRE for   2019195:040000
+     SO2 written to PTFIRE for   2019195:040000
+     NH3 written to PTFIRE for   2019195:040000
+     PEC written to PTFIRE for   2019195:040000
+     POC written to PTFIRE for   2019195:040000
+     PMOTHR written to PTFIRE for   2019195:040000
+     PNO3 written to PTFIRE for   2019195:040000
+     PSO4 written to PTFIRE for   2019195:040000
+     PAL written to PTFIRE for   2019195:040000
+     PCA written to PTFIRE for   2019195:040000
+     PCL written to PTFIRE for   2019195:040000
+     PFE written to PTFIRE for   2019195:040000
+     PK written to PTFIRE for   2019195:040000
+     PMG written to PTFIRE for   2019195:040000
+     PMN written to PTFIRE for   2019195:040000
+     PNA written to PTFIRE for   2019195:040000
+     PNCOM written to PTFIRE for   2019195:040000
+     PNH4 written to PTFIRE for   2019195:040000
+     PSI written to PTFIRE for   2019195:040000
+     PTI written to PTFIRE for   2019195:040000
+     HFLUX written to PTFIRE for   2019195:040000
+     CO written to PTFIRE for   2019195:050000
+     NO written to PTFIRE for   2019195:050000
+     NO2 written to PTFIRE for   2019195:050000
+     SO2 written to PTFIRE for   2019195:050000
+     NH3 written to PTFIRE for   2019195:050000
+     PEC written to PTFIRE for   2019195:050000
+     POC written to PTFIRE for   2019195:050000
+     PMOTHR written to PTFIRE for   2019195:050000
+     PNO3 written to PTFIRE for   2019195:050000
+     PSO4 written to PTFIRE for   2019195:050000
+     PAL written to PTFIRE for   2019195:050000
+     PCA written to PTFIRE for   2019195:050000
+     PCL written to PTFIRE for   2019195:050000
+     PFE written to PTFIRE for   2019195:050000
+     PK written to PTFIRE for   2019195:050000
+     PMG written to PTFIRE for   2019195:050000
+     PMN written to PTFIRE for   2019195:050000
+     PNA written to PTFIRE for   2019195:050000
+     PNCOM written to PTFIRE for   2019195:050000
+     PNH4 written to PTFIRE for   2019195:050000
+     PSI written to PTFIRE for   2019195:050000
+     PTI written to PTFIRE for   2019195:050000
+     HFLUX written to PTFIRE for   2019195:050000
+     CO written to PTFIRE for   2019195:060000
+     NO written to PTFIRE for   2019195:060000
+     NO2 written to PTFIRE for   2019195:060000
+     SO2 written to PTFIRE for   2019195:060000
+     NH3 written to PTFIRE for   2019195:060000
+     PEC written to PTFIRE for   2019195:060000
+     POC written to PTFIRE for   2019195:060000
+     PMOTHR written to PTFIRE for   2019195:060000
+     PNO3 written to PTFIRE for   2019195:060000
+     PSO4 written to PTFIRE for   2019195:060000
+     PAL written to PTFIRE for   2019195:060000
+     PCA written to PTFIRE for   2019195:060000
+     PCL written to PTFIRE for   2019195:060000
+     PFE written to PTFIRE for   2019195:060000
+     PK written to PTFIRE for   2019195:060000
+     PMG written to PTFIRE for   2019195:060000
+     PMN written to PTFIRE for   2019195:060000
+     PNA written to PTFIRE for   2019195:060000
+     PNCOM written to PTFIRE for   2019195:060000
+     PNH4 written to PTFIRE for   2019195:060000
+     PSI written to PTFIRE for   2019195:060000
+     PTI written to PTFIRE for   2019195:060000
+     HFLUX written to PTFIRE for   2019195:060000
+     CO written to PTFIRE for   2019195:070000
+     NO written to PTFIRE for   2019195:070000
+     NO2 written to PTFIRE for   2019195:070000
+     SO2 written to PTFIRE for   2019195:070000
+     NH3 written to PTFIRE for   2019195:070000
+     PEC written to PTFIRE for   2019195:070000
+     POC written to PTFIRE for   2019195:070000
+     PMOTHR written to PTFIRE for   2019195:070000
+     PNO3 written to PTFIRE for   2019195:070000
+     PSO4 written to PTFIRE for   2019195:070000
+     PAL written to PTFIRE for   2019195:070000
+     PCA written to PTFIRE for   2019195:070000
+     PCL written to PTFIRE for   2019195:070000
+     PFE written to PTFIRE for   2019195:070000
+     PK written to PTFIRE for   2019195:070000
+     PMG written to PTFIRE for   2019195:070000
+     PMN written to PTFIRE for   2019195:070000
+     PNA written to PTFIRE for   2019195:070000
+     PNCOM written to PTFIRE for   2019195:070000
+     PNH4 written to PTFIRE for   2019195:070000
+     PSI written to PTFIRE for   2019195:070000
+     PTI written to PTFIRE for   2019195:070000
+     HFLUX written to PTFIRE for   2019195:070000
+     CO written to PTFIRE for   2019195:080000
+     NO written to PTFIRE for   2019195:080000
+     NO2 written to PTFIRE for   2019195:080000
+     SO2 written to PTFIRE for   2019195:080000
+     NH3 written to PTFIRE for   2019195:080000
+     PEC written to PTFIRE for   2019195:080000
+     POC written to PTFIRE for   2019195:080000
+     PMOTHR written to PTFIRE for   2019195:080000
+     PNO3 written to PTFIRE for   2019195:080000
+     PSO4 written to PTFIRE for   2019195:080000
+     PAL written to PTFIRE for   2019195:080000
+     PCA written to PTFIRE for   2019195:080000
+     PCL written to PTFIRE for   2019195:080000
+     PFE written to PTFIRE for   2019195:080000
+     PK written to PTFIRE for   2019195:080000
+     PMG written to PTFIRE for   2019195:080000
+     PMN written to PTFIRE for   2019195:080000
+     PNA written to PTFIRE for   2019195:080000
+     PNCOM written to PTFIRE for   2019195:080000
+     PNH4 written to PTFIRE for   2019195:080000
+     PSI written to PTFIRE for   2019195:080000
+     PTI written to PTFIRE for   2019195:080000
+     HFLUX written to PTFIRE for   2019195:080000
+     CO written to PTFIRE for   2019195:090000
+     NO written to PTFIRE for   2019195:090000
+     NO2 written to PTFIRE for   2019195:090000
+     SO2 written to PTFIRE for   2019195:090000
+     NH3 written to PTFIRE for   2019195:090000
+     PEC written to PTFIRE for   2019195:090000
+     POC written to PTFIRE for   2019195:090000
+     PMOTHR written to PTFIRE for   2019195:090000
+     PNO3 written to PTFIRE for   2019195:090000
+     PSO4 written to PTFIRE for   2019195:090000
+     PAL written to PTFIRE for   2019195:090000
+     PCA written to PTFIRE for   2019195:090000
+     PCL written to PTFIRE for   2019195:090000
+     PFE written to PTFIRE for   2019195:090000
+     PK written to PTFIRE for   2019195:090000
+     PMG written to PTFIRE for   2019195:090000
+     PMN written to PTFIRE for   2019195:090000
+     PNA written to PTFIRE for   2019195:090000
+     PNCOM written to PTFIRE for   2019195:090000
+     PNH4 written to PTFIRE for   2019195:090000
+     PSI written to PTFIRE for   2019195:090000
+     PTI written to PTFIRE for   2019195:090000
+     HFLUX written to PTFIRE for   2019195:090000
+     CO written to PTFIRE for   2019195:100000
+     NO written to PTFIRE for   2019195:100000
+     NO2 written to PTFIRE for   2019195:100000
+     SO2 written to PTFIRE for   2019195:100000
+     NH3 written to PTFIRE for   2019195:100000
+     PEC written to PTFIRE for   2019195:100000
+     POC written to PTFIRE for   2019195:100000
+     PMOTHR written to PTFIRE for   2019195:100000
+     PNO3 written to PTFIRE for   2019195:100000
+     PSO4 written to PTFIRE for   2019195:100000
+     PAL written to PTFIRE for   2019195:100000
+     PCA written to PTFIRE for   2019195:100000
+     PCL written to PTFIRE for   2019195:100000
+     PFE written to PTFIRE for   2019195:100000
+     PK written to PTFIRE for   2019195:100000
+     PMG written to PTFIRE for   2019195:100000
+     PMN written to PTFIRE for   2019195:100000
+     PNA written to PTFIRE for   2019195:100000
+     PNCOM written to PTFIRE for   2019195:100000
+     PNH4 written to PTFIRE for   2019195:100000
+     PSI written to PTFIRE for   2019195:100000
+     PTI written to PTFIRE for   2019195:100000
+     HFLUX written to PTFIRE for   2019195:100000
+     CO written to PTFIRE for   2019195:110000
+     NO written to PTFIRE for   2019195:110000
+     NO2 written to PTFIRE for   2019195:110000
+     SO2 written to PTFIRE for   2019195:110000
+     NH3 written to PTFIRE for   2019195:110000
+     PEC written to PTFIRE for   2019195:110000
+     POC written to PTFIRE for   2019195:110000
+     PMOTHR written to PTFIRE for   2019195:110000
+     PNO3 written to PTFIRE for   2019195:110000
+     PSO4 written to PTFIRE for   2019195:110000
+     PAL written to PTFIRE for   2019195:110000
+     PCA written to PTFIRE for   2019195:110000
+     PCL written to PTFIRE for   2019195:110000
+     PFE written to PTFIRE for   2019195:110000
+     PK written to PTFIRE for   2019195:110000
+     PMG written to PTFIRE for   2019195:110000
+     PMN written to PTFIRE for   2019195:110000
+     PNA written to PTFIRE for   2019195:110000
+     PNCOM written to PTFIRE for   2019195:110000
+     PNH4 written to PTFIRE for   2019195:110000
+     PSI written to PTFIRE for   2019195:110000
+     PTI written to PTFIRE for   2019195:110000
+     HFLUX written to PTFIRE for   2019195:110000
+     CO written to PTFIRE for   2019195:120000
+     NO written to PTFIRE for   2019195:120000
+     NO2 written to PTFIRE for   2019195:120000
+     SO2 written to PTFIRE for   2019195:120000
+     NH3 written to PTFIRE for   2019195:120000
+     PEC written to PTFIRE for   2019195:120000
+     POC written to PTFIRE for   2019195:120000
+     PMOTHR written to PTFIRE for   2019195:120000
+     PNO3 written to PTFIRE for   2019195:120000
+     PSO4 written to PTFIRE for   2019195:120000
+     PAL written to PTFIRE for   2019195:120000
+     PCA written to PTFIRE for   2019195:120000
+     PCL written to PTFIRE for   2019195:120000
+     PFE written to PTFIRE for   2019195:120000
+     PK written to PTFIRE for   2019195:120000
+     PMG written to PTFIRE for   2019195:120000
+     PMN written to PTFIRE for   2019195:120000
+     PNA written to PTFIRE for   2019195:120000
+     PNCOM written to PTFIRE for   2019195:120000
+     PNH4 written to PTFIRE for   2019195:120000
+     PSI written to PTFIRE for   2019195:120000
+     PTI written to PTFIRE for   2019195:120000
+     HFLUX written to PTFIRE for   2019195:120000
+     CO written to PTFIRE for   2019195:130000
+     NO written to PTFIRE for   2019195:130000
+     NO2 written to PTFIRE for   2019195:130000
+     SO2 written to PTFIRE for   2019195:130000
+     NH3 written to PTFIRE for   2019195:130000
+     PEC written to PTFIRE for   2019195:130000
+     POC written to PTFIRE for   2019195:130000
+     PMOTHR written to PTFIRE for   2019195:130000
+     PNO3 written to PTFIRE for   2019195:130000
+     PSO4 written to PTFIRE for   2019195:130000
+     PAL written to PTFIRE for   2019195:130000
+     PCA written to PTFIRE for   2019195:130000
+     PCL written to PTFIRE for   2019195:130000
+     PFE written to PTFIRE for   2019195:130000
+     PK written to PTFIRE for   2019195:130000
+     PMG written to PTFIRE for   2019195:130000
+     PMN written to PTFIRE for   2019195:130000
+     PNA written to PTFIRE for   2019195:130000
+     PNCOM written to PTFIRE for   2019195:130000
+     PNH4 written to PTFIRE for   2019195:130000
+     PSI written to PTFIRE for   2019195:130000
+     PTI written to PTFIRE for   2019195:130000
+     HFLUX written to PTFIRE for   2019195:130000
+     CO written to PTFIRE for   2019195:140000
+     NO written to PTFIRE for   2019195:140000
+     NO2 written to PTFIRE for   2019195:140000
+     SO2 written to PTFIRE for   2019195:140000
+     NH3 written to PTFIRE for   2019195:140000
+     PEC written to PTFIRE for   2019195:140000
+     POC written to PTFIRE for   2019195:140000
+     PMOTHR written to PTFIRE for   2019195:140000
+     PNO3 written to PTFIRE for   2019195:140000
+     PSO4 written to PTFIRE for   2019195:140000
+     PAL written to PTFIRE for   2019195:140000
+     PCA written to PTFIRE for   2019195:140000
+     PCL written to PTFIRE for   2019195:140000
+     PFE written to PTFIRE for   2019195:140000
+     PK written to PTFIRE for   2019195:140000
+     PMG written to PTFIRE for   2019195:140000
+     PMN written to PTFIRE for   2019195:140000
+     PNA written to PTFIRE for   2019195:140000
+     PNCOM written to PTFIRE for   2019195:140000
+     PNH4 written to PTFIRE for   2019195:140000
+     PSI written to PTFIRE for   2019195:140000
+     PTI written to PTFIRE for   2019195:140000
+     HFLUX written to PTFIRE for   2019195:140000
+     CO written to PTFIRE for   2019195:150000
+     NO written to PTFIRE for   2019195:150000
+     NO2 written to PTFIRE for   2019195:150000
+     SO2 written to PTFIRE for   2019195:150000
+     NH3 written to PTFIRE for   2019195:150000
+     PEC written to PTFIRE for   2019195:150000
+     POC written to PTFIRE for   2019195:150000
+     PMOTHR written to PTFIRE for   2019195:150000
+     PNO3 written to PTFIRE for   2019195:150000
+     PSO4 written to PTFIRE for   2019195:150000
+     PAL written to PTFIRE for   2019195:150000
+     PCA written to PTFIRE for   2019195:150000
+     PCL written to PTFIRE for   2019195:150000
+     PFE written to PTFIRE for   2019195:150000
+     PK written to PTFIRE for   2019195:150000
+     PMG written to PTFIRE for   2019195:150000
+     PMN written to PTFIRE for   2019195:150000
+     PNA written to PTFIRE for   2019195:150000
+     PNCOM written to PTFIRE for   2019195:150000
+     PNH4 written to PTFIRE for   2019195:150000
+     PSI written to PTFIRE for   2019195:150000
+     PTI written to PTFIRE for   2019195:150000
+     HFLUX written to PTFIRE for   2019195:150000
+     CO written to PTFIRE for   2019195:160000
+     NO written to PTFIRE for   2019195:160000
+     NO2 written to PTFIRE for   2019195:160000
+     SO2 written to PTFIRE for   2019195:160000
+     NH3 written to PTFIRE for   2019195:160000
+     PEC written to PTFIRE for   2019195:160000
+     POC written to PTFIRE for   2019195:160000
+     PMOTHR written to PTFIRE for   2019195:160000
+     PNO3 written to PTFIRE for   2019195:160000
+     PSO4 written to PTFIRE for   2019195:160000
+     PAL written to PTFIRE for   2019195:160000
+     PCA written to PTFIRE for   2019195:160000
+     PCL written to PTFIRE for   2019195:160000
+     PFE written to PTFIRE for   2019195:160000
+     PK written to PTFIRE for   2019195:160000
+     PMG written to PTFIRE for   2019195:160000
+     PMN written to PTFIRE for   2019195:160000
+     PNA written to PTFIRE for   2019195:160000
+     PNCOM written to PTFIRE for   2019195:160000
+     PNH4 written to PTFIRE for   2019195:160000
+     PSI written to PTFIRE for   2019195:160000
+     PTI written to PTFIRE for   2019195:160000
+     HFLUX written to PTFIRE for   2019195:160000
+     CO written to PTFIRE for   2019195:170000
+     NO written to PTFIRE for   2019195:170000
+     NO2 written to PTFIRE for   2019195:170000
+     SO2 written to PTFIRE for   2019195:170000
+     NH3 written to PTFIRE for   2019195:170000
+     PEC written to PTFIRE for   2019195:170000
+     POC written to PTFIRE for   2019195:170000
+     PMOTHR written to PTFIRE for   2019195:170000
+     PNO3 written to PTFIRE for   2019195:170000
+     PSO4 written to PTFIRE for   2019195:170000
+     PAL written to PTFIRE for   2019195:170000
+     PCA written to PTFIRE for   2019195:170000
+     PCL written to PTFIRE for   2019195:170000
+     PFE written to PTFIRE for   2019195:170000
+     PK written to PTFIRE for   2019195:170000
+     PMG written to PTFIRE for   2019195:170000
+     PMN written to PTFIRE for   2019195:170000
+     PNA written to PTFIRE for   2019195:170000
+     PNCOM written to PTFIRE for   2019195:170000
+     PNH4 written to PTFIRE for   2019195:170000
+     PSI written to PTFIRE for   2019195:170000
+     PTI written to PTFIRE for   2019195:170000
+     HFLUX written to PTFIRE for   2019195:170000
+     CO written to PTFIRE for   2019195:180000
+     NO written to PTFIRE for   2019195:180000
+     NO2 written to PTFIRE for   2019195:180000
+     SO2 written to PTFIRE for   2019195:180000
+     NH3 written to PTFIRE for   2019195:180000
+     PEC written to PTFIRE for   2019195:180000
+     POC written to PTFIRE for   2019195:180000
+     PMOTHR written to PTFIRE for   2019195:180000
+     PNO3 written to PTFIRE for   2019195:180000
+     PSO4 written to PTFIRE for   2019195:180000
+     PAL written to PTFIRE for   2019195:180000
+     PCA written to PTFIRE for   2019195:180000
+     PCL written to PTFIRE for   2019195:180000
+     PFE written to PTFIRE for   2019195:180000
+     PK written to PTFIRE for   2019195:180000
+     PMG written to PTFIRE for   2019195:180000
+     PMN written to PTFIRE for   2019195:180000
+     PNA written to PTFIRE for   2019195:180000
+     PNCOM written to PTFIRE for   2019195:180000
+     PNH4 written to PTFIRE for   2019195:180000
+     PSI written to PTFIRE for   2019195:180000
+     PTI written to PTFIRE for   2019195:180000
+     HFLUX written to PTFIRE for   2019195:180000
+     CO written to PTFIRE for   2019195:190000
+     NO written to PTFIRE for   2019195:190000
+     NO2 written to PTFIRE for   2019195:190000
+     SO2 written to PTFIRE for   2019195:190000
+     NH3 written to PTFIRE for   2019195:190000
+     PEC written to PTFIRE for   2019195:190000
+     POC written to PTFIRE for   2019195:190000
+     PMOTHR written to PTFIRE for   2019195:190000
+     PNO3 written to PTFIRE for   2019195:190000
+     PSO4 written to PTFIRE for   2019195:190000
+     PAL written to PTFIRE for   2019195:190000
+     PCA written to PTFIRE for   2019195:190000
+     PCL written to PTFIRE for   2019195:190000
+     PFE written to PTFIRE for   2019195:190000
+     PK written to PTFIRE for   2019195:190000
+     PMG written to PTFIRE for   2019195:190000
+     PMN written to PTFIRE for   2019195:190000
+     PNA written to PTFIRE for   2019195:190000
+     PNCOM written to PTFIRE for   2019195:190000
+     PNH4 written to PTFIRE for   2019195:190000
+     PSI written to PTFIRE for   2019195:190000
+     PTI written to PTFIRE for   2019195:190000
+     HFLUX written to PTFIRE for   2019195:190000
+     CO written to PTFIRE for   2019195:200000
+     NO written to PTFIRE for   2019195:200000
+     NO2 written to PTFIRE for   2019195:200000
+     SO2 written to PTFIRE for   2019195:200000
+     NH3 written to PTFIRE for   2019195:200000
+     PEC written to PTFIRE for   2019195:200000
+     POC written to PTFIRE for   2019195:200000
+     PMOTHR written to PTFIRE for   2019195:200000
+     PNO3 written to PTFIRE for   2019195:200000
+     PSO4 written to PTFIRE for   2019195:200000
+     PAL written to PTFIRE for   2019195:200000
+     PCA written to PTFIRE for   2019195:200000
+     PCL written to PTFIRE for   2019195:200000
+     PFE written to PTFIRE for   2019195:200000
+     PK written to PTFIRE for   2019195:200000
+     PMG written to PTFIRE for   2019195:200000
+     PMN written to PTFIRE for   2019195:200000
+     PNA written to PTFIRE for   2019195:200000
+     PNCOM written to PTFIRE for   2019195:200000
+     PNH4 written to PTFIRE for   2019195:200000
+     PSI written to PTFIRE for   2019195:200000
+     PTI written to PTFIRE for   2019195:200000
+     HFLUX written to PTFIRE for   2019195:200000
+     CO written to PTFIRE for   2019195:210000
+     NO written to PTFIRE for   2019195:210000
+     NO2 written to PTFIRE for   2019195:210000
+     SO2 written to PTFIRE for   2019195:210000
+     NH3 written to PTFIRE for   2019195:210000
+     PEC written to PTFIRE for   2019195:210000
+     POC written to PTFIRE for   2019195:210000
+     PMOTHR written to PTFIRE for   2019195:210000
+     PNO3 written to PTFIRE for   2019195:210000
+     PSO4 written to PTFIRE for   2019195:210000
+     PAL written to PTFIRE for   2019195:210000
+     PCA written to PTFIRE for   2019195:210000
+     PCL written to PTFIRE for   2019195:210000
+     PFE written to PTFIRE for   2019195:210000
+     PK written to PTFIRE for   2019195:210000
+     PMG written to PTFIRE for   2019195:210000
+     PMN written to PTFIRE for   2019195:210000
+     PNA written to PTFIRE for   2019195:210000
+     PNCOM written to PTFIRE for   2019195:210000
+     PNH4 written to PTFIRE for   2019195:210000
+     PSI written to PTFIRE for   2019195:210000
+     PTI written to PTFIRE for   2019195:210000
+     HFLUX written to PTFIRE for   2019195:210000
+     CO written to PTFIRE for   2019195:220000
+     NO written to PTFIRE for   2019195:220000
+     NO2 written to PTFIRE for   2019195:220000
+     SO2 written to PTFIRE for   2019195:220000
+     NH3 written to PTFIRE for   2019195:220000
+     PEC written to PTFIRE for   2019195:220000
+     POC written to PTFIRE for   2019195:220000
+     PMOTHR written to PTFIRE for   2019195:220000
+     PNO3 written to PTFIRE for   2019195:220000
+     PSO4 written to PTFIRE for   2019195:220000
+     PAL written to PTFIRE for   2019195:220000
+     PCA written to PTFIRE for   2019195:220000
+     PCL written to PTFIRE for   2019195:220000
+     PFE written to PTFIRE for   2019195:220000
+     PK written to PTFIRE for   2019195:220000
+     PMG written to PTFIRE for   2019195:220000
+     PMN written to PTFIRE for   2019195:220000
+     PNA written to PTFIRE for   2019195:220000
+     PNCOM written to PTFIRE for   2019195:220000
+     PNH4 written to PTFIRE for   2019195:220000
+     PSI written to PTFIRE for   2019195:220000
+     PTI written to PTFIRE for   2019195:220000
+     HFLUX written to PTFIRE for   2019195:220000
+     CO written to PTFIRE for   2019195:230000
+     NO written to PTFIRE for   2019195:230000
+     NO2 written to PTFIRE for   2019195:230000
+     SO2 written to PTFIRE for   2019195:230000
+     NH3 written to PTFIRE for   2019195:230000
+     PEC written to PTFIRE for   2019195:230000
+     POC written to PTFIRE for   2019195:230000
+     PMOTHR written to PTFIRE for   2019195:230000
+     PNO3 written to PTFIRE for   2019195:230000
+     PSO4 written to PTFIRE for   2019195:230000
+     PAL written to PTFIRE for   2019195:230000
+     PCA written to PTFIRE for   2019195:230000
+     PCL written to PTFIRE for   2019195:230000
+     PFE written to PTFIRE for   2019195:230000
+     PK written to PTFIRE for   2019195:230000
+     PMG written to PTFIRE for   2019195:230000
+     PMN written to PTFIRE for   2019195:230000
+     PNA written to PTFIRE for   2019195:230000
+     PNCOM written to PTFIRE for   2019195:230000
+     PNH4 written to PTFIRE for   2019195:230000
+     PSI written to PTFIRE for   2019195:230000
+     PTI written to PTFIRE for   2019195:230000
+     HFLUX written to PTFIRE for   2019195:230000
+     CO written to PTFIRE for   2019196:000000
+     NO written to PTFIRE for   2019196:000000
+     NO2 written to PTFIRE for   2019196:000000
+     SO2 written to PTFIRE for   2019196:000000
+     NH3 written to PTFIRE for   2019196:000000
+     PEC written to PTFIRE for   2019196:000000
+     POC written to PTFIRE for   2019196:000000
+     PMOTHR written to PTFIRE for   2019196:000000
+     PNO3 written to PTFIRE for   2019196:000000
+     PSO4 written to PTFIRE for   2019196:000000
+     PAL written to PTFIRE for   2019196:000000
+     PCA written to PTFIRE for   2019196:000000
+     PCL written to PTFIRE for   2019196:000000
+     PFE written to PTFIRE for   2019196:000000
+     PK written to PTFIRE for   2019196:000000
+     PMG written to PTFIRE for   2019196:000000
+     PMN written to PTFIRE for   2019196:000000
+     PNA written to PTFIRE for   2019196:000000
+     PNCOM written to PTFIRE for   2019196:000000
+     PNH4 written to PTFIRE for   2019196:000000
+     PSI written to PTFIRE for   2019196:000000
+     PTI written to PTFIRE for   2019196:000000
+     HFLUX written to PTFIRE for   2019196:000000
+     CO written to PTFIRE for   2019196:010000
+     NO written to PTFIRE for   2019196:010000
+     NO2 written to PTFIRE for   2019196:010000
+     SO2 written to PTFIRE for   2019196:010000
+     NH3 written to PTFIRE for   2019196:010000
+     PEC written to PTFIRE for   2019196:010000
+     POC written to PTFIRE for   2019196:010000
+     PMOTHR written to PTFIRE for   2019196:010000
+     PNO3 written to PTFIRE for   2019196:010000
+     PSO4 written to PTFIRE for   2019196:010000
+     PAL written to PTFIRE for   2019196:010000
+     PCA written to PTFIRE for   2019196:010000
+     PCL written to PTFIRE for   2019196:010000
+     PFE written to PTFIRE for   2019196:010000
+     PK written to PTFIRE for   2019196:010000
+     PMG written to PTFIRE for   2019196:010000
+     PMN written to PTFIRE for   2019196:010000
+     PNA written to PTFIRE for   2019196:010000
+     PNCOM written to PTFIRE for   2019196:010000
+     PNH4 written to PTFIRE for   2019196:010000
+     PSI written to PTFIRE for   2019196:010000
+     PTI written to PTFIRE for   2019196:010000
+     HFLUX written to PTFIRE for   2019196:010000
+     CO written to PTFIRE for   2019196:020000
+     NO written to PTFIRE for   2019196:020000
+     NO2 written to PTFIRE for   2019196:020000
+     SO2 written to PTFIRE for   2019196:020000
+     NH3 written to PTFIRE for   2019196:020000
+     PEC written to PTFIRE for   2019196:020000
+     POC written to PTFIRE for   2019196:020000
+     PMOTHR written to PTFIRE for   2019196:020000
+     PNO3 written to PTFIRE for   2019196:020000
+     PSO4 written to PTFIRE for   2019196:020000
+     PAL written to PTFIRE for   2019196:020000
+     PCA written to PTFIRE for   2019196:020000
+     PCL written to PTFIRE for   2019196:020000
+     PFE written to PTFIRE for   2019196:020000
+     PK written to PTFIRE for   2019196:020000
+     PMG written to PTFIRE for   2019196:020000
+     PMN written to PTFIRE for   2019196:020000
+     PNA written to PTFIRE for   2019196:020000
+     PNCOM written to PTFIRE for   2019196:020000
+     PNH4 written to PTFIRE for   2019196:020000
+     PSI written to PTFIRE for   2019196:020000
+     PTI written to PTFIRE for   2019196:020000
+     HFLUX written to PTFIRE for   2019196:020000
+     CO written to PTFIRE for   2019196:030000
+     NO written to PTFIRE for   2019196:030000
+     NO2 written to PTFIRE for   2019196:030000
+     SO2 written to PTFIRE for   2019196:030000
+     NH3 written to PTFIRE for   2019196:030000
+     PEC written to PTFIRE for   2019196:030000
+     POC written to PTFIRE for   2019196:030000
+     PMOTHR written to PTFIRE for   2019196:030000
+     PNO3 written to PTFIRE for   2019196:030000
+     PSO4 written to PTFIRE for   2019196:030000
+     PAL written to PTFIRE for   2019196:030000
+     PCA written to PTFIRE for   2019196:030000
+     PCL written to PTFIRE for   2019196:030000
+     PFE written to PTFIRE for   2019196:030000
+     PK written to PTFIRE for   2019196:030000
+     PMG written to PTFIRE for   2019196:030000
+     PMN written to PTFIRE for   2019196:030000
+     PNA written to PTFIRE for   2019196:030000
+     PNCOM written to PTFIRE for   2019196:030000
+     PNH4 written to PTFIRE for   2019196:030000
+     PSI written to PTFIRE for   2019196:030000
+     PTI written to PTFIRE for   2019196:030000
+     HFLUX written to PTFIRE for   2019196:030000
+     CO written to PTFIRE for   2019196:040000
+     NO written to PTFIRE for   2019196:040000
+     NO2 written to PTFIRE for   2019196:040000
+     SO2 written to PTFIRE for   2019196:040000
+     NH3 written to PTFIRE for   2019196:040000
+     PEC written to PTFIRE for   2019196:040000
+     POC written to PTFIRE for   2019196:040000
+     PMOTHR written to PTFIRE for   2019196:040000
+     PNO3 written to PTFIRE for   2019196:040000
+     PSO4 written to PTFIRE for   2019196:040000
+     PAL written to PTFIRE for   2019196:040000
+     PCA written to PTFIRE for   2019196:040000
+     PCL written to PTFIRE for   2019196:040000
+     PFE written to PTFIRE for   2019196:040000
+     PK written to PTFIRE for   2019196:040000
+     PMG written to PTFIRE for   2019196:040000
+     PMN written to PTFIRE for   2019196:040000
+     PNA written to PTFIRE for   2019196:040000
+     PNCOM written to PTFIRE for   2019196:040000
+     PNH4 written to PTFIRE for   2019196:040000
+     PSI written to PTFIRE for   2019196:040000
+     PTI written to PTFIRE for   2019196:040000
+     HFLUX written to PTFIRE for   2019196:040000
+     CO written to PTFIRE for   2019196:050000
+     NO written to PTFIRE for   2019196:050000
+     NO2 written to PTFIRE for   2019196:050000
+     SO2 written to PTFIRE for   2019196:050000
+     NH3 written to PTFIRE for   2019196:050000
+     PEC written to PTFIRE for   2019196:050000
+     POC written to PTFIRE for   2019196:050000
+     PMOTHR written to PTFIRE for   2019196:050000
+     PNO3 written to PTFIRE for   2019196:050000
+     PSO4 written to PTFIRE for   2019196:050000
+     PAL written to PTFIRE for   2019196:050000
+     PCA written to PTFIRE for   2019196:050000
+     PCL written to PTFIRE for   2019196:050000
+     PFE written to PTFIRE for   2019196:050000
+     PK written to PTFIRE for   2019196:050000
+     PMG written to PTFIRE for   2019196:050000
+     PMN written to PTFIRE for   2019196:050000
+     PNA written to PTFIRE for   2019196:050000
+     PNCOM written to PTFIRE for   2019196:050000
+     PNH4 written to PTFIRE for   2019196:050000
+     PSI written to PTFIRE for   2019196:050000
+     PTI written to PTFIRE for   2019196:050000
+     HFLUX written to PTFIRE for   2019196:050000
+     CO written to PTFIRE for   2019196:060000
+     NO written to PTFIRE for   2019196:060000
+     NO2 written to PTFIRE for   2019196:060000
+     SO2 written to PTFIRE for   2019196:060000
+     NH3 written to PTFIRE for   2019196:060000
+     PEC written to PTFIRE for   2019196:060000
+     POC written to PTFIRE for   2019196:060000
+     PMOTHR written to PTFIRE for   2019196:060000
+     PNO3 written to PTFIRE for   2019196:060000
+     PSO4 written to PTFIRE for   2019196:060000
+     PAL written to PTFIRE for   2019196:060000
+     PCA written to PTFIRE for   2019196:060000
+     PCL written to PTFIRE for   2019196:060000
+     PFE written to PTFIRE for   2019196:060000
+     PK written to PTFIRE for   2019196:060000
+     PMG written to PTFIRE for   2019196:060000
+     PMN written to PTFIRE for   2019196:060000
+     PNA written to PTFIRE for   2019196:060000
+     PNCOM written to PTFIRE for   2019196:060000
+     PNH4 written to PTFIRE for   2019196:060000
+     PSI written to PTFIRE for   2019196:060000
+     PTI written to PTFIRE for   2019196:060000
+     HFLUX written to PTFIRE for   2019196:060000
+     CO written to PTFIRE for   2019196:070000
+     NO written to PTFIRE for   2019196:070000
+     NO2 written to PTFIRE for   2019196:070000
+     SO2 written to PTFIRE for   2019196:070000
+     NH3 written to PTFIRE for   2019196:070000
+     PEC written to PTFIRE for   2019196:070000
+     POC written to PTFIRE for   2019196:070000
+     PMOTHR written to PTFIRE for   2019196:070000
+     PNO3 written to PTFIRE for   2019196:070000
+     PSO4 written to PTFIRE for   2019196:070000
+     PAL written to PTFIRE for   2019196:070000
+     PCA written to PTFIRE for   2019196:070000
+     PCL written to PTFIRE for   2019196:070000
+     PFE written to PTFIRE for   2019196:070000
+     PK written to PTFIRE for   2019196:070000
+     PMG written to PTFIRE for   2019196:070000
+     PMN written to PTFIRE for   2019196:070000
+     PNA written to PTFIRE for   2019196:070000
+     PNCOM written to PTFIRE for   2019196:070000
+     PNH4 written to PTFIRE for   2019196:070000
+     PSI written to PTFIRE for   2019196:070000
+     PTI written to PTFIRE for   2019196:070000
+     HFLUX written to PTFIRE for   2019196:070000
+     CO written to PTFIRE for   2019196:080000
+     NO written to PTFIRE for   2019196:080000
+     NO2 written to PTFIRE for   2019196:080000
+     SO2 written to PTFIRE for   2019196:080000
+     NH3 written to PTFIRE for   2019196:080000
+     PEC written to PTFIRE for   2019196:080000
+     POC written to PTFIRE for   2019196:080000
+     PMOTHR written to PTFIRE for   2019196:080000
+     PNO3 written to PTFIRE for   2019196:080000
+     PSO4 written to PTFIRE for   2019196:080000
+     PAL written to PTFIRE for   2019196:080000
+     PCA written to PTFIRE for   2019196:080000
+     PCL written to PTFIRE for   2019196:080000
+     PFE written to PTFIRE for   2019196:080000
+     PK written to PTFIRE for   2019196:080000
+     PMG written to PTFIRE for   2019196:080000
+     PMN written to PTFIRE for   2019196:080000
+     PNA written to PTFIRE for   2019196:080000
+     PNCOM written to PTFIRE for   2019196:080000
+     PNH4 written to PTFIRE for   2019196:080000
+     PSI written to PTFIRE for   2019196:080000
+     PTI written to PTFIRE for   2019196:080000
+     HFLUX written to PTFIRE for   2019196:080000
+     CO written to PTFIRE for   2019196:090000
+     NO written to PTFIRE for   2019196:090000
+     NO2 written to PTFIRE for   2019196:090000
+     SO2 written to PTFIRE for   2019196:090000
+     NH3 written to PTFIRE for   2019196:090000
+     PEC written to PTFIRE for   2019196:090000
+     POC written to PTFIRE for   2019196:090000
+     PMOTHR written to PTFIRE for   2019196:090000
+     PNO3 written to PTFIRE for   2019196:090000
+     PSO4 written to PTFIRE for   2019196:090000
+     PAL written to PTFIRE for   2019196:090000
+     PCA written to PTFIRE for   2019196:090000
+     PCL written to PTFIRE for   2019196:090000
+     PFE written to PTFIRE for   2019196:090000
+     PK written to PTFIRE for   2019196:090000
+     PMG written to PTFIRE for   2019196:090000
+     PMN written to PTFIRE for   2019196:090000
+     PNA written to PTFIRE for   2019196:090000
+     PNCOM written to PTFIRE for   2019196:090000
+     PNH4 written to PTFIRE for   2019196:090000
+     PSI written to PTFIRE for   2019196:090000
+     PTI written to PTFIRE for   2019196:090000
+     HFLUX written to PTFIRE for   2019196:090000
+     CO written to PTFIRE for   2019196:100000
+     NO written to PTFIRE for   2019196:100000
+     NO2 written to PTFIRE for   2019196:100000
+     SO2 written to PTFIRE for   2019196:100000
+     NH3 written to PTFIRE for   2019196:100000
+     PEC written to PTFIRE for   2019196:100000
+     POC written to PTFIRE for   2019196:100000
+     PMOTHR written to PTFIRE for   2019196:100000
+     PNO3 written to PTFIRE for   2019196:100000
+     PSO4 written to PTFIRE for   2019196:100000
+     PAL written to PTFIRE for   2019196:100000
+     PCA written to PTFIRE for   2019196:100000
+     PCL written to PTFIRE for   2019196:100000
+     PFE written to PTFIRE for   2019196:100000
+     PK written to PTFIRE for   2019196:100000
+     PMG written to PTFIRE for   2019196:100000
+     PMN written to PTFIRE for   2019196:100000
+     PNA written to PTFIRE for   2019196:100000
+     PNCOM written to PTFIRE for   2019196:100000
+     PNH4 written to PTFIRE for   2019196:100000
+     PSI written to PTFIRE for   2019196:100000
+     PTI written to PTFIRE for   2019196:100000
+     HFLUX written to PTFIRE for   2019196:100000
+     CO written to PTFIRE for   2019196:110000
+     NO written to PTFIRE for   2019196:110000
+     NO2 written to PTFIRE for   2019196:110000
+     SO2 written to PTFIRE for   2019196:110000
+     NH3 written to PTFIRE for   2019196:110000
+     PEC written to PTFIRE for   2019196:110000
+     POC written to PTFIRE for   2019196:110000
+     PMOTHR written to PTFIRE for   2019196:110000
+     PNO3 written to PTFIRE for   2019196:110000
+     PSO4 written to PTFIRE for   2019196:110000
+     PAL written to PTFIRE for   2019196:110000
+     PCA written to PTFIRE for   2019196:110000
+     PCL written to PTFIRE for   2019196:110000
+     PFE written to PTFIRE for   2019196:110000
+     PK written to PTFIRE for   2019196:110000
+     PMG written to PTFIRE for   2019196:110000
+     PMN written to PTFIRE for   2019196:110000
+     PNA written to PTFIRE for   2019196:110000
+     PNCOM written to PTFIRE for   2019196:110000
+     PNH4 written to PTFIRE for   2019196:110000
+     PSI written to PTFIRE for   2019196:110000
+     PTI written to PTFIRE for   2019196:110000
+     HFLUX written to PTFIRE for   2019196:110000
+     CO written to PTFIRE for   2019196:120000
+     NO written to PTFIRE for   2019196:120000
+     NO2 written to PTFIRE for   2019196:120000
+     SO2 written to PTFIRE for   2019196:120000
+     NH3 written to PTFIRE for   2019196:120000
+     PEC written to PTFIRE for   2019196:120000
+     POC written to PTFIRE for   2019196:120000
+     PMOTHR written to PTFIRE for   2019196:120000
+     PNO3 written to PTFIRE for   2019196:120000
+     PSO4 written to PTFIRE for   2019196:120000
+     PAL written to PTFIRE for   2019196:120000
+     PCA written to PTFIRE for   2019196:120000
+     PCL written to PTFIRE for   2019196:120000
+     PFE written to PTFIRE for   2019196:120000
+     PK written to PTFIRE for   2019196:120000
+     PMG written to PTFIRE for   2019196:120000
+     PMN written to PTFIRE for   2019196:120000
+     PNA written to PTFIRE for   2019196:120000
+     PNCOM written to PTFIRE for   2019196:120000
+     PNH4 written to PTFIRE for   2019196:120000
+     PSI written to PTFIRE for   2019196:120000
+     PTI written to PTFIRE for   2019196:120000
+     HFLUX written to PTFIRE for   2019196:120000
+     CO written to PTFIRE for   2019196:130000
+     NO written to PTFIRE for   2019196:130000
+     NO2 written to PTFIRE for   2019196:130000
+     SO2 written to PTFIRE for   2019196:130000
+     NH3 written to PTFIRE for   2019196:130000
+     PEC written to PTFIRE for   2019196:130000
+     POC written to PTFIRE for   2019196:130000
+     PMOTHR written to PTFIRE for   2019196:130000
+     PNO3 written to PTFIRE for   2019196:130000
+     PSO4 written to PTFIRE for   2019196:130000
+     PAL written to PTFIRE for   2019196:130000
+     PCA written to PTFIRE for   2019196:130000
+     PCL written to PTFIRE for   2019196:130000
+     PFE written to PTFIRE for   2019196:130000
+     PK written to PTFIRE for   2019196:130000
+     PMG written to PTFIRE for   2019196:130000
+     PMN written to PTFIRE for   2019196:130000
+     PNA written to PTFIRE for   2019196:130000
+     PNCOM written to PTFIRE for   2019196:130000
+     PNH4 written to PTFIRE for   2019196:130000
+     PSI written to PTFIRE for   2019196:130000
+     PTI written to PTFIRE for   2019196:130000
+     HFLUX written to PTFIRE for   2019196:130000
+     CO written to PTFIRE for   2019196:140000
+     NO written to PTFIRE for   2019196:140000
+     NO2 written to PTFIRE for   2019196:140000
+     SO2 written to PTFIRE for   2019196:140000
+     NH3 written to PTFIRE for   2019196:140000
+     PEC written to PTFIRE for   2019196:140000
+     POC written to PTFIRE for   2019196:140000
+     PMOTHR written to PTFIRE for   2019196:140000
+     PNO3 written to PTFIRE for   2019196:140000
+     PSO4 written to PTFIRE for   2019196:140000
+     PAL written to PTFIRE for   2019196:140000
+     PCA written to PTFIRE for   2019196:140000
+     PCL written to PTFIRE for   2019196:140000
+     PFE written to PTFIRE for   2019196:140000
+     PK written to PTFIRE for   2019196:140000
+     PMG written to PTFIRE for   2019196:140000
+     PMN written to PTFIRE for   2019196:140000
+     PNA written to PTFIRE for   2019196:140000
+     PNCOM written to PTFIRE for   2019196:140000
+     PNH4 written to PTFIRE for   2019196:140000
+     PSI written to PTFIRE for   2019196:140000
+     PTI written to PTFIRE for   2019196:140000
+     HFLUX written to PTFIRE for   2019196:140000
+     CO written to PTFIRE for   2019196:150000
+     NO written to PTFIRE for   2019196:150000
+     NO2 written to PTFIRE for   2019196:150000
+     SO2 written to PTFIRE for   2019196:150000
+     NH3 written to PTFIRE for   2019196:150000
+     PEC written to PTFIRE for   2019196:150000
+     POC written to PTFIRE for   2019196:150000
+     PMOTHR written to PTFIRE for   2019196:150000
+     PNO3 written to PTFIRE for   2019196:150000
+     PSO4 written to PTFIRE for   2019196:150000
+     PAL written to PTFIRE for   2019196:150000
+     PCA written to PTFIRE for   2019196:150000
+     PCL written to PTFIRE for   2019196:150000
+     PFE written to PTFIRE for   2019196:150000
+     PK written to PTFIRE for   2019196:150000
+     PMG written to PTFIRE for   2019196:150000
+     PMN written to PTFIRE for   2019196:150000
+     PNA written to PTFIRE for   2019196:150000
+     PNCOM written to PTFIRE for   2019196:150000
+     PNH4 written to PTFIRE for   2019196:150000
+     PSI written to PTFIRE for   2019196:150000
+     PTI written to PTFIRE for   2019196:150000
+     HFLUX written to PTFIRE for   2019196:150000
+     CO written to PTFIRE for   2019196:160000
+     NO written to PTFIRE for   2019196:160000
+     NO2 written to PTFIRE for   2019196:160000
+     SO2 written to PTFIRE for   2019196:160000
+     NH3 written to PTFIRE for   2019196:160000
+     PEC written to PTFIRE for   2019196:160000
+     POC written to PTFIRE for   2019196:160000
+     PMOTHR written to PTFIRE for   2019196:160000
+     PNO3 written to PTFIRE for   2019196:160000
+     PSO4 written to PTFIRE for   2019196:160000
+     PAL written to PTFIRE for   2019196:160000
+     PCA written to PTFIRE for   2019196:160000
+     PCL written to PTFIRE for   2019196:160000
+     PFE written to PTFIRE for   2019196:160000
+     PK written to PTFIRE for   2019196:160000
+     PMG written to PTFIRE for   2019196:160000
+     PMN written to PTFIRE for   2019196:160000
+     PNA written to PTFIRE for   2019196:160000
+     PNCOM written to PTFIRE for   2019196:160000
+     PNH4 written to PTFIRE for   2019196:160000
+     PSI written to PTFIRE for   2019196:160000
+     PTI written to PTFIRE for   2019196:160000
+     HFLUX written to PTFIRE for   2019196:160000
+     CO written to PTFIRE for   2019196:170000
+     NO written to PTFIRE for   2019196:170000
+     NO2 written to PTFIRE for   2019196:170000
+     SO2 written to PTFIRE for   2019196:170000
+     NH3 written to PTFIRE for   2019196:170000
+     PEC written to PTFIRE for   2019196:170000
+     POC written to PTFIRE for   2019196:170000
+     PMOTHR written to PTFIRE for   2019196:170000
+     PNO3 written to PTFIRE for   2019196:170000
+     PSO4 written to PTFIRE for   2019196:170000
+     PAL written to PTFIRE for   2019196:170000
+     PCA written to PTFIRE for   2019196:170000
+     PCL written to PTFIRE for   2019196:170000
+     PFE written to PTFIRE for   2019196:170000
+     PK written to PTFIRE for   2019196:170000
+     PMG written to PTFIRE for   2019196:170000
+     PMN written to PTFIRE for   2019196:170000
+     PNA written to PTFIRE for   2019196:170000
+     PNCOM written to PTFIRE for   2019196:170000
+     PNH4 written to PTFIRE for   2019196:170000
+     PSI written to PTFIRE for   2019196:170000
+     PTI written to PTFIRE for   2019196:170000
+     HFLUX written to PTFIRE for   2019196:170000
+     CO written to PTFIRE for   2019196:180000
+     NO written to PTFIRE for   2019196:180000
+     NO2 written to PTFIRE for   2019196:180000
+     SO2 written to PTFIRE for   2019196:180000
+     NH3 written to PTFIRE for   2019196:180000
+     PEC written to PTFIRE for   2019196:180000
+     POC written to PTFIRE for   2019196:180000
+     PMOTHR written to PTFIRE for   2019196:180000
+     PNO3 written to PTFIRE for   2019196:180000
+     PSO4 written to PTFIRE for   2019196:180000
+     PAL written to PTFIRE for   2019196:180000
+     PCA written to PTFIRE for   2019196:180000
+     PCL written to PTFIRE for   2019196:180000
+     PFE written to PTFIRE for   2019196:180000
+     PK written to PTFIRE for   2019196:180000
+     PMG written to PTFIRE for   2019196:180000
+     PMN written to PTFIRE for   2019196:180000
+     PNA written to PTFIRE for   2019196:180000
+     PNCOM written to PTFIRE for   2019196:180000
+     PNH4 written to PTFIRE for   2019196:180000
+     PSI written to PTFIRE for   2019196:180000
+     PTI written to PTFIRE for   2019196:180000
+     HFLUX written to PTFIRE for   2019196:180000
+     CO written to PTFIRE for   2019196:190000
+     NO written to PTFIRE for   2019196:190000
+     NO2 written to PTFIRE for   2019196:190000
+     SO2 written to PTFIRE for   2019196:190000
+     NH3 written to PTFIRE for   2019196:190000
+     PEC written to PTFIRE for   2019196:190000
+     POC written to PTFIRE for   2019196:190000
+     PMOTHR written to PTFIRE for   2019196:190000
+     PNO3 written to PTFIRE for   2019196:190000
+     PSO4 written to PTFIRE for   2019196:190000
+     PAL written to PTFIRE for   2019196:190000
+     PCA written to PTFIRE for   2019196:190000
+     PCL written to PTFIRE for   2019196:190000
+     PFE written to PTFIRE for   2019196:190000
+     PK written to PTFIRE for   2019196:190000
+     PMG written to PTFIRE for   2019196:190000
+     PMN written to PTFIRE for   2019196:190000
+     PNA written to PTFIRE for   2019196:190000
+     PNCOM written to PTFIRE for   2019196:190000
+     PNH4 written to PTFIRE for   2019196:190000
+     PSI written to PTFIRE for   2019196:190000
+     PTI written to PTFIRE for   2019196:190000
+     HFLUX written to PTFIRE for   2019196:190000
+     CO written to PTFIRE for   2019196:200000
+     NO written to PTFIRE for   2019196:200000
+     NO2 written to PTFIRE for   2019196:200000
+     SO2 written to PTFIRE for   2019196:200000
+     NH3 written to PTFIRE for   2019196:200000
+     PEC written to PTFIRE for   2019196:200000
+     POC written to PTFIRE for   2019196:200000
+     PMOTHR written to PTFIRE for   2019196:200000
+     PNO3 written to PTFIRE for   2019196:200000
+     PSO4 written to PTFIRE for   2019196:200000
+     PAL written to PTFIRE for   2019196:200000
+     PCA written to PTFIRE for   2019196:200000
+     PCL written to PTFIRE for   2019196:200000
+     PFE written to PTFIRE for   2019196:200000
+     PK written to PTFIRE for   2019196:200000
+     PMG written to PTFIRE for   2019196:200000
+     PMN written to PTFIRE for   2019196:200000
+     PNA written to PTFIRE for   2019196:200000
+     PNCOM written to PTFIRE for   2019196:200000
+     PNH4 written to PTFIRE for   2019196:200000
+     PSI written to PTFIRE for   2019196:200000
+     PTI written to PTFIRE for   2019196:200000
+     HFLUX written to PTFIRE for   2019196:200000
+     CO written to PTFIRE for   2019196:210000
+     NO written to PTFIRE for   2019196:210000
+     NO2 written to PTFIRE for   2019196:210000
+     SO2 written to PTFIRE for   2019196:210000
+     NH3 written to PTFIRE for   2019196:210000
+     PEC written to PTFIRE for   2019196:210000
+     POC written to PTFIRE for   2019196:210000
+     PMOTHR written to PTFIRE for   2019196:210000
+     PNO3 written to PTFIRE for   2019196:210000
+     PSO4 written to PTFIRE for   2019196:210000
+     PAL written to PTFIRE for   2019196:210000
+     PCA written to PTFIRE for   2019196:210000
+     PCL written to PTFIRE for   2019196:210000
+     PFE written to PTFIRE for   2019196:210000
+     PK written to PTFIRE for   2019196:210000
+     PMG written to PTFIRE for   2019196:210000
+     PMN written to PTFIRE for   2019196:210000
+     PNA written to PTFIRE for   2019196:210000
+     PNCOM written to PTFIRE for   2019196:210000
+     PNH4 written to PTFIRE for   2019196:210000
+     PSI written to PTFIRE for   2019196:210000
+     PTI written to PTFIRE for   2019196:210000
+     HFLUX written to PTFIRE for   2019196:210000
+     CO written to PTFIRE for   2019196:220000
+     NO written to PTFIRE for   2019196:220000
+     NO2 written to PTFIRE for   2019196:220000
+     SO2 written to PTFIRE for   2019196:220000
+     NH3 written to PTFIRE for   2019196:220000
+     PEC written to PTFIRE for   2019196:220000
+     POC written to PTFIRE for   2019196:220000
+     PMOTHR written to PTFIRE for   2019196:220000
+     PNO3 written to PTFIRE for   2019196:220000
+     PSO4 written to PTFIRE for   2019196:220000
+     PAL written to PTFIRE for   2019196:220000
+     PCA written to PTFIRE for   2019196:220000
+     PCL written to PTFIRE for   2019196:220000
+     PFE written to PTFIRE for   2019196:220000
+     PK written to PTFIRE for   2019196:220000
+     PMG written to PTFIRE for   2019196:220000
+     PMN written to PTFIRE for   2019196:220000
+     PNA written to PTFIRE for   2019196:220000
+     PNCOM written to PTFIRE for   2019196:220000
+     PNH4 written to PTFIRE for   2019196:220000
+     PSI written to PTFIRE for   2019196:220000
+     PTI written to PTFIRE for   2019196:220000
+     HFLUX written to PTFIRE for   2019196:220000
+     CO written to PTFIRE for   2019196:230000
+     NO written to PTFIRE for   2019196:230000
+     NO2 written to PTFIRE for   2019196:230000
+     SO2 written to PTFIRE for   2019196:230000
+     NH3 written to PTFIRE for   2019196:230000
+     PEC written to PTFIRE for   2019196:230000
+     POC written to PTFIRE for   2019196:230000
+     PMOTHR written to PTFIRE for   2019196:230000
+     PNO3 written to PTFIRE for   2019196:230000
+     PSO4 written to PTFIRE for   2019196:230000
+     PAL written to PTFIRE for   2019196:230000
+     PCA written to PTFIRE for   2019196:230000
+     PCL written to PTFIRE for   2019196:230000
+     PFE written to PTFIRE for   2019196:230000
+     PK written to PTFIRE for   2019196:230000
+     PMG written to PTFIRE for   2019196:230000
+     PMN written to PTFIRE for   2019196:230000
+     PNA written to PTFIRE for   2019196:230000
+     PNCOM written to PTFIRE for   2019196:230000
+     PNH4 written to PTFIRE for   2019196:230000
+     PSI written to PTFIRE for   2019196:230000
+     PTI written to PTFIRE for   2019196:230000
+     HFLUX written to PTFIRE for   2019196:230000
+     CO written to PTFIRE for   2019197:000000
+     NO written to PTFIRE for   2019197:000000
+     NO2 written to PTFIRE for   2019197:000000
+     SO2 written to PTFIRE for   2019197:000000
+     NH3 written to PTFIRE for   2019197:000000
+     PEC written to PTFIRE for   2019197:000000
+     POC written to PTFIRE for   2019197:000000
+     PMOTHR written to PTFIRE for   2019197:000000
+     PNO3 written to PTFIRE for   2019197:000000
+     PSO4 written to PTFIRE for   2019197:000000
+     PAL written to PTFIRE for   2019197:000000
+     PCA written to PTFIRE for   2019197:000000
+     PCL written to PTFIRE for   2019197:000000
+     PFE written to PTFIRE for   2019197:000000
+     PK written to PTFIRE for   2019197:000000
+     PMG written to PTFIRE for   2019197:000000
+     PMN written to PTFIRE for   2019197:000000
+     PNA written to PTFIRE for   2019197:000000
+     PNCOM written to PTFIRE for   2019197:000000
+     PNH4 written to PTFIRE for   2019197:000000
+     PSI written to PTFIRE for   2019197:000000
+     PTI written to PTFIRE for   2019197:000000
+     HFLUX written to PTFIRE for   2019197:000000
+     CO written to PTFIRE for   2019197:010000
+     NO written to PTFIRE for   2019197:010000
+     NO2 written to PTFIRE for   2019197:010000
+     SO2 written to PTFIRE for   2019197:010000
+     NH3 written to PTFIRE for   2019197:010000
+     PEC written to PTFIRE for   2019197:010000
+     POC written to PTFIRE for   2019197:010000
+     PMOTHR written to PTFIRE for   2019197:010000
+     PNO3 written to PTFIRE for   2019197:010000
+     PSO4 written to PTFIRE for   2019197:010000
+     PAL written to PTFIRE for   2019197:010000
+     PCA written to PTFIRE for   2019197:010000
+     PCL written to PTFIRE for   2019197:010000
+     PFE written to PTFIRE for   2019197:010000
+     PK written to PTFIRE for   2019197:010000
+     PMG written to PTFIRE for   2019197:010000
+     PMN written to PTFIRE for   2019197:010000
+     PNA written to PTFIRE for   2019197:010000
+     PNCOM written to PTFIRE for   2019197:010000
+     PNH4 written to PTFIRE for   2019197:010000
+     PSI written to PTFIRE for   2019197:010000
+     PTI written to PTFIRE for   2019197:010000
+     HFLUX written to PTFIRE for   2019197:010000
+     CO written to PTFIRE for   2019197:020000
+     NO written to PTFIRE for   2019197:020000
+     NO2 written to PTFIRE for   2019197:020000
+     SO2 written to PTFIRE for   2019197:020000
+     NH3 written to PTFIRE for   2019197:020000
+     PEC written to PTFIRE for   2019197:020000
+     POC written to PTFIRE for   2019197:020000
+     PMOTHR written to PTFIRE for   2019197:020000
+     PNO3 written to PTFIRE for   2019197:020000
+     PSO4 written to PTFIRE for   2019197:020000
+     PAL written to PTFIRE for   2019197:020000
+     PCA written to PTFIRE for   2019197:020000
+     PCL written to PTFIRE for   2019197:020000
+     PFE written to PTFIRE for   2019197:020000
+     PK written to PTFIRE for   2019197:020000
+     PMG written to PTFIRE for   2019197:020000
+     PMN written to PTFIRE for   2019197:020000
+     PNA written to PTFIRE for   2019197:020000
+     PNCOM written to PTFIRE for   2019197:020000
+     PNH4 written to PTFIRE for   2019197:020000
+     PSI written to PTFIRE for   2019197:020000
+     PTI written to PTFIRE for   2019197:020000
+     HFLUX written to PTFIRE for   2019197:020000
+     CO written to PTFIRE for   2019197:030000
+     NO written to PTFIRE for   2019197:030000
+     NO2 written to PTFIRE for   2019197:030000
+     SO2 written to PTFIRE for   2019197:030000
+     NH3 written to PTFIRE for   2019197:030000
+     PEC written to PTFIRE for   2019197:030000
+     POC written to PTFIRE for   2019197:030000
+     PMOTHR written to PTFIRE for   2019197:030000
+     PNO3 written to PTFIRE for   2019197:030000
+     PSO4 written to PTFIRE for   2019197:030000
+     PAL written to PTFIRE for   2019197:030000
+     PCA written to PTFIRE for   2019197:030000
+     PCL written to PTFIRE for   2019197:030000
+     PFE written to PTFIRE for   2019197:030000
+     PK written to PTFIRE for   2019197:030000
+     PMG written to PTFIRE for   2019197:030000
+     PMN written to PTFIRE for   2019197:030000
+     PNA written to PTFIRE for   2019197:030000
+     PNCOM written to PTFIRE for   2019197:030000
+     PNH4 written to PTFIRE for   2019197:030000
+     PSI written to PTFIRE for   2019197:030000
+     PTI written to PTFIRE for   2019197:030000
+     HFLUX written to PTFIRE for   2019197:030000
+     CO written to PTFIRE for   2019197:040000
+     NO written to PTFIRE for   2019197:040000
+     NO2 written to PTFIRE for   2019197:040000
+     SO2 written to PTFIRE for   2019197:040000
+     NH3 written to PTFIRE for   2019197:040000
+     PEC written to PTFIRE for   2019197:040000
+     POC written to PTFIRE for   2019197:040000
+     PMOTHR written to PTFIRE for   2019197:040000
+     PNO3 written to PTFIRE for   2019197:040000
+     PSO4 written to PTFIRE for   2019197:040000
+     PAL written to PTFIRE for   2019197:040000
+     PCA written to PTFIRE for   2019197:040000
+     PCL written to PTFIRE for   2019197:040000
+     PFE written to PTFIRE for   2019197:040000
+     PK written to PTFIRE for   2019197:040000
+     PMG written to PTFIRE for   2019197:040000
+     PMN written to PTFIRE for   2019197:040000
+     PNA written to PTFIRE for   2019197:040000
+     PNCOM written to PTFIRE for   2019197:040000
+     PNH4 written to PTFIRE for   2019197:040000
+     PSI written to PTFIRE for   2019197:040000
+     PTI written to PTFIRE for   2019197:040000
+     HFLUX written to PTFIRE for   2019197:040000
+     CO written to PTFIRE for   2019197:050000
+     NO written to PTFIRE for   2019197:050000
+     NO2 written to PTFIRE for   2019197:050000
+     SO2 written to PTFIRE for   2019197:050000
+     NH3 written to PTFIRE for   2019197:050000
+     PEC written to PTFIRE for   2019197:050000
+     POC written to PTFIRE for   2019197:050000
+     PMOTHR written to PTFIRE for   2019197:050000
+     PNO3 written to PTFIRE for   2019197:050000
+     PSO4 written to PTFIRE for   2019197:050000
+     PAL written to PTFIRE for   2019197:050000
+     PCA written to PTFIRE for   2019197:050000
+     PCL written to PTFIRE for   2019197:050000
+     PFE written to PTFIRE for   2019197:050000
+     PK written to PTFIRE for   2019197:050000
+     PMG written to PTFIRE for   2019197:050000
+     PMN written to PTFIRE for   2019197:050000
+     PNA written to PTFIRE for   2019197:050000
+     PNCOM written to PTFIRE for   2019197:050000
+     PNH4 written to PTFIRE for   2019197:050000
+     PSI written to PTFIRE for   2019197:050000
+     PTI written to PTFIRE for   2019197:050000
+     HFLUX written to PTFIRE for   2019197:050000
+     CO written to PTFIRE for   2019197:060000
+     NO written to PTFIRE for   2019197:060000
+     NO2 written to PTFIRE for   2019197:060000
+     SO2 written to PTFIRE for   2019197:060000
+     NH3 written to PTFIRE for   2019197:060000
+     PEC written to PTFIRE for   2019197:060000
+     POC written to PTFIRE for   2019197:060000
+     PMOTHR written to PTFIRE for   2019197:060000
+     PNO3 written to PTFIRE for   2019197:060000
+     PSO4 written to PTFIRE for   2019197:060000
+     PAL written to PTFIRE for   2019197:060000
+     PCA written to PTFIRE for   2019197:060000
+     PCL written to PTFIRE for   2019197:060000
+     PFE written to PTFIRE for   2019197:060000
+     PK written to PTFIRE for   2019197:060000
+     PMG written to PTFIRE for   2019197:060000
+     PMN written to PTFIRE for   2019197:060000
+     PNA written to PTFIRE for   2019197:060000
+     PNCOM written to PTFIRE for   2019197:060000
+     PNH4 written to PTFIRE for   2019197:060000
+     PSI written to PTFIRE for   2019197:060000
+     PTI written to PTFIRE for   2019197:060000
+     HFLUX written to PTFIRE for   2019197:060000
+     CO written to PTFIRE for   2019197:070000
+     NO written to PTFIRE for   2019197:070000
+     NO2 written to PTFIRE for   2019197:070000
+     SO2 written to PTFIRE for   2019197:070000
+     NH3 written to PTFIRE for   2019197:070000
+     PEC written to PTFIRE for   2019197:070000
+     POC written to PTFIRE for   2019197:070000
+     PMOTHR written to PTFIRE for   2019197:070000
+     PNO3 written to PTFIRE for   2019197:070000
+     PSO4 written to PTFIRE for   2019197:070000
+     PAL written to PTFIRE for   2019197:070000
+     PCA written to PTFIRE for   2019197:070000
+     PCL written to PTFIRE for   2019197:070000
+     PFE written to PTFIRE for   2019197:070000
+     PK written to PTFIRE for   2019197:070000
+     PMG written to PTFIRE for   2019197:070000
+     PMN written to PTFIRE for   2019197:070000
+     PNA written to PTFIRE for   2019197:070000
+     PNCOM written to PTFIRE for   2019197:070000
+     PNH4 written to PTFIRE for   2019197:070000
+     PSI written to PTFIRE for   2019197:070000
+     PTI written to PTFIRE for   2019197:070000
+     HFLUX written to PTFIRE for   2019197:070000
+     CO written to PTFIRE for   2019197:080000
+     NO written to PTFIRE for   2019197:080000
+     NO2 written to PTFIRE for   2019197:080000
+     SO2 written to PTFIRE for   2019197:080000
+     NH3 written to PTFIRE for   2019197:080000
+     PEC written to PTFIRE for   2019197:080000
+     POC written to PTFIRE for   2019197:080000
+     PMOTHR written to PTFIRE for   2019197:080000
+     PNO3 written to PTFIRE for   2019197:080000
+     PSO4 written to PTFIRE for   2019197:080000
+     PAL written to PTFIRE for   2019197:080000
+     PCA written to PTFIRE for   2019197:080000
+     PCL written to PTFIRE for   2019197:080000
+     PFE written to PTFIRE for   2019197:080000
+     PK written to PTFIRE for   2019197:080000
+     PMG written to PTFIRE for   2019197:080000
+     PMN written to PTFIRE for   2019197:080000
+     PNA written to PTFIRE for   2019197:080000
+     PNCOM written to PTFIRE for   2019197:080000
+     PNH4 written to PTFIRE for   2019197:080000
+     PSI written to PTFIRE for   2019197:080000
+     PTI written to PTFIRE for   2019197:080000
+     HFLUX written to PTFIRE for   2019197:080000
+     CO written to PTFIRE for   2019197:090000
+     NO written to PTFIRE for   2019197:090000
+     NO2 written to PTFIRE for   2019197:090000
+     SO2 written to PTFIRE for   2019197:090000
+     NH3 written to PTFIRE for   2019197:090000
+     PEC written to PTFIRE for   2019197:090000
+     POC written to PTFIRE for   2019197:090000
+     PMOTHR written to PTFIRE for   2019197:090000
+     PNO3 written to PTFIRE for   2019197:090000
+     PSO4 written to PTFIRE for   2019197:090000
+     PAL written to PTFIRE for   2019197:090000
+     PCA written to PTFIRE for   2019197:090000
+     PCL written to PTFIRE for   2019197:090000
+     PFE written to PTFIRE for   2019197:090000
+     PK written to PTFIRE for   2019197:090000
+     PMG written to PTFIRE for   2019197:090000
+     PMN written to PTFIRE for   2019197:090000
+     PNA written to PTFIRE for   2019197:090000
+     PNCOM written to PTFIRE for   2019197:090000
+     PNH4 written to PTFIRE for   2019197:090000
+     PSI written to PTFIRE for   2019197:090000
+     PTI written to PTFIRE for   2019197:090000
+     HFLUX written to PTFIRE for   2019197:090000
+     CO written to PTFIRE for   2019197:100000
+     NO written to PTFIRE for   2019197:100000
+     NO2 written to PTFIRE for   2019197:100000
+     SO2 written to PTFIRE for   2019197:100000
+     NH3 written to PTFIRE for   2019197:100000
+     PEC written to PTFIRE for   2019197:100000
+     POC written to PTFIRE for   2019197:100000
+     PMOTHR written to PTFIRE for   2019197:100000
+     PNO3 written to PTFIRE for   2019197:100000
+     PSO4 written to PTFIRE for   2019197:100000
+     PAL written to PTFIRE for   2019197:100000
+     PCA written to PTFIRE for   2019197:100000
+     PCL written to PTFIRE for   2019197:100000
+     PFE written to PTFIRE for   2019197:100000
+     PK written to PTFIRE for   2019197:100000
+     PMG written to PTFIRE for   2019197:100000
+     PMN written to PTFIRE for   2019197:100000
+     PNA written to PTFIRE for   2019197:100000
+     PNCOM written to PTFIRE for   2019197:100000
+     PNH4 written to PTFIRE for   2019197:100000
+     PSI written to PTFIRE for   2019197:100000
+     PTI written to PTFIRE for   2019197:100000
+     HFLUX written to PTFIRE for   2019197:100000
+     CO written to PTFIRE for   2019197:110000
+     NO written to PTFIRE for   2019197:110000
+     NO2 written to PTFIRE for   2019197:110000
+     SO2 written to PTFIRE for   2019197:110000
+     NH3 written to PTFIRE for   2019197:110000
+     PEC written to PTFIRE for   2019197:110000
+     POC written to PTFIRE for   2019197:110000
+     PMOTHR written to PTFIRE for   2019197:110000
+     PNO3 written to PTFIRE for   2019197:110000
+     PSO4 written to PTFIRE for   2019197:110000
+     PAL written to PTFIRE for   2019197:110000
+     PCA written to PTFIRE for   2019197:110000
+     PCL written to PTFIRE for   2019197:110000
+     PFE written to PTFIRE for   2019197:110000
+     PK written to PTFIRE for   2019197:110000
+     PMG written to PTFIRE for   2019197:110000
+     PMN written to PTFIRE for   2019197:110000
+     PNA written to PTFIRE for   2019197:110000
+     PNCOM written to PTFIRE for   2019197:110000
+     PNH4 written to PTFIRE for   2019197:110000
+     PSI written to PTFIRE for   2019197:110000
+     PTI written to PTFIRE for   2019197:110000
+     HFLUX written to PTFIRE for   2019197:110000
+     CO written to PTFIRE for   2019197:120000
+     NO written to PTFIRE for   2019197:120000
+     NO2 written to PTFIRE for   2019197:120000
+     SO2 written to PTFIRE for   2019197:120000
+     NH3 written to PTFIRE for   2019197:120000
+     PEC written to PTFIRE for   2019197:120000
+     POC written to PTFIRE for   2019197:120000
+     PMOTHR written to PTFIRE for   2019197:120000
+     PNO3 written to PTFIRE for   2019197:120000
+     PSO4 written to PTFIRE for   2019197:120000
+     PAL written to PTFIRE for   2019197:120000
+     PCA written to PTFIRE for   2019197:120000
+     PCL written to PTFIRE for   2019197:120000
+     PFE written to PTFIRE for   2019197:120000
+     PK written to PTFIRE for   2019197:120000
+     PMG written to PTFIRE for   2019197:120000
+     PMN written to PTFIRE for   2019197:120000
+     PNA written to PTFIRE for   2019197:120000
+     PNCOM written to PTFIRE for   2019197:120000
+     PNH4 written to PTFIRE for   2019197:120000
+     PSI written to PTFIRE for   2019197:120000
+     PTI written to PTFIRE for   2019197:120000
+     HFLUX written to PTFIRE for   2019197:120000
+     CO written to PTFIRE for   2019197:130000
+     NO written to PTFIRE for   2019197:130000
+     NO2 written to PTFIRE for   2019197:130000
+     SO2 written to PTFIRE for   2019197:130000
+     NH3 written to PTFIRE for   2019197:130000
+     PEC written to PTFIRE for   2019197:130000
+     POC written to PTFIRE for   2019197:130000
+     PMOTHR written to PTFIRE for   2019197:130000
+     PNO3 written to PTFIRE for   2019197:130000
+     PSO4 written to PTFIRE for   2019197:130000
+     PAL written to PTFIRE for   2019197:130000
+     PCA written to PTFIRE for   2019197:130000
+     PCL written to PTFIRE for   2019197:130000
+     PFE written to PTFIRE for   2019197:130000
+     PK written to PTFIRE for   2019197:130000
+     PMG written to PTFIRE for   2019197:130000
+     PMN written to PTFIRE for   2019197:130000
+     PNA written to PTFIRE for   2019197:130000
+     PNCOM written to PTFIRE for   2019197:130000
+     PNH4 written to PTFIRE for   2019197:130000
+     PSI written to PTFIRE for   2019197:130000
+     PTI written to PTFIRE for   2019197:130000
+     HFLUX written to PTFIRE for   2019197:130000
+     CO written to PTFIRE for   2019197:140000
+     NO written to PTFIRE for   2019197:140000
+     NO2 written to PTFIRE for   2019197:140000
+     SO2 written to PTFIRE for   2019197:140000
+     NH3 written to PTFIRE for   2019197:140000
+     PEC written to PTFIRE for   2019197:140000
+     POC written to PTFIRE for   2019197:140000
+     PMOTHR written to PTFIRE for   2019197:140000
+     PNO3 written to PTFIRE for   2019197:140000
+     PSO4 written to PTFIRE for   2019197:140000
+     PAL written to PTFIRE for   2019197:140000
+     PCA written to PTFIRE for   2019197:140000
+     PCL written to PTFIRE for   2019197:140000
+     PFE written to PTFIRE for   2019197:140000
+     PK written to PTFIRE for   2019197:140000
+     PMG written to PTFIRE for   2019197:140000
+     PMN written to PTFIRE for   2019197:140000
+     PNA written to PTFIRE for   2019197:140000
+     PNCOM written to PTFIRE for   2019197:140000
+     PNH4 written to PTFIRE for   2019197:140000
+     PSI written to PTFIRE for   2019197:140000
+     PTI written to PTFIRE for   2019197:140000
+     HFLUX written to PTFIRE for   2019197:140000
+     CO written to PTFIRE for   2019197:150000
+     NO written to PTFIRE for   2019197:150000
+     NO2 written to PTFIRE for   2019197:150000
+     SO2 written to PTFIRE for   2019197:150000
+     NH3 written to PTFIRE for   2019197:150000
+     PEC written to PTFIRE for   2019197:150000
+     POC written to PTFIRE for   2019197:150000
+     PMOTHR written to PTFIRE for   2019197:150000
+     PNO3 written to PTFIRE for   2019197:150000
+     PSO4 written to PTFIRE for   2019197:150000
+     PAL written to PTFIRE for   2019197:150000
+     PCA written to PTFIRE for   2019197:150000
+     PCL written to PTFIRE for   2019197:150000
+     PFE written to PTFIRE for   2019197:150000
+     PK written to PTFIRE for   2019197:150000
+     PMG written to PTFIRE for   2019197:150000
+     PMN written to PTFIRE for   2019197:150000
+     PNA written to PTFIRE for   2019197:150000
+     PNCOM written to PTFIRE for   2019197:150000
+     PNH4 written to PTFIRE for   2019197:150000
+     PSI written to PTFIRE for   2019197:150000
+     PTI written to PTFIRE for   2019197:150000
+     HFLUX written to PTFIRE for   2019197:150000
+     CO written to PTFIRE for   2019197:160000
+     NO written to PTFIRE for   2019197:160000
+     NO2 written to PTFIRE for   2019197:160000
+     SO2 written to PTFIRE for   2019197:160000
+     NH3 written to PTFIRE for   2019197:160000
+     PEC written to PTFIRE for   2019197:160000
+     POC written to PTFIRE for   2019197:160000
+     PMOTHR written to PTFIRE for   2019197:160000
+     PNO3 written to PTFIRE for   2019197:160000
+     PSO4 written to PTFIRE for   2019197:160000
+     PAL written to PTFIRE for   2019197:160000
+     PCA written to PTFIRE for   2019197:160000
+     PCL written to PTFIRE for   2019197:160000
+     PFE written to PTFIRE for   2019197:160000
+     PK written to PTFIRE for   2019197:160000
+     PMG written to PTFIRE for   2019197:160000
+     PMN written to PTFIRE for   2019197:160000
+     PNA written to PTFIRE for   2019197:160000
+     PNCOM written to PTFIRE for   2019197:160000
+     PNH4 written to PTFIRE for   2019197:160000
+     PSI written to PTFIRE for   2019197:160000
+     PTI written to PTFIRE for   2019197:160000
+     HFLUX written to PTFIRE for   2019197:160000
+     CO written to PTFIRE for   2019197:170000
+     NO written to PTFIRE for   2019197:170000
+     NO2 written to PTFIRE for   2019197:170000
+     SO2 written to PTFIRE for   2019197:170000
+     NH3 written to PTFIRE for   2019197:170000
+     PEC written to PTFIRE for   2019197:170000
+     POC written to PTFIRE for   2019197:170000
+     PMOTHR written to PTFIRE for   2019197:170000
+     PNO3 written to PTFIRE for   2019197:170000
+     PSO4 written to PTFIRE for   2019197:170000
+     PAL written to PTFIRE for   2019197:170000
+     PCA written to PTFIRE for   2019197:170000
+     PCL written to PTFIRE for   2019197:170000
+     PFE written to PTFIRE for   2019197:170000
+     PK written to PTFIRE for   2019197:170000
+     PMG written to PTFIRE for   2019197:170000
+     PMN written to PTFIRE for   2019197:170000
+     PNA written to PTFIRE for   2019197:170000
+     PNCOM written to PTFIRE for   2019197:170000
+     PNH4 written to PTFIRE for   2019197:170000
+     PSI written to PTFIRE for   2019197:170000
+     PTI written to PTFIRE for   2019197:170000
+     HFLUX written to PTFIRE for   2019197:170000
+     CO written to PTFIRE for   2019197:180000
+     NO written to PTFIRE for   2019197:180000
+     NO2 written to PTFIRE for   2019197:180000
+     SO2 written to PTFIRE for   2019197:180000
+     NH3 written to PTFIRE for   2019197:180000
+     PEC written to PTFIRE for   2019197:180000
+     POC written to PTFIRE for   2019197:180000
+     PMOTHR written to PTFIRE for   2019197:180000
+     PNO3 written to PTFIRE for   2019197:180000
+     PSO4 written to PTFIRE for   2019197:180000
+     PAL written to PTFIRE for   2019197:180000
+     PCA written to PTFIRE for   2019197:180000
+     PCL written to PTFIRE for   2019197:180000
+     PFE written to PTFIRE for   2019197:180000
+     PK written to PTFIRE for   2019197:180000
+     PMG written to PTFIRE for   2019197:180000
+     PMN written to PTFIRE for   2019197:180000
+     PNA written to PTFIRE for   2019197:180000
+     PNCOM written to PTFIRE for   2019197:180000
+     PNH4 written to PTFIRE for   2019197:180000
+     PSI written to PTFIRE for   2019197:180000
+     PTI written to PTFIRE for   2019197:180000
+     HFLUX written to PTFIRE for   2019197:180000
+     CO written to PTFIRE for   2019197:190000
+     NO written to PTFIRE for   2019197:190000
+     NO2 written to PTFIRE for   2019197:190000
+     SO2 written to PTFIRE for   2019197:190000
+     NH3 written to PTFIRE for   2019197:190000
+     PEC written to PTFIRE for   2019197:190000
+     POC written to PTFIRE for   2019197:190000
+     PMOTHR written to PTFIRE for   2019197:190000
+     PNO3 written to PTFIRE for   2019197:190000
+     PSO4 written to PTFIRE for   2019197:190000
+     PAL written to PTFIRE for   2019197:190000
+     PCA written to PTFIRE for   2019197:190000
+     PCL written to PTFIRE for   2019197:190000
+     PFE written to PTFIRE for   2019197:190000
+     PK written to PTFIRE for   2019197:190000
+     PMG written to PTFIRE for   2019197:190000
+     PMN written to PTFIRE for   2019197:190000
+     PNA written to PTFIRE for   2019197:190000
+     PNCOM written to PTFIRE for   2019197:190000
+     PNH4 written to PTFIRE for   2019197:190000
+     PSI written to PTFIRE for   2019197:190000
+     PTI written to PTFIRE for   2019197:190000
+     HFLUX written to PTFIRE for   2019197:190000
+     CO written to PTFIRE for   2019197:200000
+     NO written to PTFIRE for   2019197:200000
+     NO2 written to PTFIRE for   2019197:200000
+     SO2 written to PTFIRE for   2019197:200000
+     NH3 written to PTFIRE for   2019197:200000
+     PEC written to PTFIRE for   2019197:200000
+     POC written to PTFIRE for   2019197:200000
+     PMOTHR written to PTFIRE for   2019197:200000
+     PNO3 written to PTFIRE for   2019197:200000
+     PSO4 written to PTFIRE for   2019197:200000
+     PAL written to PTFIRE for   2019197:200000
+     PCA written to PTFIRE for   2019197:200000
+     PCL written to PTFIRE for   2019197:200000
+     PFE written to PTFIRE for   2019197:200000
+     PK written to PTFIRE for   2019197:200000
+     PMG written to PTFIRE for   2019197:200000
+     PMN written to PTFIRE for   2019197:200000
+     PNA written to PTFIRE for   2019197:200000
+     PNCOM written to PTFIRE for   2019197:200000
+     PNH4 written to PTFIRE for   2019197:200000
+     PSI written to PTFIRE for   2019197:200000
+     PTI written to PTFIRE for   2019197:200000
+     HFLUX written to PTFIRE for   2019197:200000
+     CO written to PTFIRE for   2019197:210000
+     NO written to PTFIRE for   2019197:210000
+     NO2 written to PTFIRE for   2019197:210000
+     SO2 written to PTFIRE for   2019197:210000
+     NH3 written to PTFIRE for   2019197:210000
+     PEC written to PTFIRE for   2019197:210000
+     POC written to PTFIRE for   2019197:210000
+     PMOTHR written to PTFIRE for   2019197:210000
+     PNO3 written to PTFIRE for   2019197:210000
+     PSO4 written to PTFIRE for   2019197:210000
+     PAL written to PTFIRE for   2019197:210000
+     PCA written to PTFIRE for   2019197:210000
+     PCL written to PTFIRE for   2019197:210000
+     PFE written to PTFIRE for   2019197:210000
+     PK written to PTFIRE for   2019197:210000
+     PMG written to PTFIRE for   2019197:210000
+     PMN written to PTFIRE for   2019197:210000
+     PNA written to PTFIRE for   2019197:210000
+     PNCOM written to PTFIRE for   2019197:210000
+     PNH4 written to PTFIRE for   2019197:210000
+     PSI written to PTFIRE for   2019197:210000
+     PTI written to PTFIRE for   2019197:210000
+     HFLUX written to PTFIRE for   2019197:210000
+     CO written to PTFIRE for   2019197:220000
+     NO written to PTFIRE for   2019197:220000
+     NO2 written to PTFIRE for   2019197:220000
+     SO2 written to PTFIRE for   2019197:220000
+     NH3 written to PTFIRE for   2019197:220000
+     PEC written to PTFIRE for   2019197:220000
+     POC written to PTFIRE for   2019197:220000
+     PMOTHR written to PTFIRE for   2019197:220000
+     PNO3 written to PTFIRE for   2019197:220000
+     PSO4 written to PTFIRE for   2019197:220000
+     PAL written to PTFIRE for   2019197:220000
+     PCA written to PTFIRE for   2019197:220000
+     PCL written to PTFIRE for   2019197:220000
+     PFE written to PTFIRE for   2019197:220000
+     PK written to PTFIRE for   2019197:220000
+     PMG written to PTFIRE for   2019197:220000
+     PMN written to PTFIRE for   2019197:220000
+     PNA written to PTFIRE for   2019197:220000
+     PNCOM written to PTFIRE for   2019197:220000
+     PNH4 written to PTFIRE for   2019197:220000
+     PSI written to PTFIRE for   2019197:220000
+     PTI written to PTFIRE for   2019197:220000
+     HFLUX written to PTFIRE for   2019197:220000
+     CO written to PTFIRE for   2019197:230000
+     NO written to PTFIRE for   2019197:230000
+     NO2 written to PTFIRE for   2019197:230000
+     SO2 written to PTFIRE for   2019197:230000
+     NH3 written to PTFIRE for   2019197:230000
+     PEC written to PTFIRE for   2019197:230000
+     POC written to PTFIRE for   2019197:230000
+     PMOTHR written to PTFIRE for   2019197:230000
+     PNO3 written to PTFIRE for   2019197:230000
+     PSO4 written to PTFIRE for   2019197:230000
+     PAL written to PTFIRE for   2019197:230000
+     PCA written to PTFIRE for   2019197:230000
+     PCL written to PTFIRE for   2019197:230000
+     PFE written to PTFIRE for   2019197:230000
+     PK written to PTFIRE for   2019197:230000
+     PMG written to PTFIRE for   2019197:230000
+     PMN written to PTFIRE for   2019197:230000
+     PNA written to PTFIRE for   2019197:230000
+     PNCOM written to PTFIRE for   2019197:230000
+     PNH4 written to PTFIRE for   2019197:230000
+     PSI written to PTFIRE for   2019197:230000
+     PTI written to PTFIRE for   2019197:230000
+     HFLUX written to PTFIRE for   2019197:230000
+     CO written to PTFIRE for   2019198:000000
+     NO written to PTFIRE for   2019198:000000
+     NO2 written to PTFIRE for   2019198:000000
+     SO2 written to PTFIRE for   2019198:000000
+     NH3 written to PTFIRE for   2019198:000000
+     PEC written to PTFIRE for   2019198:000000
+     POC written to PTFIRE for   2019198:000000
+     PMOTHR written to PTFIRE for   2019198:000000
+     PNO3 written to PTFIRE for   2019198:000000
+     PSO4 written to PTFIRE for   2019198:000000
+     PAL written to PTFIRE for   2019198:000000
+     PCA written to PTFIRE for   2019198:000000
+     PCL written to PTFIRE for   2019198:000000
+     PFE written to PTFIRE for   2019198:000000
+     PK written to PTFIRE for   2019198:000000
+     PMG written to PTFIRE for   2019198:000000
+     PMN written to PTFIRE for   2019198:000000
+     PNA written to PTFIRE for   2019198:000000
+     PNCOM written to PTFIRE for   2019198:000000
+     PNH4 written to PTFIRE for   2019198:000000
+     PSI written to PTFIRE for   2019198:000000
+     PTI written to PTFIRE for   2019198:000000
+     HFLUX written to PTFIRE for   2019198:000000
+     CO written to PTFIRE for   2019198:010000
+     NO written to PTFIRE for   2019198:010000
+     NO2 written to PTFIRE for   2019198:010000
+     SO2 written to PTFIRE for   2019198:010000
+     NH3 written to PTFIRE for   2019198:010000
+     PEC written to PTFIRE for   2019198:010000
+     POC written to PTFIRE for   2019198:010000
+     PMOTHR written to PTFIRE for   2019198:010000
+     PNO3 written to PTFIRE for   2019198:010000
+     PSO4 written to PTFIRE for   2019198:010000
+     PAL written to PTFIRE for   2019198:010000
+     PCA written to PTFIRE for   2019198:010000
+     PCL written to PTFIRE for   2019198:010000
+     PFE written to PTFIRE for   2019198:010000
+     PK written to PTFIRE for   2019198:010000
+     PMG written to PTFIRE for   2019198:010000
+     PMN written to PTFIRE for   2019198:010000
+     PNA written to PTFIRE for   2019198:010000
+     PNCOM written to PTFIRE for   2019198:010000
+     PNH4 written to PTFIRE for   2019198:010000
+     PSI written to PTFIRE for   2019198:010000
+     PTI written to PTFIRE for   2019198:010000
+     HFLUX written to PTFIRE for   2019198:010000
+     CO written to PTFIRE for   2019198:020000
+     NO written to PTFIRE for   2019198:020000
+     NO2 written to PTFIRE for   2019198:020000
+     SO2 written to PTFIRE for   2019198:020000
+     NH3 written to PTFIRE for   2019198:020000
+     PEC written to PTFIRE for   2019198:020000
+     POC written to PTFIRE for   2019198:020000
+     PMOTHR written to PTFIRE for   2019198:020000
+     PNO3 written to PTFIRE for   2019198:020000
+     PSO4 written to PTFIRE for   2019198:020000
+     PAL written to PTFIRE for   2019198:020000
+     PCA written to PTFIRE for   2019198:020000
+     PCL written to PTFIRE for   2019198:020000
+     PFE written to PTFIRE for   2019198:020000
+     PK written to PTFIRE for   2019198:020000
+     PMG written to PTFIRE for   2019198:020000
+     PMN written to PTFIRE for   2019198:020000
+     PNA written to PTFIRE for   2019198:020000
+     PNCOM written to PTFIRE for   2019198:020000
+     PNH4 written to PTFIRE for   2019198:020000
+     PSI written to PTFIRE for   2019198:020000
+     PTI written to PTFIRE for   2019198:020000
+     HFLUX written to PTFIRE for   2019198:020000
+     CO written to PTFIRE for   2019198:030000
+     NO written to PTFIRE for   2019198:030000
+     NO2 written to PTFIRE for   2019198:030000
+     SO2 written to PTFIRE for   2019198:030000
+     NH3 written to PTFIRE for   2019198:030000
+     PEC written to PTFIRE for   2019198:030000
+     POC written to PTFIRE for   2019198:030000
+     PMOTHR written to PTFIRE for   2019198:030000
+     PNO3 written to PTFIRE for   2019198:030000
+     PSO4 written to PTFIRE for   2019198:030000
+     PAL written to PTFIRE for   2019198:030000
+     PCA written to PTFIRE for   2019198:030000
+     PCL written to PTFIRE for   2019198:030000
+     PFE written to PTFIRE for   2019198:030000
+     PK written to PTFIRE for   2019198:030000
+     PMG written to PTFIRE for   2019198:030000
+     PMN written to PTFIRE for   2019198:030000
+     PNA written to PTFIRE for   2019198:030000
+     PNCOM written to PTFIRE for   2019198:030000
+     PNH4 written to PTFIRE for   2019198:030000
+     PSI written to PTFIRE for   2019198:030000
+     PTI written to PTFIRE for   2019198:030000
+     HFLUX written to PTFIRE for   2019198:030000
+     CO written to PTFIRE for   2019198:040000
+     NO written to PTFIRE for   2019198:040000
+     NO2 written to PTFIRE for   2019198:040000
+     SO2 written to PTFIRE for   2019198:040000
+     NH3 written to PTFIRE for   2019198:040000
+     PEC written to PTFIRE for   2019198:040000
+     POC written to PTFIRE for   2019198:040000
+     PMOTHR written to PTFIRE for   2019198:040000
+     PNO3 written to PTFIRE for   2019198:040000
+     PSO4 written to PTFIRE for   2019198:040000
+     PAL written to PTFIRE for   2019198:040000
+     PCA written to PTFIRE for   2019198:040000
+     PCL written to PTFIRE for   2019198:040000
+     PFE written to PTFIRE for   2019198:040000
+     PK written to PTFIRE for   2019198:040000
+     PMG written to PTFIRE for   2019198:040000
+     PMN written to PTFIRE for   2019198:040000
+     PNA written to PTFIRE for   2019198:040000
+     PNCOM written to PTFIRE for   2019198:040000
+     PNH4 written to PTFIRE for   2019198:040000
+     PSI written to PTFIRE for   2019198:040000
+     PTI written to PTFIRE for   2019198:040000
+     HFLUX written to PTFIRE for   2019198:040000
+     CO written to PTFIRE for   2019198:050000
+     NO written to PTFIRE for   2019198:050000
+     NO2 written to PTFIRE for   2019198:050000
+     SO2 written to PTFIRE for   2019198:050000
+     NH3 written to PTFIRE for   2019198:050000
+     PEC written to PTFIRE for   2019198:050000
+     POC written to PTFIRE for   2019198:050000
+     PMOTHR written to PTFIRE for   2019198:050000
+     PNO3 written to PTFIRE for   2019198:050000
+     PSO4 written to PTFIRE for   2019198:050000
+     PAL written to PTFIRE for   2019198:050000
+     PCA written to PTFIRE for   2019198:050000
+     PCL written to PTFIRE for   2019198:050000
+     PFE written to PTFIRE for   2019198:050000
+     PK written to PTFIRE for   2019198:050000
+     PMG written to PTFIRE for   2019198:050000
+     PMN written to PTFIRE for   2019198:050000
+     PNA written to PTFIRE for   2019198:050000
+     PNCOM written to PTFIRE for   2019198:050000
+     PNH4 written to PTFIRE for   2019198:050000
+     PSI written to PTFIRE for   2019198:050000
+     PTI written to PTFIRE for   2019198:050000
+     HFLUX written to PTFIRE for   2019198:050000
+     CO written to PTFIRE for   2019198:060000
+     NO written to PTFIRE for   2019198:060000
+     NO2 written to PTFIRE for   2019198:060000
+     SO2 written to PTFIRE for   2019198:060000
+     NH3 written to PTFIRE for   2019198:060000
+     PEC written to PTFIRE for   2019198:060000
+     POC written to PTFIRE for   2019198:060000
+     PMOTHR written to PTFIRE for   2019198:060000
+     PNO3 written to PTFIRE for   2019198:060000
+     PSO4 written to PTFIRE for   2019198:060000
+     PAL written to PTFIRE for   2019198:060000
+     PCA written to PTFIRE for   2019198:060000
+     PCL written to PTFIRE for   2019198:060000
+     PFE written to PTFIRE for   2019198:060000
+     PK written to PTFIRE for   2019198:060000
+     PMG written to PTFIRE for   2019198:060000
+     PMN written to PTFIRE for   2019198:060000
+     PNA written to PTFIRE for   2019198:060000
+     PNCOM written to PTFIRE for   2019198:060000
+     PNH4 written to PTFIRE for   2019198:060000
+     PSI written to PTFIRE for   2019198:060000
+     PTI written to PTFIRE for   2019198:060000
+     HFLUX written to PTFIRE for   2019198:060000
+     CO written to PTFIRE for   2019198:070000
+     NO written to PTFIRE for   2019198:070000
+     NO2 written to PTFIRE for   2019198:070000
+     SO2 written to PTFIRE for   2019198:070000
+     NH3 written to PTFIRE for   2019198:070000
+     PEC written to PTFIRE for   2019198:070000
+     POC written to PTFIRE for   2019198:070000
+     PMOTHR written to PTFIRE for   2019198:070000
+     PNO3 written to PTFIRE for   2019198:070000
+     PSO4 written to PTFIRE for   2019198:070000
+     PAL written to PTFIRE for   2019198:070000
+     PCA written to PTFIRE for   2019198:070000
+     PCL written to PTFIRE for   2019198:070000
+     PFE written to PTFIRE for   2019198:070000
+     PK written to PTFIRE for   2019198:070000
+     PMG written to PTFIRE for   2019198:070000
+     PMN written to PTFIRE for   2019198:070000
+     PNA written to PTFIRE for   2019198:070000
+     PNCOM written to PTFIRE for   2019198:070000
+     PNH4 written to PTFIRE for   2019198:070000
+     PSI written to PTFIRE for   2019198:070000
+     PTI written to PTFIRE for   2019198:070000
+     HFLUX written to PTFIRE for   2019198:070000
+     CO written to PTFIRE for   2019198:080000
+     NO written to PTFIRE for   2019198:080000
+     NO2 written to PTFIRE for   2019198:080000
+     SO2 written to PTFIRE for   2019198:080000
+     NH3 written to PTFIRE for   2019198:080000
+     PEC written to PTFIRE for   2019198:080000
+     POC written to PTFIRE for   2019198:080000
+     PMOTHR written to PTFIRE for   2019198:080000
+     PNO3 written to PTFIRE for   2019198:080000
+     PSO4 written to PTFIRE for   2019198:080000
+     PAL written to PTFIRE for   2019198:080000
+     PCA written to PTFIRE for   2019198:080000
+     PCL written to PTFIRE for   2019198:080000
+     PFE written to PTFIRE for   2019198:080000
+     PK written to PTFIRE for   2019198:080000
+     PMG written to PTFIRE for   2019198:080000
+     PMN written to PTFIRE for   2019198:080000
+     PNA written to PTFIRE for   2019198:080000
+     PNCOM written to PTFIRE for   2019198:080000
+     PNH4 written to PTFIRE for   2019198:080000
+     PSI written to PTFIRE for   2019198:080000
+     PTI written to PTFIRE for   2019198:080000
+     HFLUX written to PTFIRE for   2019198:080000
+     CO written to PTFIRE for   2019198:090000
+     NO written to PTFIRE for   2019198:090000
+     NO2 written to PTFIRE for   2019198:090000
+     SO2 written to PTFIRE for   2019198:090000
+     NH3 written to PTFIRE for   2019198:090000
+     PEC written to PTFIRE for   2019198:090000
+     POC written to PTFIRE for   2019198:090000
+     PMOTHR written to PTFIRE for   2019198:090000
+     PNO3 written to PTFIRE for   2019198:090000
+     PSO4 written to PTFIRE for   2019198:090000
+     PAL written to PTFIRE for   2019198:090000
+     PCA written to PTFIRE for   2019198:090000
+     PCL written to PTFIRE for   2019198:090000
+     PFE written to PTFIRE for   2019198:090000
+     PK written to PTFIRE for   2019198:090000
+     PMG written to PTFIRE for   2019198:090000
+     PMN written to PTFIRE for   2019198:090000
+     PNA written to PTFIRE for   2019198:090000
+     PNCOM written to PTFIRE for   2019198:090000
+     PNH4 written to PTFIRE for   2019198:090000
+     PSI written to PTFIRE for   2019198:090000
+     PTI written to PTFIRE for   2019198:090000
+     HFLUX written to PTFIRE for   2019198:090000
+     CO written to PTFIRE for   2019198:100000
+     NO written to PTFIRE for   2019198:100000
+     NO2 written to PTFIRE for   2019198:100000
+     SO2 written to PTFIRE for   2019198:100000
+     NH3 written to PTFIRE for   2019198:100000
+     PEC written to PTFIRE for   2019198:100000
+     POC written to PTFIRE for   2019198:100000
+     PMOTHR written to PTFIRE for   2019198:100000
+     PNO3 written to PTFIRE for   2019198:100000
+     PSO4 written to PTFIRE for   2019198:100000
+     PAL written to PTFIRE for   2019198:100000
+     PCA written to PTFIRE for   2019198:100000
+     PCL written to PTFIRE for   2019198:100000
+     PFE written to PTFIRE for   2019198:100000
+     PK written to PTFIRE for   2019198:100000
+     PMG written to PTFIRE for   2019198:100000
+     PMN written to PTFIRE for   2019198:100000
+     PNA written to PTFIRE for   2019198:100000
+     PNCOM written to PTFIRE for   2019198:100000
+     PNH4 written to PTFIRE for   2019198:100000
+     PSI written to PTFIRE for   2019198:100000
+     PTI written to PTFIRE for   2019198:100000
+     HFLUX written to PTFIRE for   2019198:100000
+     CO written to PTFIRE for   2019198:110000
+     NO written to PTFIRE for   2019198:110000
+     NO2 written to PTFIRE for   2019198:110000
+     SO2 written to PTFIRE for   2019198:110000
+     NH3 written to PTFIRE for   2019198:110000
+     PEC written to PTFIRE for   2019198:110000
+     POC written to PTFIRE for   2019198:110000
+     PMOTHR written to PTFIRE for   2019198:110000
+     PNO3 written to PTFIRE for   2019198:110000
+     PSO4 written to PTFIRE for   2019198:110000
+     PAL written to PTFIRE for   2019198:110000
+     PCA written to PTFIRE for   2019198:110000
+     PCL written to PTFIRE for   2019198:110000
+     PFE written to PTFIRE for   2019198:110000
+     PK written to PTFIRE for   2019198:110000
+     PMG written to PTFIRE for   2019198:110000
+     PMN written to PTFIRE for   2019198:110000
+     PNA written to PTFIRE for   2019198:110000
+     PNCOM written to PTFIRE for   2019198:110000
+     PNH4 written to PTFIRE for   2019198:110000
+     PSI written to PTFIRE for   2019198:110000
+     PTI written to PTFIRE for   2019198:110000
+     HFLUX written to PTFIRE for   2019198:110000
+     CO written to PTFIRE for   2019198:120000
+     NO written to PTFIRE for   2019198:120000
+     NO2 written to PTFIRE for   2019198:120000
+     SO2 written to PTFIRE for   2019198:120000
+     NH3 written to PTFIRE for   2019198:120000
+     PEC written to PTFIRE for   2019198:120000
+     POC written to PTFIRE for   2019198:120000
+     PMOTHR written to PTFIRE for   2019198:120000
+     PNO3 written to PTFIRE for   2019198:120000
+     PSO4 written to PTFIRE for   2019198:120000
+     PAL written to PTFIRE for   2019198:120000
+     PCA written to PTFIRE for   2019198:120000
+     PCL written to PTFIRE for   2019198:120000
+     PFE written to PTFIRE for   2019198:120000
+     PK written to PTFIRE for   2019198:120000
+     PMG written to PTFIRE for   2019198:120000
+     PMN written to PTFIRE for   2019198:120000
+     PNA written to PTFIRE for   2019198:120000
+     PNCOM written to PTFIRE for   2019198:120000
+     PNH4 written to PTFIRE for   2019198:120000
+     PSI written to PTFIRE for   2019198:120000
+     PTI written to PTFIRE for   2019198:120000
+     HFLUX written to PTFIRE for   2019198:120000
+Application 11482402 resources: utime ~1s, stime ~1s, Rss ~2968676, inblocks ~1112663, outblocks ~14616
+Thu May  7 17:44:08 UTC 2020
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@nid00252>
+Subject: Job 464690: <aqm_prep_5x> in cluster <NCEP-ORLANDO> Done
+
+Job <aqm_prep_5x> was submitted from host <slogin1> by user <Youhua.Tang> in cluster <NCEP-ORLANDO> at Thu May  7 17:43:58 2020.
+Job was executed on host(s) <1*nid00252>, in queue <debug>, as user <Youhua.Tang> in cluster <NCEP-ORLANDO> at Thu May  7 17:43:58 2020.
+                            <24*nid00236>
+                            <24*nid00239>
+                            <24*nid00243>
+                            <24*nid00244>
+                            <24*nid00245>
+                            <24*nid00247>
+                            <24*nid00248>
+                            <24*nid00498>
+                            <24*nid00499>
+                            <24*nid00657>
+</u/Youhua.Tang> was used as the home directory.
+</u/Youhua.Tang/noscrub/nwdev/NAQFC-WCOSS/working/.> was used as the working directory.
+Started at Thu May  7 17:43:58 2020.
+Terminated at Thu May  7 17:45:11 2020.
+Results reported at Thu May  7 17:45:11 2020.
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/ksh -x
+#BSUB -o jaqm_prep_5x.out
+#BSUB -e jaqm_prep_5x.err
+#BSUB -J aqm_prep_5x
+#BSUB -W 00:30
+#BSUB -q debug
+#BSUB -P CMAQ-T2O
+##BSUB -extsched "CRAYLINUX[]" -R "1*{select[craylinux && !vnode]} + 576*{select[craylinux && vnode] span [ptile=24]}"
+#BSUB -M 3000
+#BSUB -extsched 'CRAYLINUX[]'
+#BSUB -cwd .
+
+#if [ $cyc -eq 06 -o $cyc -eq 12 ]; then
+ export NODES=10
+#else
+# export NODES=1
+#fi  
+
+export job=${job:-$LSB_JOBNAME}
+export jobid=${jobid:-$job.$LSB_JOBID}
+export RUN_ENVIR=${RUN_ENVIR:-aqm}
+export envir=${envir:-para}
+export SENDDBN=${SENDDBN:-YES}
+export SENDDBN_NTC=${SENDDBN_NTC:-YES}
+
+source /opt/modules/default/init/ksh
+module load PrgEnv-intel
+module load cray-netcdf/4.3.2
+module load cray-hdf5/1.8.13
+module load cray-mpich/7.2.0
+module load prod_util
+module load prod_envir
+module load grib_util/1.0.3
+
+export KEEPDATA=YES
+
+export IOBUF_PARAMS="*:verbose:size=16M:count=4"
+
+# EXPORT list here
+set -ax
+export PARAFLAG=YES
+
+export FCST=YES
+
+${HOMEaqm}/jobs/JAQM_PREP_CS
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.93 sec.
+    Max Memory :                                 27 MB
+    Average Memory :                             -
+    Total Requested Memory :                     3000.00 MB
+    Delta Memory :                               2973.00 MB
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   10 sec.
+    Turnaround time :                            73 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <jaqm_prep_5x.err> for stderr output of this job.
+
+Data collected from /ufs/RUR/output/rur.output.NCEP-ORLANDO@464690
+------------------------------------------------------------------------
+
+ALPS Resource Utilization Report (RUR) Summary for LSF Job: 464690
+
+STATUS:
+
+
+          APP START:                 2020-05-07:17:44:02 UTC
+          APP STOP:                  2020-05-07:17:44:10 UTC
+          exit codes:                0 
+          core files:                0
+
+CPU:
+
+
+          stime:                    1.128000 s
+          utime:                    1.036000 s
+
+MEMORY:
+
+
+          max_rss:                  2899.09 MiB
+          accumulated max_rss:      2899.09 MiB
+          active(anon):             34.00 MiB
+          active(file):             1.46 MiB
+          inactive(anon):           2.83 MiB
+          inactive(file):           7.16 MiB
+          majfaults:                15
+          minfaults:                754771
+          pageswpcnt:               0
+
+I/O: 
+
+
+          rcalls:                   9326
+          wcalls:                   12162
+          rchar:                    543.28 MiB
+          wchar:                    7.13 MiB
+          bkiowait:                 0.0317505840 s

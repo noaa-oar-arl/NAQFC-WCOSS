@@ -1,0 +1,390 @@
+May  7 17:44:00 2020 13766 7 9.1.3 jobSetupStatus: job additionalInfo reservation_id=848589
++ NODES=10
++ export NODES
++ job=aqm_prep_cs
++ export job
++ jobid=aqm_prep_cs.464690
++ export jobid
++ RUN_ENVIR=aqm
++ export RUN_ENVIR
++ envir=para
++ export envir
++ SENDDBN=YES
++ export SENDDBN
++ SENDDBN_NTC=YES
++ export SENDDBN_NTC
++ command . /opt/modules/default/init/ksh
++ [ 3.2.10 '=' '' ]
++ MODULE_VERSION_STACK=3.2.10
++ export MODULE_VERSION_STACK
++ [ '' '=' '' ]
++ MODULESHOME=/opt/modules/3.2.10.3
++ export MODULESHOME
++ [ modules/3.2.10.3:eswrap/1.3.3-1.020200.1280.0:switch/1.0-1.0502.60522.1.61.ari:craype-network-aries:dvs/2.5_0.9.0-1.0502.2481.23.7.ari:alps/5.2.4-2.0502.9822.32.1.ari:ncep/1.0:craype-haswell:xt-lsfhpc/9.1.3:intel/15.0.3.187:craype/2.3.0:cray-libsci/13.0.3:udreg/2.3.2-1.0502.10518.2.17.ari:ugni/6.0-1.0502.10863.8.29.ari:pmi/5.0.6-1.0000.10439.140.2.ari:dmapp/7.0.1-1.0502.11080.8.76.ari:gni-headers/4.0-1.0502.10859.7.8.ari:xpmem/0.1-2.0502.64982.5.3.ari:dvs/2.5_0.9.0-1.0502.2188.1.116.ari:alps/5.2.4-2.0502.9774.31.11.ari:rca/1.0.0-2.0502.60530.1.62.ari:atp/1.8.1:PrgEnv-intel/5.2.82:cray-mpich/7.2.0:hpss/4.1.0.3:iobuf/2.0.5:cray-netcdf/4.3.2:cray-hdf5/1.8.13:nco-gnu-sandybridge/4.4.4:imagemagick-intel-haswell/6.8.3:subversion/1.7.16:ESMF-intel-haswell/6_3_0rp1:bufr-intel/11.3.0:bacio-intel/2.0.2:zlib-intel-haswell/1.2.7:grib_util/1.0.3:nemsio-intel/2.2.3:nemsiogfs-intel/2.0.1:w3emc-intel/2.3.0:w3nco-intel/2.0.6:python/3.6.3:gcc/6.3.0:cmake/3.6.2:git/2.18.0 '=' '' ]
++ [ /usrx/local/dev/modulefiles:/usrx/local/prod/modulefiles:/gpfs/hps/nco/ops/nwprod/lib/modulefiles:/gpfs/hps/nco/ops/nwprod/modulefiles:/opt/cray/alt-modulefiles:/opt/cray/craype/default/alt-modulefiles:/opt/cray/ari/modulefiles:/opt/modulefiles '=' '' ]
++ CRAY_SITE_LIST_DIR=/etc/opt/cray/modules
++ export CRAY_SITE_LIST_DIR
++ grep CRAY_SITE_LIST /etc/opt/cray/modules/site_list_config
++ site_list_dir=CRAY_SITE_LIST_DIR=/etc/opt/cray/modules
++ export CRAY_SITE_LIST_DIR=/etc/opt/cray/modules
++ sorted_file=''
++ [ -f /etc/opt/cray/modules/site_usermodules ]
++ echo /opt/modules/3.2.10.3/init/.usermodules
++ sort
++ uniq
++ strings -n1 - /opt/modules/3.2.10.3/init/.usermodules
++ echo /etc/opt/cray/modules/site_usermodules
++ sort
++ strings -n1 - /etc/opt/cray/modules/site_usermodules
++ uniq
++ sorted_file=$'/opt/modules/3.2.10.3/init/.usermodules\nPrgEnv-cray\nPrgEnv-gnu\nPrgEnv-intel\nPrgEnv-pathscale\nPrgEnv-pgi\nacml\nalps\napprentice\napprentice2\natp\nblcr\ncce\nchapel\ncray-ccdb\ncray-fftw\ncray-ga\ncray-hdf5\ncray-hdf5-parallel\ncray-lgdb\ncray-libsci\ncray-libsci_acc\ncray-mpich\ncray-mpich-compat\ncray-mpich2\ncray-netcdf\ncray-netcdf-hdf5parallel\ncray-parallel-netcdf\ncray-petsc\ncray-petsc-complex\ncray-shmem\ncray-snplauncher\ncray-tpsl\ncray-trilinos\ncraypat\ncraype\ncraypkg-gen\ncudatoolkit\nddt\nfftw\nga\ngcc \nhdf5\nhdf5-parallel\nintel\niobuf\njava\nlgdb\nlibfast\nlibsci_acc\nmpich1\nnetcdf\nnetcdf-hdf5parallel\nnetcdf-nofsync\nnetcdf-nofsync-hdf5parallel\nntk\nonesided\npapi\nparallel-netcdf\npathscale\nperftools\nperftools-lite\npetsc\npetsc-complex\npgi\npmi\nstat\ntotalview\ntpsl\ntrilinos\nxt-asyncpe\nxt-craypat\nxt-lgdb\nxt-libsci\nxt-mpich2\nxt-mpt\nxt-papi\nxt-shmem\nxt-totalview\n/etc/opt/cray/modules/site_usermodules'
++ echo /opt/modules/3.2.10.3/init/.usermodules PrgEnv-cray PrgEnv-gnu PrgEnv-intel PrgEnv-pathscale PrgEnv-pgi acml alps apprentice apprentice2 atp blcr cce chapel cray-ccdb cray-fftw cray-ga cray-hdf5 cray-hdf5-parallel cray-lgdb cray-libsci cray-libsci_acc cray-mpich cray-mpich-compat cray-mpich2 cray-netcdf cray-netcdf-hdf5parallel cray-parallel-netcdf cray-petsc cray-petsc-complex cray-shmem cray-snplauncher cray-tpsl cray-trilinos craypat craype craypkg-gen cudatoolkit ddt fftw ga gcc hdf5 hdf5-parallel intel iobuf java lgdb libfast libsci_acc mpich1 netcdf netcdf-hdf5parallel netcdf-nofsync netcdf-nofsync-hdf5parallel ntk onesided papi parallel-netcdf pathscale perftools perftools-lite petsc petsc-complex pgi pmi stat totalview tpsl trilinos xt-asyncpe xt-craypat xt-lgdb xt-libsci xt-mpich2 xt-mpt xt-papi xt-shmem xt-totalview /etc/opt/cray/modules/site_usermodules
++ sed 's/\/opt\/modules\/3\.2\.10\.3\/init\/\.usermodules://'
++ sed 's/ /:/g'
++ USERMODULES=PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-pathscale:PrgEnv-pgi:acml:alps:apprentice:apprentice2:atp:blcr:cce:chapel:cray-ccdb:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-lgdb:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-compat:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-snplauncher:cray-tpsl:cray-trilinos:craypat:craype:craypkg-gen:cudatoolkit:ddt:fftw:ga:gcc:hdf5:hdf5-parallel:intel:iobuf:java:lgdb:libfast:libsci_acc:mpich1:netcdf:netcdf-hdf5parallel:netcdf-nofsync:netcdf-nofsync-hdf5parallel:ntk:onesided:papi:parallel-netcdf:pathscale:perftools:perftools-lite:petsc:petsc-complex:pgi:pmi:stat:totalview:tpsl:trilinos:xt-asyncpe:xt-craypat:xt-lgdb:xt-libsci:xt-mpich2:xt-mpt:xt-papi:xt-shmem:xt-totalview:/etc/opt/cray/modules/site_usermodules
++ export USERMODULES
++ sorted_file=''
++ [ -f /etc/opt/cray/modules/site_targetmodules ]
++ echo /opt/modules/3.2.10.3/init/.targetmodules
++ sort
++ uniq
++ strings -n1 - /opt/modules/3.2.10.3/init/.targetmodules
++ echo /etc/opt/cray/modules/site_targetmodules
++ uniq
++ strings -n1 - /etc/opt/cray/modules/site_targetmodules
++ sort
++ sorted_file=$'/opt/modules/3.2.10.3/init/.targetmodules\ncraype-abudhabi\ncraype-abudhabi-cu\ncraype-accel-host\ncraype-accel-nvidia20\ncraype-accel-nvidia30\ncraype-accel-nvidia35\ncraype-barcelona\ncraype-broadwell\ncraype-haswell\ncraype-hugepages128K\ncraype-hugepages128M\ncraype-hugepages16M\ncraype-hugepages256M\ncraype-hugepages2M\ncraype-hugepages32M\ncraype-hugepages4M\ncraype-hugepages512K\ncraype-hugepages512M\ncraype-hugepages64M\ncraype-hugepages8M\ncraype-intel-knc\ncraype-interlagos\ncraype-interlagos-cu\ncraype-istanbul\ncraype-ivybridge\ncraype-mc12\ncraype-mc8\ncraype-mic-knl\ncraype-network-aries\ncraype-network-gemini\ncraype-network-infiniband\ncraype-network-none\ncraype-network-seastar\ncraype-sandybridge\ncraype-shanghai\ncraype-target-compute_node\ncraype-target-local_host\ncraype-target-native\ncraype-xeon\nxtpe-barcelona\nxtpe-interlagos\nxtpe-interlagos-cu\nxtpe-istanbul\nxtpe-mc12\nxtpe-mc8\nxtpe-network-gemini\nxtpe-network-seastar\nxtpe-shanghai\nxtpe-target-native\nxtpe-xeon\n/etc/opt/cray/modules/site_targetmodules'
++ echo /opt/modules/3.2.10.3/init/.targetmodules craype-abudhabi craype-abudhabi-cu craype-accel-host craype-accel-nvidia20 craype-accel-nvidia30 craype-accel-nvidia35 craype-barcelona craype-broadwell craype-haswell craype-hugepages128K craype-hugepages128M craype-hugepages16M craype-hugepages256M craype-hugepages2M craype-hugepages32M craype-hugepages4M craype-hugepages512K craype-hugepages512M craype-hugepages64M craype-hugepages8M craype-intel-knc craype-interlagos craype-interlagos-cu craype-istanbul craype-ivybridge craype-mc12 craype-mc8 craype-mic-knl craype-network-aries craype-network-gemini craype-network-infiniband craype-network-none craype-network-seastar craype-sandybridge craype-shanghai craype-target-compute_node craype-target-local_host craype-target-native craype-xeon xtpe-barcelona xtpe-interlagos xtpe-interlagos-cu xtpe-istanbul xtpe-mc12 xtpe-mc8 xtpe-network-gemini xtpe-network-seastar xtpe-shanghai xtpe-target-native xtpe-xeon /etc/opt/cray/modules/site_targetmodules
++ sed 's/ /:/g'
++ sed 's/\/opt\/modules\/3\.2\.10\.3\/init\/\.targetmodules://'
++ TARGETMODULES=craype-abudhabi:craype-abudhabi-cu:craype-accel-host:craype-accel-nvidia20:craype-accel-nvidia30:craype-accel-nvidia35:craype-barcelona:craype-broadwell:craype-haswell:craype-hugepages128K:craype-hugepages128M:craype-hugepages16M:craype-hugepages256M:craype-hugepages2M:craype-hugepages32M:craype-hugepages4M:craype-hugepages512K:craype-hugepages512M:craype-hugepages64M:craype-hugepages8M:craype-intel-knc:craype-interlagos:craype-interlagos-cu:craype-istanbul:craype-ivybridge:craype-mc12:craype-mc8:craype-mic-knl:craype-network-aries:craype-network-gemini:craype-network-infiniband:craype-network-none:craype-network-seastar:craype-sandybridge:craype-shanghai:craype-target-compute_node:craype-target-local_host:craype-target-native:craype-xeon:xtpe-barcelona:xtpe-interlagos:xtpe-interlagos-cu:xtpe-istanbul:xtpe-mc12:xtpe-mc8:xtpe-network-gemini:xtpe-network-seastar:xtpe-shanghai:xtpe-target-native:xtpe-xeon:/etc/opt/cray/modules/site_targetmodules
++ export TARGETMODULES
++ sorted_file=''
++ [ -f /etc/opt/cray/modules/site_librarymodules ]
++ echo /opt/modules/3.2.10.3/init/.librarymodules
++ strings -n1 - /opt/modules/3.2.10.3/init/.librarymodules
++ uniq
++ sort
++ echo /etc/opt/cray/modules/site_librarymodules
++ uniq
++ sort
++ strings -n1 - /etc/opt/cray/modules/site_librarymodules
++ sorted_file=$'/opt/modules/3.2.10.3/init/.librarymodules\nacml\nalps\ncray-dwarf\ncray-fftw\ncray-ga\ncray-hdf5\ncray-hdf5-parallel\ncray-libsci\ncray-libsci_acc\ncray-mpich\ncray-mpich-abi\ncray-mpich2\ncray-netcdf\ncray-netcdf-hdf5parallel\ncray-parallel-netcdf\ncray-petsc\ncray-petsc-complex\ncray-shmem\ncray-tpsl\ncray-trilinos\ncudatoolkit\nfftw\nga\nhdf5\nhdf5-parallel\niobuf\nlibfast\nnetcdf\nnetcdf-hdf5parallel\nntk\nonesided\npapi\npetsc\npetsc-complex\npmi\ntpsl\ntrilinos\nxt-libsci\nxt-mpich2\nxt-mpt\nxt-papi\n/etc/opt/cray/modules/site_librarymodules'
++ echo /opt/modules/3.2.10.3/init/.librarymodules acml alps cray-dwarf cray-fftw cray-ga cray-hdf5 cray-hdf5-parallel cray-libsci cray-libsci_acc cray-mpich cray-mpich-abi cray-mpich2 cray-netcdf cray-netcdf-hdf5parallel cray-parallel-netcdf cray-petsc cray-petsc-complex cray-shmem cray-tpsl cray-trilinos cudatoolkit fftw ga hdf5 hdf5-parallel iobuf libfast netcdf netcdf-hdf5parallel ntk onesided papi petsc petsc-complex pmi tpsl trilinos xt-libsci xt-mpich2 xt-mpt xt-papi /etc/opt/cray/modules/site_librarymodules
++ sed 's/ /:/g'
++ sed 's/\/opt\/modules\/3\.2\.10\.3\/init\/\.librarymodules://'
++ LIBRARYMODULES=acml:alps:cray-dwarf:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-abi:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-tpsl:cray-trilinos:cudatoolkit:fftw:ga:hdf5:hdf5-parallel:iobuf:libfast:netcdf:netcdf-hdf5parallel:ntk:onesided:papi:petsc:petsc-complex:pmi:tpsl:trilinos:xt-libsci:xt-mpich2:xt-mpt:xt-papi:/etc/opt/cray/modules/site_librarymodules
++ export LIBRARYMODULES
++ sorted_file=''
++ echo /opt/modules/3.2.10.3/init/.prgenvmodules
++ uniq
++ sort
++ strings -n1 - /opt/modules/3.2.10.3/init/.prgenvmodules
++ sorted_file=$'/opt/modules/3.2.10.3/init/.prgenvmodules\nPrgEnv-cray\nPrgEnv-gnu\nPrgEnv-intel\nPrgEnv-pathscale\nPrgEnv-pgi'
++ echo /opt/modules/3.2.10.3/init/.prgenvmodules PrgEnv-cray PrgEnv-gnu PrgEnv-intel PrgEnv-pathscale PrgEnv-pgi
++ sed 's/\/opt\/modules\/3\.2\.10\.3\/init\/\.prgenvmodules://'
++ sed 's/ /:/g'
++ PRGENVMODULES=PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-pathscale:PrgEnv-pgi
++ export PRGENVMODULES
++ sorted_file=''
++ [ -f /etc/opt/cray/modules/site_toolmodules ]
++ echo /opt/modules/3.2.10.3/init/.toolmodules
++ sort
++ strings -n1 - /opt/modules/3.2.10.3/init/.toolmodules
++ uniq
++ echo /etc/opt/cray/modules/site_toolmodules
++ sort
++ uniq
++ strings -n1 - /etc/opt/cray/modules/site_toolmodules
++ sorted_file=$'/opt/modules/3.2.10.3/init/.toolmodules\napprentice\napprentice2\natp\nchapel\ncray-lgdb\ncray-snplauncher\ncraypat\ncraypkg-gen\nddt\ngdb\niobuf\npapi\nperftools\nperftools-lite\nstat\ntotalview\nxt-craypat\nxt-lgdb\nxt-papi\nxt-totalview\n/etc/opt/cray/modules/site_toolmodules'
++ echo /opt/modules/3.2.10.3/init/.toolmodules apprentice apprentice2 atp chapel cray-lgdb cray-snplauncher craypat craypkg-gen ddt gdb iobuf papi perftools perftools-lite stat totalview xt-craypat xt-lgdb xt-papi xt-totalview /etc/opt/cray/modules/site_toolmodules
++ sed 's/ /:/g'
++ sed 's/\/opt\/modules\/3\.2\.10\.3\/init\/\.toolmodules://'
++ TOOLMODULES=apprentice:apprentice2:atp:chapel:cray-lgdb:cray-snplauncher:craypat:craypkg-gen:ddt:gdb:iobuf:papi:perftools:perftools-lite:stat:totalview:xt-craypat:xt-lgdb:xt-papi:xt-totalview:/etc/opt/cray/modules/site_toolmodules
++ export TOOLMODULES
++ module load PrgEnv-intel
++ /opt/modules/3.2.10.3/bin/modulecmd ksh load PrgEnv-intel
++ eval
++ module load cray-netcdf/4.3.2
++ /opt/modules/3.2.10.3/bin/modulecmd ksh load cray-netcdf/4.3.2
++ eval
++ module load cray-hdf5/1.8.13
++ /opt/modules/3.2.10.3/bin/modulecmd ksh load cray-hdf5/1.8.13
++ eval
++ module load cray-mpich/7.2.0
++ /opt/modules/3.2.10.3/bin/modulecmd ksh load cray-mpich/7.2.0
++ eval
++ module load prod_util
++ /opt/modules/3.2.10.3/bin/modulecmd ksh load prod_util
++ eval COMDATEROOT=/gpfs/hps/nco/ops/com ';export' 'COMDATEROOT;COMLISTROOT=/gpfs/hps/nco/ops/config' ';export' 'COMLISTROOT;FSYNC=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/fsync_file' ';export' 'FSYNC;LOADEDMODULES=modules/3.2.10.3:eswrap/1.3.3-1.020200.1280.0:switch/1.0-1.0502.60522.1.61.ari:craype-network-aries:dvs/2.5_0.9.0-1.0502.2481.23.7.ari:alps/5.2.4-2.0502.9822.32.1.ari:ncep/1.0:craype-haswell:xt-lsfhpc/9.1.3:intel/15.0.3.187:craype/2.3.0:cray-libsci/13.0.3:udreg/2.3.2-1.0502.10518.2.17.ari:ugni/6.0-1.0502.10863.8.29.ari:pmi/5.0.6-1.0000.10439.140.2.ari:dmapp/7.0.1-1.0502.11080.8.76.ari:gni-headers/4.0-1.0502.10859.7.8.ari:xpmem/0.1-2.0502.64982.5.3.ari:dvs/2.5_0.9.0-1.0502.2188.1.116.ari:alps/5.2.4-2.0502.9774.31.11.ari:rca/1.0.0-2.0502.60530.1.62.ari:atp/1.8.1:PrgEnv-intel/5.2.82:cray-mpich/7.2.0:hpss/4.1.0.3:iobuf/2.0.5:cray-netcdf/4.3.2:cray-hdf5/1.8.13:nco-gnu-sandybridge/4.4.4:imagemagick-intel-haswell/6.8.3:subversion/1.7.16:ESMF-intel-haswell/6_3_0rp1:bufr-intel/11.3.0:bacio-intel/2.0.2:zlib-intel-haswell/1.2.7:grib_util/1.0.3:nemsio-intel/2.2.3:nemsiogfs-intel/2.0.1:w3emc-intel/2.3.0:w3nco-intel/2.0.6:python/3.6.3:gcc/6.3.0:cmake/3.6.2:git/2.18.0:prod_util/1.1.0' ';export' 'LOADEDMODULES;MDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/mdate' ';export' 'MDATE;NDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/ndate' ';export' 'NDATE;NHOUR=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/nhour' ';export' 'NHOUR;PATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/bin:/usrx/local/dev/git/2.18.0/bin:/usrx/local/dev/cmake/3.6.2/bin:/opt/gcc/6.3.0/bin:/usrx/local/prod/python/3.6.3/bin:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/bin:/usrx/local/prod/imagemagick/6.8.3/intel/haswell/bin:/usrx/local/prod/nco/4.4.4/gnu/sandybridge/bin:/opt/cray/hdf5/1.8.13/bin:/opt/cray/netcdf/4.3.2/bin:/usrx/local/prod/hpss:/opt/cray/mpt/7.2.0/gni/bin:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/bin:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/sbin:/opt/cray/dvs/2.5_0.9.0-1.0502.2188.1.116.ari/bin:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/bin:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/bin:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/bin:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/bin:/opt/cray/craype/2.3.0/bin:/opt/intel/composer_xe_2015.3.187/bin/intel64:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/etc:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/sbin:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/bin:/opt/cray/dvs/2.5_0.9.0-1.0502.2481.23.7.ari/bin:/opt/cray/switch/1.0-1.0502.60522.1.61.ari/bin:/opt/cray/eslogin/eswrap/1.3.3-1.020200.1280.0/bin:/opt/modules/3.2.10.3/bin:/u/Youhua.Tang/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/opt/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/sbin:/usr/sbin:.:/usr/lib/qt3/bin:/usrx/local/grads/2.0.2/bin:/usrx/local/hpss:/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec:.:/opt/cray/bin:/usrx/local/prod/zlib/1.2.7/intel/haswell/include' ';export' 'PATH;PYTHONPATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush' ';export' 'PYTHONPATH;UTILROOT=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0' ';export' 'UTILROOT;_LMFILES_=/opt/modulefiles/modules/3.2.10.3:/opt/modulefiles/eswrap/1.3.3-1.020200.1280.0:/opt/cray/ari/modulefiles/switch/1.0-1.0502.60522.1.61.ari:/opt/cray/craype/default/modulefiles/craype-network-aries:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2481.23.7.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9822.32.1.ari:/opt/modulefiles/ncep/1.0:/opt/cray/craype/default/alt-modulefiles/craype-haswell:/opt/modulefiles/xt-lsfhpc/9.1.3:/opt/modulefiles/intel/15.0.3.187:/opt/cray/alt-modulefiles/craype/2.3.0:/opt/cray/alt-modulefiles/cray-libsci/13.0.3:/opt/cray/ari/modulefiles/udreg/2.3.2-1.0502.10518.2.17.ari:/opt/cray/ari/modulefiles/ugni/6.0-1.0502.10863.8.29.ari:/opt/cray/ari/modulefiles/pmi/5.0.6-1.0000.10439.140.2.ari:/opt/cray/ari/modulefiles/dmapp/7.0.1-1.0502.11080.8.76.ari:/opt/cray/ari/modulefiles/gni-headers/4.0-1.0502.10859.7.8.ari:/opt/cray/ari/modulefiles/xpmem/0.1-2.0502.64982.5.3.ari:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2188.1.116.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9774.31.11.ari:/opt/cray/ari/modulefiles/rca/1.0.0-2.0502.60530.1.62.ari:/opt/cray/alt-modulefiles/atp/1.8.1:/opt/cray/alt-modulefiles/PrgEnv-intel/5.2.82:/opt/cray/alt-modulefiles/cray-mpich/7.2.0:/usrx/local/prod/modulefiles/hpss/4.1.0.3:/opt/cray/alt-modulefiles/iobuf/2.0.5:/opt/cray/alt-modulefiles/cray-netcdf/4.3.2:/opt/cray/alt-modulefiles/cray-hdf5/1.8.13:/usrx/local/prod/modulefiles/nco-gnu-sandybridge/4.4.4:/usrx/local/prod/modulefiles/imagemagick-intel-haswell/6.8.3:/usrx/local/prod/modulefiles/subversion/1.7.16:/usrx/local/prod/modulefiles/ESMF-intel-haswell/6_3_0rp1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bufr-intel/11.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bacio-intel/2.0.2:/usrx/local/prod/modulefiles/zlib-intel-haswell/1.2.7:/gpfs/hps/nco/ops/nwprod/modulefiles/grib_util/1.0.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsio-intel/2.2.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsiogfs-intel/2.0.1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3emc-intel/2.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3nco-intel/2.0.6:/usrx/local/prod/modulefiles/python/3.6.3:/opt/modulefiles/gcc/6.3.0:/usrx/local/dev/modulefiles/cmake/3.6.2:/usrx/local/dev/modulefiles/git/2.18.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_util/1.1.0' ';export' '_LMFILES_;'
++ COMDATEROOT=/gpfs/hps/nco/ops/com
++ export COMDATEROOT
++ COMLISTROOT=/gpfs/hps/nco/ops/config
++ export COMLISTROOT
++ FSYNC=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/fsync_file
++ export FSYNC
++ LOADEDMODULES=modules/3.2.10.3:eswrap/1.3.3-1.020200.1280.0:switch/1.0-1.0502.60522.1.61.ari:craype-network-aries:dvs/2.5_0.9.0-1.0502.2481.23.7.ari:alps/5.2.4-2.0502.9822.32.1.ari:ncep/1.0:craype-haswell:xt-lsfhpc/9.1.3:intel/15.0.3.187:craype/2.3.0:cray-libsci/13.0.3:udreg/2.3.2-1.0502.10518.2.17.ari:ugni/6.0-1.0502.10863.8.29.ari:pmi/5.0.6-1.0000.10439.140.2.ari:dmapp/7.0.1-1.0502.11080.8.76.ari:gni-headers/4.0-1.0502.10859.7.8.ari:xpmem/0.1-2.0502.64982.5.3.ari:dvs/2.5_0.9.0-1.0502.2188.1.116.ari:alps/5.2.4-2.0502.9774.31.11.ari:rca/1.0.0-2.0502.60530.1.62.ari:atp/1.8.1:PrgEnv-intel/5.2.82:cray-mpich/7.2.0:hpss/4.1.0.3:iobuf/2.0.5:cray-netcdf/4.3.2:cray-hdf5/1.8.13:nco-gnu-sandybridge/4.4.4:imagemagick-intel-haswell/6.8.3:subversion/1.7.16:ESMF-intel-haswell/6_3_0rp1:bufr-intel/11.3.0:bacio-intel/2.0.2:zlib-intel-haswell/1.2.7:grib_util/1.0.3:nemsio-intel/2.2.3:nemsiogfs-intel/2.0.1:w3emc-intel/2.3.0:w3nco-intel/2.0.6:python/3.6.3:gcc/6.3.0:cmake/3.6.2:git/2.18.0:prod_util/1.1.0
++ export LOADEDMODULES
++ MDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/mdate
++ export MDATE
++ NDATE=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/ndate
++ export NDATE
++ NHOUR=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/exec/nhour
++ export NHOUR
++ PATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/bin:/usrx/local/dev/git/2.18.0/bin:/usrx/local/dev/cmake/3.6.2/bin:/opt/gcc/6.3.0/bin:/usrx/local/prod/python/3.6.3/bin:/gpfs/hps/usrx/local/prod/subversion/1.7.16/intel/sandybridge/bin:/usrx/local/prod/imagemagick/6.8.3/intel/haswell/bin:/usrx/local/prod/nco/4.4.4/gnu/sandybridge/bin:/opt/cray/hdf5/1.8.13/bin:/opt/cray/netcdf/4.3.2/bin:/usrx/local/prod/hpss:/opt/cray/mpt/7.2.0/gni/bin:/opt/cray/rca/1.0.0-2.0502.60530.1.62.ari/bin:/opt/cray/alps/5.2.4-2.0502.9774.31.11.ari/sbin:/opt/cray/dvs/2.5_0.9.0-1.0502.2188.1.116.ari/bin:/opt/cray/xpmem/0.1-2.0502.64982.5.3.ari/bin:/opt/cray/pmi/5.0.6-1.0000.10439.140.2.ari/bin:/opt/cray/ugni/6.0-1.0502.10863.8.29.ari/bin:/opt/cray/udreg/2.3.2-1.0502.10518.2.17.ari/bin:/opt/cray/craype/2.3.0/bin:/opt/intel/composer_xe_2015.3.187/bin/intel64:/opt/intel/composer_xe_2015.3.187/debugger/gdb/intel64_mic/bin:/gpfs/slsf/xt-lsfhpc/9.1/linux2.6-glibc2.3-x86_64-cray/etc:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/sbin:/opt/cray/alps/5.2.4-2.0502.9822.32.1.ari/bin:/opt/cray/dvs/2.5_0.9.0-1.0502.2481.23.7.ari/bin:/opt/cray/switch/1.0-1.0502.60522.1.61.ari/bin:/opt/cray/eslogin/eswrap/1.3.3-1.020200.1280.0/bin:/opt/modules/3.2.10.3/bin:/u/Youhua.Tang/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/opt/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/sbin:/usr/sbin:.:/usr/lib/qt3/bin:/usrx/local/grads/2.0.2/bin:/usrx/local/hpss:/gpfs/hps/nco/ops/nwprod/grib_util.v1.0.3/exec:.:/opt/cray/bin:/usrx/local/prod/zlib/1.2.7/intel/haswell/include
++ export PATH
++ PYTHONPATH=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush
++ export PYTHONPATH
++ UTILROOT=/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0
++ export UTILROOT
++ _LMFILES_=/opt/modulefiles/modules/3.2.10.3:/opt/modulefiles/eswrap/1.3.3-1.020200.1280.0:/opt/cray/ari/modulefiles/switch/1.0-1.0502.60522.1.61.ari:/opt/cray/craype/default/modulefiles/craype-network-aries:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2481.23.7.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9822.32.1.ari:/opt/modulefiles/ncep/1.0:/opt/cray/craype/default/alt-modulefiles/craype-haswell:/opt/modulefiles/xt-lsfhpc/9.1.3:/opt/modulefiles/intel/15.0.3.187:/opt/cray/alt-modulefiles/craype/2.3.0:/opt/cray/alt-modulefiles/cray-libsci/13.0.3:/opt/cray/ari/modulefiles/udreg/2.3.2-1.0502.10518.2.17.ari:/opt/cray/ari/modulefiles/ugni/6.0-1.0502.10863.8.29.ari:/opt/cray/ari/modulefiles/pmi/5.0.6-1.0000.10439.140.2.ari:/opt/cray/ari/modulefiles/dmapp/7.0.1-1.0502.11080.8.76.ari:/opt/cray/ari/modulefiles/gni-headers/4.0-1.0502.10859.7.8.ari:/opt/cray/ari/modulefiles/xpmem/0.1-2.0502.64982.5.3.ari:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2188.1.116.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9774.31.11.ari:/opt/cray/ari/modulefiles/rca/1.0.0-2.0502.60530.1.62.ari:/opt/cray/alt-modulefiles/atp/1.8.1:/opt/cray/alt-modulefiles/PrgEnv-intel/5.2.82:/opt/cray/alt-modulefiles/cray-mpich/7.2.0:/usrx/local/prod/modulefiles/hpss/4.1.0.3:/opt/cray/alt-modulefiles/iobuf/2.0.5:/opt/cray/alt-modulefiles/cray-netcdf/4.3.2:/opt/cray/alt-modulefiles/cray-hdf5/1.8.13:/usrx/local/prod/modulefiles/nco-gnu-sandybridge/4.4.4:/usrx/local/prod/modulefiles/imagemagick-intel-haswell/6.8.3:/usrx/local/prod/modulefiles/subversion/1.7.16:/usrx/local/prod/modulefiles/ESMF-intel-haswell/6_3_0rp1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bufr-intel/11.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bacio-intel/2.0.2:/usrx/local/prod/modulefiles/zlib-intel-haswell/1.2.7:/gpfs/hps/nco/ops/nwprod/modulefiles/grib_util/1.0.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsio-intel/2.2.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsiogfs-intel/2.0.1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3emc-intel/2.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3nco-intel/2.0.6:/usrx/local/prod/modulefiles/python/3.6.3:/opt/modulefiles/gcc/6.3.0:/usrx/local/dev/modulefiles/cmake/3.6.2:/usrx/local/dev/modulefiles/git/2.18.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_util/1.1.0
++ export _LMFILES_
++ module load prod_envir
++ /opt/modules/3.2.10.3/bin/modulecmd ksh load prod_envir
++ eval COMROOT=/gpfs/hps/nco/ops/com ';export' 'COMROOT;COMROOThps=/gpfs/hps/nco/ops/com' ';export' 'COMROOThps;COMROOTp3=/gpfs/dell1/nco/ops/com' ';export' 'COMROOTp3;COMROOTp35=/gpfs/dell4/nco/ops/com' ';export' 'COMROOTp35;COMROOTp3d1=/gpfs/dell1/nco/ops/com' ';export' 'COMROOTp3d1;COMROOTp3d2=/gpfs/dell2/nco/ops/com' ';export' 'COMROOTp3d2;COMROOTp3d3=/gpfs/dell3/nco/ops/com' ';export' 'COMROOTp3d3;COMROOTp3d4=/gpfs/dell4/nco/ops/com' ';export' 'COMROOTp3d4;COMROOTp3d5=/gpfs/dell5/nco/ops/com' ';export' 'COMROOTp3d5;COMROOTp3d6=/gpfs/dell6/nco/ops/com' ';export' 'COMROOTp3d6;DCOMROOT=/gpfs/dell1/nco/ops/dcom' ';export' 'DCOMROOT;GESROOT=/gpfs/hps/nco/ops/nwges' ';export' 'GESROOT;GESROOThps=/gpfs/hps/nco/ops/nwges' ';export' 'GESROOThps;GESROOTp3=/gpfs/dell1/nco/ops/nwges' ';export' 'GESROOTp3;GESROOTp35=/gpfs/dell4/nco/ops/nwges' ';export' 'GESROOTp35;GESROOTp3d1=/gpfs/dell1/nco/ops/nwges' ';export' 'GESROOTp3d1;GESROOTp3d2=/gpfs/dell2/nco/ops/nwges' ';export' 'GESROOTp3d2;GESROOTp3d3=/gpfs/dell3/nco/ops/nwges' ';export' 'GESROOTp3d3;GESROOTp3d4=/gpfs/dell4/nco/ops/nwges' ';export' 'GESROOTp3d4;GESROOTp3d5=/gpfs/dell5/nco/ops/nwges' ';export' 'GESROOTp3d5;GESROOTp3d6=/gpfs/dell6/nco/ops/nwges' ';export' 'GESROOTp3d6;LOADEDMODULES=modules/3.2.10.3:eswrap/1.3.3-1.020200.1280.0:switch/1.0-1.0502.60522.1.61.ari:craype-network-aries:dvs/2.5_0.9.0-1.0502.2481.23.7.ari:alps/5.2.4-2.0502.9822.32.1.ari:ncep/1.0:craype-haswell:xt-lsfhpc/9.1.3:intel/15.0.3.187:craype/2.3.0:cray-libsci/13.0.3:udreg/2.3.2-1.0502.10518.2.17.ari:ugni/6.0-1.0502.10863.8.29.ari:pmi/5.0.6-1.0000.10439.140.2.ari:dmapp/7.0.1-1.0502.11080.8.76.ari:gni-headers/4.0-1.0502.10859.7.8.ari:xpmem/0.1-2.0502.64982.5.3.ari:dvs/2.5_0.9.0-1.0502.2188.1.116.ari:alps/5.2.4-2.0502.9774.31.11.ari:rca/1.0.0-2.0502.60530.1.62.ari:atp/1.8.1:PrgEnv-intel/5.2.82:cray-mpich/7.2.0:hpss/4.1.0.3:iobuf/2.0.5:cray-netcdf/4.3.2:cray-hdf5/1.8.13:nco-gnu-sandybridge/4.4.4:imagemagick-intel-haswell/6.8.3:subversion/1.7.16:ESMF-intel-haswell/6_3_0rp1:bufr-intel/11.3.0:bacio-intel/2.0.2:zlib-intel-haswell/1.2.7:grib_util/1.0.3:nemsio-intel/2.2.3:nemsiogfs-intel/2.0.1:w3emc-intel/2.3.0:w3nco-intel/2.0.6:python/3.6.3:gcc/6.3.0:cmake/3.6.2:git/2.18.0:prod_util/1.1.0:prod_envir/1.1.0' ';export' 'LOADEDMODULES;NWROOT=/gpfs/hps/nco/ops/nwprod' ';export' 'NWROOT;NWROOThps=/gpfs/hps/nco/ops/nwprod' ';export' 'NWROOThps;NWROOTp3=/gpfs/dell1/nco/ops/nwprod' ';export' 'NWROOTp3;NWROOTp35=/gpfs/dell4/nco/ops/nwprod' ';export' 'NWROOTp35;PCOMROOT=/gpfs/hps/nco/ops/pcom' ';export' 'PCOMROOT;_LMFILES_=/opt/modulefiles/modules/3.2.10.3:/opt/modulefiles/eswrap/1.3.3-1.020200.1280.0:/opt/cray/ari/modulefiles/switch/1.0-1.0502.60522.1.61.ari:/opt/cray/craype/default/modulefiles/craype-network-aries:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2481.23.7.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9822.32.1.ari:/opt/modulefiles/ncep/1.0:/opt/cray/craype/default/alt-modulefiles/craype-haswell:/opt/modulefiles/xt-lsfhpc/9.1.3:/opt/modulefiles/intel/15.0.3.187:/opt/cray/alt-modulefiles/craype/2.3.0:/opt/cray/alt-modulefiles/cray-libsci/13.0.3:/opt/cray/ari/modulefiles/udreg/2.3.2-1.0502.10518.2.17.ari:/opt/cray/ari/modulefiles/ugni/6.0-1.0502.10863.8.29.ari:/opt/cray/ari/modulefiles/pmi/5.0.6-1.0000.10439.140.2.ari:/opt/cray/ari/modulefiles/dmapp/7.0.1-1.0502.11080.8.76.ari:/opt/cray/ari/modulefiles/gni-headers/4.0-1.0502.10859.7.8.ari:/opt/cray/ari/modulefiles/xpmem/0.1-2.0502.64982.5.3.ari:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2188.1.116.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9774.31.11.ari:/opt/cray/ari/modulefiles/rca/1.0.0-2.0502.60530.1.62.ari:/opt/cray/alt-modulefiles/atp/1.8.1:/opt/cray/alt-modulefiles/PrgEnv-intel/5.2.82:/opt/cray/alt-modulefiles/cray-mpich/7.2.0:/usrx/local/prod/modulefiles/hpss/4.1.0.3:/opt/cray/alt-modulefiles/iobuf/2.0.5:/opt/cray/alt-modulefiles/cray-netcdf/4.3.2:/opt/cray/alt-modulefiles/cray-hdf5/1.8.13:/usrx/local/prod/modulefiles/nco-gnu-sandybridge/4.4.4:/usrx/local/prod/modulefiles/imagemagick-intel-haswell/6.8.3:/usrx/local/prod/modulefiles/subversion/1.7.16:/usrx/local/prod/modulefiles/ESMF-intel-haswell/6_3_0rp1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bufr-intel/11.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bacio-intel/2.0.2:/usrx/local/prod/modulefiles/zlib-intel-haswell/1.2.7:/gpfs/hps/nco/ops/nwprod/modulefiles/grib_util/1.0.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsio-intel/2.2.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsiogfs-intel/2.0.1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3emc-intel/2.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3nco-intel/2.0.6:/usrx/local/prod/modulefiles/python/3.6.3:/opt/modulefiles/gcc/6.3.0:/usrx/local/dev/modulefiles/cmake/3.6.2:/usrx/local/dev/modulefiles/git/2.18.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_util/1.1.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_envir/1.1.0' ';export' '_LMFILES_;'
++ COMROOT=/gpfs/hps/nco/ops/com
++ export COMROOT
++ COMROOThps=/gpfs/hps/nco/ops/com
++ export COMROOThps
++ COMROOTp3=/gpfs/dell1/nco/ops/com
++ export COMROOTp3
++ COMROOTp35=/gpfs/dell4/nco/ops/com
++ export COMROOTp35
++ COMROOTp3d1=/gpfs/dell1/nco/ops/com
++ export COMROOTp3d1
++ COMROOTp3d2=/gpfs/dell2/nco/ops/com
++ export COMROOTp3d2
++ COMROOTp3d3=/gpfs/dell3/nco/ops/com
++ export COMROOTp3d3
++ COMROOTp3d4=/gpfs/dell4/nco/ops/com
++ export COMROOTp3d4
++ COMROOTp3d5=/gpfs/dell5/nco/ops/com
++ export COMROOTp3d5
++ COMROOTp3d6=/gpfs/dell6/nco/ops/com
++ export COMROOTp3d6
++ DCOMROOT=/gpfs/dell1/nco/ops/dcom
++ export DCOMROOT
++ GESROOT=/gpfs/hps/nco/ops/nwges
++ export GESROOT
++ GESROOThps=/gpfs/hps/nco/ops/nwges
++ export GESROOThps
++ GESROOTp3=/gpfs/dell1/nco/ops/nwges
++ export GESROOTp3
++ GESROOTp35=/gpfs/dell4/nco/ops/nwges
++ export GESROOTp35
++ GESROOTp3d1=/gpfs/dell1/nco/ops/nwges
++ export GESROOTp3d1
++ GESROOTp3d2=/gpfs/dell2/nco/ops/nwges
++ export GESROOTp3d2
++ GESROOTp3d3=/gpfs/dell3/nco/ops/nwges
++ export GESROOTp3d3
++ GESROOTp3d4=/gpfs/dell4/nco/ops/nwges
++ export GESROOTp3d4
++ GESROOTp3d5=/gpfs/dell5/nco/ops/nwges
++ export GESROOTp3d5
++ GESROOTp3d6=/gpfs/dell6/nco/ops/nwges
++ export GESROOTp3d6
++ LOADEDMODULES=modules/3.2.10.3:eswrap/1.3.3-1.020200.1280.0:switch/1.0-1.0502.60522.1.61.ari:craype-network-aries:dvs/2.5_0.9.0-1.0502.2481.23.7.ari:alps/5.2.4-2.0502.9822.32.1.ari:ncep/1.0:craype-haswell:xt-lsfhpc/9.1.3:intel/15.0.3.187:craype/2.3.0:cray-libsci/13.0.3:udreg/2.3.2-1.0502.10518.2.17.ari:ugni/6.0-1.0502.10863.8.29.ari:pmi/5.0.6-1.0000.10439.140.2.ari:dmapp/7.0.1-1.0502.11080.8.76.ari:gni-headers/4.0-1.0502.10859.7.8.ari:xpmem/0.1-2.0502.64982.5.3.ari:dvs/2.5_0.9.0-1.0502.2188.1.116.ari:alps/5.2.4-2.0502.9774.31.11.ari:rca/1.0.0-2.0502.60530.1.62.ari:atp/1.8.1:PrgEnv-intel/5.2.82:cray-mpich/7.2.0:hpss/4.1.0.3:iobuf/2.0.5:cray-netcdf/4.3.2:cray-hdf5/1.8.13:nco-gnu-sandybridge/4.4.4:imagemagick-intel-haswell/6.8.3:subversion/1.7.16:ESMF-intel-haswell/6_3_0rp1:bufr-intel/11.3.0:bacio-intel/2.0.2:zlib-intel-haswell/1.2.7:grib_util/1.0.3:nemsio-intel/2.2.3:nemsiogfs-intel/2.0.1:w3emc-intel/2.3.0:w3nco-intel/2.0.6:python/3.6.3:gcc/6.3.0:cmake/3.6.2:git/2.18.0:prod_util/1.1.0:prod_envir/1.1.0
++ export LOADEDMODULES
++ NWROOT=/gpfs/hps/nco/ops/nwprod
++ export NWROOT
++ NWROOThps=/gpfs/hps/nco/ops/nwprod
++ export NWROOThps
++ NWROOTp3=/gpfs/dell1/nco/ops/nwprod
++ export NWROOTp3
++ NWROOTp35=/gpfs/dell4/nco/ops/nwprod
++ export NWROOTp35
++ PCOMROOT=/gpfs/hps/nco/ops/pcom
++ export PCOMROOT
++ _LMFILES_=/opt/modulefiles/modules/3.2.10.3:/opt/modulefiles/eswrap/1.3.3-1.020200.1280.0:/opt/cray/ari/modulefiles/switch/1.0-1.0502.60522.1.61.ari:/opt/cray/craype/default/modulefiles/craype-network-aries:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2481.23.7.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9822.32.1.ari:/opt/modulefiles/ncep/1.0:/opt/cray/craype/default/alt-modulefiles/craype-haswell:/opt/modulefiles/xt-lsfhpc/9.1.3:/opt/modulefiles/intel/15.0.3.187:/opt/cray/alt-modulefiles/craype/2.3.0:/opt/cray/alt-modulefiles/cray-libsci/13.0.3:/opt/cray/ari/modulefiles/udreg/2.3.2-1.0502.10518.2.17.ari:/opt/cray/ari/modulefiles/ugni/6.0-1.0502.10863.8.29.ari:/opt/cray/ari/modulefiles/pmi/5.0.6-1.0000.10439.140.2.ari:/opt/cray/ari/modulefiles/dmapp/7.0.1-1.0502.11080.8.76.ari:/opt/cray/ari/modulefiles/gni-headers/4.0-1.0502.10859.7.8.ari:/opt/cray/ari/modulefiles/xpmem/0.1-2.0502.64982.5.3.ari:/opt/cray/ari/modulefiles/dvs/2.5_0.9.0-1.0502.2188.1.116.ari:/opt/cray/ari/modulefiles/alps/5.2.4-2.0502.9774.31.11.ari:/opt/cray/ari/modulefiles/rca/1.0.0-2.0502.60530.1.62.ari:/opt/cray/alt-modulefiles/atp/1.8.1:/opt/cray/alt-modulefiles/PrgEnv-intel/5.2.82:/opt/cray/alt-modulefiles/cray-mpich/7.2.0:/usrx/local/prod/modulefiles/hpss/4.1.0.3:/opt/cray/alt-modulefiles/iobuf/2.0.5:/opt/cray/alt-modulefiles/cray-netcdf/4.3.2:/opt/cray/alt-modulefiles/cray-hdf5/1.8.13:/usrx/local/prod/modulefiles/nco-gnu-sandybridge/4.4.4:/usrx/local/prod/modulefiles/imagemagick-intel-haswell/6.8.3:/usrx/local/prod/modulefiles/subversion/1.7.16:/usrx/local/prod/modulefiles/ESMF-intel-haswell/6_3_0rp1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bufr-intel/11.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/bacio-intel/2.0.2:/usrx/local/prod/modulefiles/zlib-intel-haswell/1.2.7:/gpfs/hps/nco/ops/nwprod/modulefiles/grib_util/1.0.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsio-intel/2.2.3:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/nemsiogfs-intel/2.0.1:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3emc-intel/2.3.0:/gpfs/hps/nco/ops/nwprod/lib/modulefiles/w3nco-intel/2.0.6:/usrx/local/prod/modulefiles/python/3.6.3:/opt/modulefiles/gcc/6.3.0:/usrx/local/dev/modulefiles/cmake/3.6.2:/usrx/local/dev/modulefiles/git/2.18.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_util/1.1.0:/gpfs/hps/nco/ops/nwprod/modulefiles/prod_envir/1.1.0
++ export _LMFILES_
++ module load grib_util/1.0.3
++ /opt/modules/3.2.10.3/bin/modulecmd ksh load grib_util/1.0.3
++ eval
++ KEEPDATA=YES
++ export KEEPDATA
++ IOBUF_PARAMS='*:verbose:size=16M:count=4'
++ export IOBUF_PARAMS
++ set -ax
++ PARAFLAG=YES
++ export PARAFLAG
++ FCST=YES
++ export FCST
++ /gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/jobs/JAQM_PREP_CS
++ date
+ 0.021 + PS4=' $SECONDS + '
+ 0.021 + export PS4
+ 0.021 + DATA=/gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_prep_cs.21884
+ 0.021 + export DATA
+ 0.021 + mkdir -p /gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_prep_cs.21884
+ 0.039 + cd /gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_prep_cs.21884
+ 0.039 + cycle=t12z
+ 0.039 + export cycle
+ 0.039 + setpdy.sh
+ 0.533 + . PDY
+ 0.537 + PDYm7=20190705
+ 0.537 + export PDYm7
+ 0.537 + PDYm6=20190706
+ 0.537 + export PDYm6
+ 0.537 + PDYm5=20190707
+ 0.537 + export PDYm5
+ 0.537 + PDYm4=20190708
+ 0.537 + export PDYm4
+ 0.537 + PDYm3=20190709
+ 0.537 + export PDYm3
+ 0.537 + PDYm2=20190710
+ 0.537 + export PDYm2
+ 0.537 + PDYm1=20190711
+ 0.537 + export PDYm1
+ 0.537 + PDY=20190712
+ 0.537 + export PDY
+ 0.537 + PDYp1=20190713
+ 0.537 + export PDYp1
+ 0.537 + PDYp2=20190714
+ 0.537 + export PDYp2
+ 0.537 + PDYp3=20190715
+ 0.537 + export PDYp3
+ 0.537 + PDYp4=20190716
+ 0.537 + export PDYp4
+ 0.537 + PDYp5=20190717
+ 0.537 + export PDYp5
+ 0.537 + PDYp6=20190718
+ 0.537 + export PDYp6
+ 0.537 + PDYp7=20190719
+ 0.537 + export PDYp7
+ 0.538 + echo 20190712
+ 0.537 + cut -c5-6
+ 0.544 + Mn=07
+ 0.544 + export Mn
+ 0.544 + SENDDBN=YES
+ 0.544 + export SENDDBN
+ 0.544 + SENDECF=YES
+ 0.544 + export SENDECF
+ 0.544 + SENDCOM=YES
+ 0.544 + export SENDCOM
+ 0.544 + HOMEaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS
+ 0.544 + export HOMEaqm
+ 0.544 + EXECaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/exec
+ 0.544 + export EXECaqm
+ 0.544 + USHaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/ush
+ 0.544 + export USHaqm
+ 0.544 + PARMaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/parm
+ 0.544 + export PARMaqm
+ 0.544 + FIXaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/fix
+ 0.544 + export FIXaqm
+ 0.544 + UTILaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/util
+ 0.544 + export UTILaqm
+ 0.544 + NET=aqm
+ 0.544 + export NET
+ 0.544 + RUN=aqm
+ 0.544 + export RUN
+ 0.544 + echo 20190712
+ 0.544 + cut -c1-4
+ 0.552 + SYYYY=2019
+ 0.553 + echo 20190712
+ 0.553 + cut -c5-6
+ 0.561 + SMM=07
+ 0.561 + echo 20190712
+ 0.561 + cut -c7-8
+ 0.572 + SDD=12
+ 0.573 + date -d 2019/07/12 +%j
+ 0.584 + DAYOFYEAR=193
+ 0.584 + export DAYOFYEAR
+ 0.584 + COMIN=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 0.584 + export COMIN
+ 0.584 + COMINm1=/gpfs/hps/nco/ops/com/aqm/para/aqm.20190711
+ 0.584 + export COMINm1
+ 0.584 + InMetDir=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 0.584 + export InMetDir
+ 0.584 + COMOUT=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 0.584 + export COMOUT
+ 0.584 + COMOUTm1=/gpfs/hps/nco/ops/com/aqm/para/aqm.20190711
+ 0.584 + export COMOUTm1
+ 0.584 + FV3CHEM_DIR=/ngac/prod
+ 0.584 + export FV3CHEM_DIR
+ 0.584 + FV3CHEMFOLDER=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 0.584 + export FV3CHEMFOLDER
+ 0.584 + mkdir -p /gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 0.595 + pgmout=OUTPUT.13963
+ 0.595 + export pgmout
+ 0.595 + env
+ 0.605 + [ ! -s /gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712/aqm.t12z.metcro3d.ncf ]
+ 0.606 + [ YES '=' YES ]
+ 0.606 + [ ! -s /gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712/aqm.t12z.fire_emi_cs.ncf ]
+ 0.607 + aprun -n 1 /gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/ush/gbbepx2pts.ksh
+ 0.001 + [ YES '=' NO ]
+ 0.001 + [ -s /gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712/GBBEPx_all01GRID.emissions_v003_20190712.nc ]
+ 0.004 + COMIN9=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 0.004 + emisfile=GBBEPx_all01GRID.emissions_v003_20190712.nc
+ 0.004 + FIREDATE=20190712
+ 0.004 + FRPRATIO=1.0
+ 0.005 + cat
+ 0.192 + 1> gbbepx2pts.ini 0<< \!
+!
+&control
+efilein='/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712/GBBEPx_all01GRID.emissions_v003_20190712.nc'
+markutc=18
+burnarea_ratio=0.1
+frpfactor=1.0
+startdate=2019071206
+nduration=127
+tdiurnal=0.03033772, 0.03033772, 0.03033772, 0.03033772, 0.03033772,
+       0.03033772, 0.03033772, 0.03434459, 0.03720664, 0.04006869,
+       0.05724098, 0.07441328, 0.09158558, 0.09730967, 0.06868918,
+       0.04006869, 0.03434459, 0.03033772, 0.03033772, 0.03033772,
+       0.03033772, 0.03033772, 0.03033772, 0.03033772
+dfrac=1.0,0.25,0.25
+emname='CO','NO','NO2','SO2','NH3','PEC','POC','PMOTHR','PNO3','PSO4',
+'PAL','PCA','PCL','PFE','PK','PMG','PMN','PNA','PNCOM','PNH4','PSI','PTI'
+/
+
+Species Converting Factor
+'CO'      1   # kg ->mole
+'CO'   35.7
+'NOX'    2   # 90% to NO (mw 30), 10% to NO2 (mw 46), mw 31.6 in average, kg->mole
+'NO'   28.481   'NO2'  3.164557
+'SO2'    1    # kg -> mole
+'SO2'  15.625
+'NH3'    1
+'NH3'  58.82
+'BC'     1    # kg -> g  
+'PEC'   0.  # 1000. 
+'OC'     1
+'POC'   0.  # 1000. 
+'PM2.5' 16    # pm2.5 splitt factor kg -> g
+'PEC' 94.9   'POC' 461.8  'PMOTHR'  13.7 'PNO3' 1.323 'PSO4' 12.6 
+'PAL' 0.6075 'PCA' 3.858 'PCL' 41.5 'PFE' 0.434 'PK' 29.4
+'PMG' 0.314  'PNA' 5.7335 'PNCOM' 323.2 'PNH4' 8.7915 'PSI' 1.8185  'PTI' 0.0515
+ 0.207 + IOAPI_ISPH=20
+ 0.207 + export IOAPI_ISPH
+ 0.207 + [ aqm '=' aqm ]
+ 0.207 + GRIDDESC=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/parm/aqm_griddesc05
+ 0.207 + export GRIDDESC
+ 0.207 + GRID_NAME=AQF_CONUS_5x
+ 0.207 + export GRID_NAME
+ 0.207 + TOPO=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/fix/aqm_gridcro2d.landfac.5x.ncf
+ 0.207 + export TOPO
+ 0.207 + DD=cs
+ 0.207 + STACK_GROUP=aqm.t12z.fire_location_cs.ncf
+ 0.207 + export STACK_GROUP
+ 0.207 + PTFIRE=aqm.t12z.fire_emi_cs.ncf
+ 0.207 + export PTFIRE
+ 0.207 + startmsg
+WARNING: pgm variable not defined
+ 0.229 + /gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/exec/aqm_gbbepx2pts.x
+ 5.463 + err=0
+ 5.463 + export err
+ 5.463 + err_chk
+ 5.480 + [ YES '=' YES ]
+ 5.480 + CHK_DIR=/gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 5.480 + [ -s aqm.t12z.fire_emi_cs.ncf -a -s aqm.t12z.fire_location_cs.ncf ]
+ 5.481 + [ YES '=' YES ]
+ 5.481 + cp -rp /gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_prep_cs.21884/aqm.t12z.fire_emi_cs.ncf /gpfs/hps3/ptmp/Youhua.Tang/tmpnwprd/aqm_prep_cs.21884/aqm.t12z.fire_location_cs.ncf /gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712
+ 8.110 + err=0
+ 8.110 + export err
+ 8.110 + err_chk
+ 8.127 + [ ! -s /gpfs/hps3/ptmp/Youhua.Tang/com/aqm/para/aqm.20190712/aqm_conus_geos_fv3chem_aero_20190712_35L.ncf ]
+ 8.128 + msg='JOB aqm_prep_cs HAS COMPLETED NORMALLY.'
+ 8.128 + postmsg /gpfs/hps3/ptmp/Youhua.Tang/com/logs/jlogfiles/jlogfile.21884 'JOB aqm_prep_cs HAS COMPLETED NORMALLY.'
+/gpfs/hps/nco/ops/nwprod/prod_util.v1.1.0/ush/postmsg: line 30: /gpfs/hps3/ptmp/Youhua.Tang/com/logs/jlogfiles/jlogfile.21884: No such file or directory
+ 8.162 + date
