@@ -3,7 +3,6 @@
 #source ~/.bashrc
 
 #source /opt/modules/default/init/ksh
-OUTGRIB=0
 
 module load prod_util
 
@@ -23,6 +22,7 @@ export cyc=12
 export CYC=$cyc
 cycle=t${cyc}z
 export SINGLECYC=YES # one cycle run
+export FCST=YES  # for forecast or "NO" for analysis
 
 today=`$NDATE`
 
@@ -42,8 +42,6 @@ export PDY=${1:-`$NDATE -24 $today|cut -c1-8`}
 export END_PDY=${2:-$PDY}
 
 while [ $PDY -le $END_PDY ]; do
-
-MYPARA9=$usr_tmp/com/aqm/para
 
 export PDYm1=`$NDATE -24 ${PDY}${cyc} | cut -c1-8`
 export PDYm2=`$NDATE -48 ${PDY}${cyc} | cut -c1-8`
@@ -68,20 +66,36 @@ export job=aqm_prep_cs
 export DATA=${usr_tmp}/tmpnwprd/${job}.$pid
 export jlogfile=${usr_tmp}/com/logs/jlogfiles/jlogfile.$pid
 
-export FCST=YES  # for forecast or "NO" for analysis
 export COMIN=$COMOUT
 export FV3CHEMFOLDER=$COMIN
-export InMetDir=$COMIN
+export FV3CHEM_DIR=$FV3CHEMFOLDER
+export InMetDir=${InMetDir:-$COMIN}
 if [ ! -s $InMetDir/gfs.$cycle.atmf072.nc ] && [ ! -s $COMOUT/aqm.t$cycle.metcro3d.ncf ] ; then
-hsi<<!
-lcd $COMIN
-cd /NCEPDEV/emc-naqfc/2year/Youhua.Tang/fv3-out/$PDY
-get gfs.$cycle.atmf0??.nc
-get gfs.$cycle.sfcf0??.nc
+ if [ $PDY -le 20190728 ]; then
+ hsi<<EOF
+ lcd $COMIN
+ cd /NCEPDEV/emc-naqfc/2year/Youhua.Tang/fv3-out/$PDY-${cyc}z
+ get gfs.$cycle.atmf0??.nc
+ get gfs.$cycle.sfcf0??.nc
+ bye
+EOF
+else
+ hsi<<EOF
+ lcd $COMIN
+ cd /NCEPDEV/emc-global/2year/emc.glopara/WCOSS_D/gfsv16/fv3cmaq/$PDY$cyc
+ get gfs_netcdfb?.tar
+ !tar xvf gfs_netcdfb1.tar
+ !tar xvf gfs_netcdfb2.tar
+ !tar xvf gfs_netcdfb3.tar
 bye
-!
+EOF
 fi
-
+if [ ! -s $InMetDir/gfs.$cycle.atmf072.nc ]; then
+ echo " can not find $InMetDir/gfs.$cycle.atmf072.nc "
+ exit 1
+fi
+fi
+# check GBBEPX fire emission 
 if [ ! -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] && [ ! -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDY.nc ]\
  && [ ! -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
  if [ -s /gpfs/dell1/nco/ops/dcom/dev/$PDYp1/firewx/GBBEPx_all01GRID.emissions_v003_$PDY.nc ]; then
@@ -89,11 +103,34 @@ if [ ! -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] && [ ! -s $COMIN/GBBEPx_all01GRID
  elif [ -s /gpfs/dell1/nco/ops/dcom/dev/$PDY/firewx/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
   ln -s /gpfs/dell1/nco/ops/dcom/dev/$PDY/firewx/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc $COMIN
  else
-  echo " can not find GBBEPX emission"
+  hsi<<EOF
+  lcd $COMIN
+  cd /NCEPDEV/emc-naqfc/5year/Youhua.Tang/72hour-test/fv3-cmaq-gbbepx1.$PDY
+  get GBBEPx_addVIIRS.emisX.001.$PDY.nc
+  bye
+EOF
+  if [ -s $COMIN/GBBEPx_addVIIRS.emisX.001.$PDY.nc ]; then
+   mv $COMIN/GBBEPx_addVIIRS.emisX.001.$PDY.nc $COMIN/GBBEPx_all01GRID.emissions_v003_$PDY.nc
+  else  
+   echo " can not find GBBEPX emission"
+   exit 1
+  fi 
+ fi
+fi
+
+# check GEFS LBC input 
+if [ ! -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] && \
+  [ ! -s $FV3CHEMFOLDER/gfs.t00z.atmf096.nemsio ]; then
+ cd $COMIN 
+ hpsstar get /NCEPDEV/emc-naqfc/2year/Li.Pan/GSDCHEM/ms088/gfs.$PDY.htar gfs.$PDY/00/gfs.t00z.atmf???.nemsio
+ if [ -s gfs.$PDY/00/gfs.t00z.atmf096.nemsio ]; then
+  ln -s gfs.$PDY/00/gfs.t00z.atmf???.nemsio .
+ else
+  echo "can not find GEFS aerosol files"
   exit 1
  fi
 fi
-   
+cd $COMIN  
 bsub< $HOMEaqm/working/jaqm-prep.ksh
 
  ic=0
@@ -157,7 +194,7 @@ if [ ${err} -ne 0 ]; then
   echo "FATAL - cmaq fcst failed with error code ${err}"
   exit 101
 fi
-exit
+
 
 rm -f log.grep
 while [ ! -s log.grep ]; do
@@ -181,28 +218,24 @@ else
  exit 1
 fi
 
-cd $COMOUT  
-$HOME/bin/csum -rf 1 -sl ${HOMEaqm}/vlist.twoways.5.0.2.my aqm.t${cyc}z.conc.ncf aqm.t${cyc}z.aerodiam.ncf \
-   aqm.t${cyc}z.metcro3d.ncf aqm.$PDY.t${cyc}z.aconc-pm25.ncf
+export DATA=${usr_tmp}/tmpnwprd/aqm_post1.$pid #define working directory
+$HOMEaqm/jobs/JAQM_POST1_CS
 
-$HOMEaqm/AOD_via_VIS2.x aqm.t${cyc}z.metcro3d.ncf aqm.t${cyc}z.vis.ncf aqm.$PDY.t${cyc}z.aod.ncf
-
-# scp -p $COMOUT/aqm.$PDY.t${cyc}z.*.ncf youhuat@byun.arl.noaa.gov:/data/aqf/youhuat/cmaq5.0.2-72hr-fast
-# ${HOMEaqm}/hsi-1.ksh $COMOUT 72hour-test/fv3-cmaq-fast.$PDY $cyc &
-scp -p $COMOUT/aqm.$PDY.t${cyc}z.*.ncf youhuat@byun.arl.noaa.gov:/data/aqf3/youhuat/aot-nlbc-gbbepxb
+#scp -p $COMOUT/aqm.$PDY.t${cyc}z.*.ncf youhuat@byun.arl.noaa.gov:/data/aqf3/youhuat/aot-nlbc-gbbepxb
 
 # $HOMEaqm/working/for-ucla2.ksh &
 
 cat>hsi-select.ksh<<EOF
 #!/bin/ksh -x
 hsi<<!
-mkdir /5year/NCEPDEV/emc-naqfc/Youhua.Tang/72hour-test/aot-nlbc-gbbepxb.$PDY
-cd /5year/NCEPDEV/emc-naqfc/Youhua.Tang/72hour-test/aot-nlbc-gbbepxb.$PDY
-put aqm*t${cyc}z.aod.ncf
+mkdir /5year/NCEPDEV/emc-naqfc/Youhua.Tang/cmaq531-test/aqm.$PDY
+cd /5year/NCEPDEV/emc-naqfc/Youhua.Tang/cmaq531-test/aqm.$PDY
+put aqm*t${cyc}z.met*ncf
 put aqm*t${cyc}z.cgrid.ncf
-put aqm*t${cyc}z.vis.ncf
-put aqm*t${cyc}z.aerodiam.ncf
+put aqm*t${cyc}z.rj_1.ncf
+put aqm*t${cyc}z.pmdiag.ncf
 put aqm*soil*ncf
+put aqm*fire*ncf
 put aqm*t${cyc}z.*conc*.ncf
 put *ptfire*ncf
 bye
@@ -211,104 +244,6 @@ EOF
 chmod +x hsi-select.ksh
 ./hsi-select.ksh &
 fi
-
-if [ $OUTGRIB -eq 1 ]; then
- COMOUT=/gpfs/${machine}d2/emc/naqfc/noscrub/Youhua.Tang/grib2-aot-nlbc-gbbepxb/$PDY
- if [ ! -s $COMOUT ]; then
- mkdir -p $COMOUT
- fi
-
-execfile=/gpfs/hps/nco/ops/nwprod/cmaq.v5.0.3/exec/aqm_cmaq2grib2_v2
-execfile2=/gpfs/hps/nco/ops/nwprod/cmaq.v5.0.3/exec/aqm_post_maxi_CHA_grib2_v2
-WGRIB2=$HOME/bin/wgrib2
-
-export CHEM3D=$COMIN/aqm.$PDY.$cycle.aconc-pm25.ncf
- 
-if [ ! -s $COMOUT/aqm.${cycle}.awpozcon.f01.148.grib2 ]; then
-cat >cmaq2grib2.ini <<EOF5
-&control
-varlist='O3','O3_8hr'
-metlist='  '
-outfile='$COMOUT/aqm.${cycle}.awpozcon'
-ozonecatfile='$COMOUT/aqm.${cycle}.awpozcat'
-nlayers=1
-id_gribdomain=148
-ave1hr=.true.
-/
-EOF5
-$execfile
-fi
-
-if [ ! -s $COMOUT/aqm.${cycle}.pm25.f01.148.grib2 ]; then
-cat >cmaq2grib2.ini <<EOF5
-&control
-varlist='PM2.5'
-metlist='  '
-outfile='$COMOUT/aqm.${cycle}.pm25'
-nlayers=1
-id_gribdomain=148
-ave1hr=.true.
-/
-EOF5
-$execfile
-fi
-
-export CMAQFILE1=$CHEM3D
-if [ -s $COMINm1/aqm.$PDYm1.$cycle.aconc-pm25.ncf ]; then
- export CMAQFILE2=$COMINm1/aqm.$PDYm1.$cycle.aconc-pm25.ncf  
-elif [ -s $COMINm2/aqm.$PDYm2.$cycle.aconc-pm25.ncf ]; then
- export CMAQFILE2=$COMINm2/aqm.$PDYm2.$cycle.aconc-pm25.ncf
-else
- export CMAQFILE2=$CMAQFILE1
-fi
-export CMAQFILE3=$CMAQFILE2
-
-if [ ! -s $COMOUT/aqm.${cycle}.max_1hr_o3.148.grib2 ]; then
-
-rm -f aqm-maxi.148.grib2
-cat >cmaq-maxi2grib.ini <<EOF5
-&control
-markutc=05
-outfile='aqm-maxi.148.grib2'
-varlist='o3_1hr','o3_8hr'
-id_gribdomain=148
-/
-EOF5
-
-$execfile2
-
-$WGRIB2 aqm-maxi.148.grib2 |grep "OZMAX1" | $WGRIB2 -i aqm-maxi.148.grib2 -grib  $COMOUT/aqm.${cycle}.max_1hr_o3.148.grib2
-$WGRIB2 aqm-maxi.148.grib2 |grep "OZMAX8" | $WGRIB2 -i aqm-maxi.148.grib2 -grib  $COMOUT/aqm.${cycle}.max_8hr_o3.148.grib2
-
-fi
-
-if [ ! -s $COMOUT/aqm.${cycle}.max_1hr_pm25.148.grib2 ]; then
-rm -f aqm-pm25_24hr.148.grib2
-cat >cmaq-maxi2grib.ini <<EOF5
-&control
-markutc=05
-outfile='aqm-pm25_24hr.148.grib2'
-varlist='pm25_1hr','pm25_24hr'
-id_gribdomain=148
-/
-EOF5
-$execfile2
-
-$WGRIB2 aqm-pm25_24hr.148.grib2 |grep "PDMAX1" | $WGRIB2 -i aqm-pm25_24hr.148.grib2 -grib $COMOUT/aqm.${cycle}.max_1hr_pm25.148.grib2
-$WGRIB2 aqm-pm25_24hr.148.grib2 |grep "PMTF" | $WGRIB2 -i aqm-pm25_24hr.148.grib2 -grib  $COMOUT/aqm.${cycle}.ave_24hr_pm25.148.grib2
-fi
-
-if [ -s $COMOUT/aqm.${cycle}.pm25.f01.148.grib2 ]; then
-hsi<<EOF
-cd emc-naqfc/5year/Youhua.Tang/72hour-test/aot-nlbc-gbbepxb.$PDY
-lcd $COMOUT
-!tar czvf aqm.$PDY.t${cyc}z.grib2.tgz *.grib2
-put aqm.$PDY.t${cyc}z.grib2.tgz
-bye
-EOF
-fi
-
-fi  # OUTGRIB
 
 export PDY=`$NDATE +24 ${PDY}${cyc} | cut -c1-8`
 done

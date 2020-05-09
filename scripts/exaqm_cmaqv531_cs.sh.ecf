@@ -215,7 +215,7 @@ export CONC_SPCS="ALL"
 #setenv AVG_CONC_SPCS "O3 NO CO NO2 ASO4I ASO4J NH3"
 export AVG_CONC_SPCS="ALL"
 export ACONC_BLEV_ELEV=" 1 1" #> ACONC file layer range; comment to write all layers to ACONC
-export AVG_FILE_ENDTIME=N     #> override default beginning ACONC timestamp [ default: N ]
+export AVG_FILE_ENDTIME=Y     #> override default beginning ACONC timestamp [ default: N ]
 
 export CTM_MAXSYNC=720       #> max sync time step (sec) [default: 720]
 export CTM_MINSYNC=60       #> min sync time step (sec) [default: 60]
