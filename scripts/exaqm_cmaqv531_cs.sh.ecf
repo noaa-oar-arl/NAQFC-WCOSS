@@ -490,7 +490,7 @@ if [[ ${cycle} = 't00z'  || "${FCST}" = "NO" ]] ; then    ## if FCST=NO then use
 else
  export BNDY_GASC_1=$COMIN/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf
 fi
-
+SMM=`echo $PDY|cut -c5-6`
 if [ ! -f ${BNDY_GASC_1}  ] ; then
   export BNDY_GASC_1=$FIXaqm/aqm_conus_12km_geos_2006${SMM}_static_FV3_35L.ncf
 #   export BNDY_GASC_1=/gpfs/hps3/emc/naqfc/noscrub/Patrick.C.Campbell/cmaq/5.0.2/prod/fix_LBC_test/aqm_conus_12km_geos_2006${SMM}_static_35L.ncf

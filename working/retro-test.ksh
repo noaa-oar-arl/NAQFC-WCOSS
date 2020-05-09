@@ -1,22 +1,19 @@
 #!/bin/ksh -xa
 
-#source ~/.bashrc
-
-#source /opt/modules/default/init/ksh
-
 module load prod_util
+module load prod_envir
 
 export NDATE=${NDATE:-/gpfs/hps/nco/ops/nwprod/prod_util.v1.0.29/exec/ndate}
 
-
 machine=`hostname | cut -c1`
 
-if [ $machine = s ]
-then
+if [ $machine = s ]; then
   machine='g'
 else
   machine='t'
 fi
+
+SAVEHPSS=YES
 
 export cyc=12
 export CYC=$cyc
@@ -37,6 +34,8 @@ export envir=para
 export model=cmaq
 export RUN=aqm
 export NET=aqm
+export FIXaqm=$HOMEaqm/fix
+export COMROOT=${usr_tmp}/com
 
 export PDY=${1:-`$NDATE -24 $today|cut -c1-8`}
 export END_PDY=${2:-$PDY}
@@ -67,6 +66,7 @@ export DATA=${usr_tmp}/tmpnwprd/${job}.$pid
 export jlogfile=${usr_tmp}/com/logs/jlogfiles/jlogfile.$pid
 
 export COMIN=$COMOUT
+export COMINm1=${usr_tmp}/com/aqm/${envir}/${RUN}.${PDYm1}
 export FV3CHEMFOLDER=$COMIN
 export FV3CHEM_DIR=$FV3CHEMFOLDER
 export InMetDir=${InMetDir:-$COMIN}
@@ -130,22 +130,29 @@ if [ ! -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] && \
   exit 1
  fi
 fi
-cd $COMIN  
+cd $COMIN
+rm -f jaqm_prep_5x.err  jaqm_prep_5x.out 
 bsub< $HOMEaqm/working/jaqm-prep.ksh
 
  ic=0
- while [ $ic -le 40 ]; do
+ while [ $ic -le 100 ]; do
   if [ -s $COMOUT/aqm.$cycle.metcro3d.ncf ] && [ -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] \
    && [ -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
-   break
+   if [ `stat -c %s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf` -lt 160000000 ]; then
+    let ic=ic+1
+    sleep 10
+   else 
+    break
+   fi 
   else
    let ic=ic+1
    sleep 10
   fi
  done  
- if [ $ic -gt 40 ]; then
-   err_exit *****FATAL ERROR***** - COULD NOT LOCATE: $COMOUT/aqm.$cycle.metcro3d.ncf\
-   $COMOUT/aqm.$cycle.fire_location_cs.ncf $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf
+ if [ $ic -gt 100 ]; then
+   echo " *****FATAL ERROR***** - COULD NOT LOCATE: $COMOUT/aqm.$cycle.metcro3d.ncf\
+   $COMOUT/aqm.$cycle.fire_location_cs.ncf $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf"
+   exit 1   
  fi
 
 fi
@@ -153,8 +160,6 @@ fi
 ## CMAQ forecast
 if [ ! -s $COMOUT/aqm.t${cyc}z.conc.ncf ]; then
 
-export FIXaqm=$HOMEaqm/fix
-export COMROOT=${usr_tmp}/com
 export COMIN=$COMROOT/aqm/$envir/${RUN}.${PDY}
 export COMINm1=$COMROOT/aqm/$envir/${RUN}.${PDYm1}
 export COMINm2=$COMROOT/aqm/$envir/${RUN}.${PDYm2}
@@ -195,11 +200,10 @@ if [ ${err} -ne 0 ]; then
   exit 101
 fi
 
-
 rm -f log.grep
 while [ ! -s log.grep ]; do
- if [ -s jaqm_aot_nlbc.out ]; then
-  tail -2000 jaqm_aot_nlbc.out | grep "Program completed successfully" > log.grep
+ if [ -s jaqm_fcst_cs.out ]; then
+  tail -2000 jaqm_fcst_cs.out | grep "Successfully completed" > log.grep
  else
   sleep 60
  fi
@@ -218,12 +222,20 @@ else
  exit 1
 fi
 
+fi
+
+# POST
+if [ ! -s $COMOUT/aqm.$cycle.aconc_sfc.ncf ]; then
+export pid=`od -An -N2 -i /dev/random | sed 's/^[ \t]*//'`
 export DATA=${usr_tmp}/tmpnwprd/aqm_post1.$pid #define working directory
 $HOMEaqm/jobs/JAQM_POST1_CS
 
-#scp -p $COMOUT/aqm.$PDY.t${cyc}z.*.ncf youhuat@byun.arl.noaa.gov:/data/aqf3/youhuat/aot-nlbc-gbbepxb
 
-# $HOMEaqm/working/for-ucla2.ksh &
+if [ $SAVEHPSS = YES ]; then
+
+cd $COMOUT
+scp -p aqm.$cycle.aconc_sfc.ncf youhuat@aaqest.arl.noaa.gov:/data/aqf3/youhuat/cmaq531-test/aqm.$PDY.$cycle.aconc_sfc.ncf &
+scp -p aqm.$cycle.rj_1.ncf youhuat@aaqest.arl.noaa.gov:/data/aqf3/youhuat/cmaq531-test/aqm.$PDY.$cycle.rj_1.ncf &
 
 cat>hsi-select.ksh<<EOF
 #!/bin/ksh -x
@@ -237,13 +249,12 @@ put aqm*t${cyc}z.pmdiag.ncf
 put aqm*soil*ncf
 put aqm*fire*ncf
 put aqm*t${cyc}z.*conc*.ncf
-put *ptfire*ncf
 bye
 !
 EOF
 chmod +x hsi-select.ksh
 ./hsi-select.ksh &
 fi
-
+fi
 export PDY=`$NDATE +24 ${PDY}${cyc} | cut -c1-8`
 done

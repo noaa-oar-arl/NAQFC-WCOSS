@@ -41,7 +41,7 @@ cat > ngac-bnd-nemsio.ini <<EOF
  begdate=$cjulian
  begtime=$cyc    
  dtstep=6        
- numts = 31
+ numts=21
  bndname='NO2','NO','O3','NO3','OH','HO2','N2O5','HNO3','HONO','PNA',
  'H2O2','CO','SO2','SULF','PAN','FACD','AACD','PACD','UMHP','MGLY',
  'OPEN','CRES','FORM','ALD2','PAR','OLE','TOL','ISOP','ETH','XYL',
@@ -100,5 +100,5 @@ export CHECK2D=$outdir/check_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 rm -rf chkreads.log
 
 startmsg
-$EXECaqm/aqm_fv3chem_dlbc  >> $pgmout 2>errfile 
+$EXECaqm/aqm_fv3chem_dlbc.x  >> $pgmout 2>errfile 
 export err=$?;err_chk
