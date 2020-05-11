@@ -256,5 +256,8 @@ chmod +x hsi-select.ksh
 ./hsi-select.ksh &
 fi
 fi
+# delete the big GFS files
+cd $COMIN
+rm gfs*.nc gfs.$PDY/00/*.nemsio
 export PDY=`$NDATE +24 ${PDY}${cyc} | cut -c1-8`
 done

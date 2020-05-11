@@ -187,7 +187,7 @@ c      if(iflag.ne.NF_NOERR) stop
        
        if(tlon(i).ge.xlonmin.and.tlon(i).le.xlonmax.and.
      1    tlat(j).ge.xlatmin.and.tlat(j).le.xlatmax.and.
-     2     maxval(gbbepx(i,j,:)).ge.0) then
+     2     maxval(gbbepx(i,j,:)).gt.0) then
 
        if(.not.LL2LAM(tlon(i),tlat(j),x,y)) stop
        xind=(x-xorig)/ddx+0.5
