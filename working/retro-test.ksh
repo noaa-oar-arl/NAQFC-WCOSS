@@ -57,7 +57,7 @@ fi
 
 export pid=`od -An -N2 -i /dev/random | sed 's/^[ \t]*//'`
 
-if [ ! -s $COMOUT/aqm.t$cycle.metcro3d.ncf ] || [ ! -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] \
+if [ ! -s $COMOUT/aqm.$cycle.metcro3d.ncf ] || [ ! -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] \
  || [ ! -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
 # Prep
 export pid=`od -An -N2 -i /dev/random | sed 's/^[ \t]*//'`
