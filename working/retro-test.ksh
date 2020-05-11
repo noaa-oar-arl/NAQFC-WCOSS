@@ -140,13 +140,13 @@ bsub< $HOMEaqm/working/jaqm-prep.ksh
    && [ -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
    if [ `stat -c %s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf` -lt 160000000 ]; then
     let ic=ic+1
-    sleep 10
+    sleep 20
    else 
     break
    fi 
   else
    let ic=ic+1
-   sleep 10
+   sleep 20
   fi
  done  
  if [ $ic -gt 100 ]; then
