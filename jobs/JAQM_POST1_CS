@@ -2,7 +2,7 @@
 source /opt/modules/default/init/ksh
 module load iobuf
 module load prod_util
-module load prod_envir
+
 
 date
 export PS4=' $SECONDS + '
