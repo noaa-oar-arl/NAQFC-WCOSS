@@ -325,13 +325,14 @@ export EMISSCTRL_NML=$PARMaqm/EmissCtrl_${MECH}.nml
  #> Spatial Masks For Emissions Scaling
   #export CMAQ_MASKS=$SZpath/12US1_surf.ncf
 
-export GRID_CRO_2D=$FIXaqm/aqm.static.grdcro2d-5x.ncf
+export GRID_CRO_2D=$METpath/aqm.${cycle}.grdcro2d.ncf
 export GRID_DOT_2D=$METpath/aqm.${cycle}.grddot2d.ncf
 export MET_CRO_2D=$METpath/aqm.${cycle}.metcro2d.ncf
 export MET_CRO_3D=$METpath/aqm.${cycle}.metcro3d.ncf
 export MET_DOT_3D=$METpath/aqm.${cycle}.metdot3d.ncf
 export MET_BDY_3D=$METpath/aqm.${cycle}.metbdy3d.ncf
-
+export SOI_CRO=$METpath/aqm.${cycle}.soicro.ncf
+export LUFRAC_CRO=$METpath/aqm.${cycle}.lufraccro.ncf
 
 #> Gridded Emissions files
 export N_EMIS_GR=1

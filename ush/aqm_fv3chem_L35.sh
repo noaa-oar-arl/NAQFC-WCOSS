@@ -82,7 +82,7 @@ else
 fi
 
 if [ $RUN = 'aqm' ]; then
- export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_FV3_35L.ncf
+ export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
  export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf        # output bnd files
 elif [ $RUN = 'HI' ]; then
  export BND1=$FIXaqm/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.fv3.ncf
