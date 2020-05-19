@@ -24,7 +24,9 @@ export HOMEaqm=${HOMEaqm:-${NWROOT}/cmaq.${cmaq_ver}}
 export USHaqm=$HOMEaqm/ush
 export EXECaqm=$HOMEaqm/exec
 export PARMaqm=$HOMEaqm/parm
-export FIXaqm=$HOMEaqm/fix
+## Temporary using Youhua's fix directory
+export FIXaqm=${FIXaqm:-$HOMEaqm/fix}
+## export FIXaqm=$HOMEaqm/fix
 export UTILaqm=$HOMEaqm/util
 export EMISpath=${EMISpath:-$COMIN}  #> emissions input directory
 

@@ -22,7 +22,9 @@ export EXECaqm=$HOMEaqm/exec
 
 export USHaqm=$HOMEaqm/ush
 export PARMaqm=$HOMEaqm/parm
-export FIXaqm=$HOMEaqm/fix
+## Temporary using Youhua's fix directory
+export FIXaqm=${FIXaqm:-$HOMEaqm/fix}
+## export FIXaqm=$HOMEaqm/fix
 export UTILaqm=$HOMEaqm/util
 
 export NET=${NET:-aqm}
