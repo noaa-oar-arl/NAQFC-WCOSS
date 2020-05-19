@@ -3,17 +3,11 @@
 module load prod_util
 module load prod_envir
 
-export NDATE=${NDATE:-/gpfs/hps/nco/ops/nwprod/prod_util.v1.0.29/exec/ndate}
-
 machine=`hostname | cut -c1`
 
-if [ $machine = s ]; then
-  machine='g'
-else
-  machine='t'
-fi
+SAVEHPSS=NO
 
-SAVEHPSS=YES
+set -x
 
 export cyc=12
 export CYC=$cyc
@@ -22,19 +16,24 @@ export SINGLECYC=YES # one cycle run
 export FCST=YES  # for forecast or "NO" for analysis
 
 today=`$NDATE`
+## hardwire date for now
+today=2019071512
 
 export FRPRATIO=1.0
 
-export HOMEaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS
+BASE=`pwd`
+export HOMEaqm="$(dirname ${BASE})"
+export NWROOT=="$(dirname ${HOMEaqm})"
 export EXECaqm=$HOMEaqm/exec
 export cmaq_ver=v5.3.1
 export usrdir=/gpfs/hps3/emc/naqfc/noscrub/${USER}
-export usr_tmp=/gpfs/hps2/ptmp/${USER}
-export envir=para
+export usr_tmp=/gpfs/hps3/ptmp/${USER}
+export envir=para6
 export model=cmaq
 export RUN=aqm
 export NET=aqm
-export FIXaqm=$HOMEaqm/fix
+## export FIXaqm=$HOMEaqm/fix
+export FIXaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/fix
 export COMROOT=${usr_tmp}/com
 
 export PDY=${1:-`$NDATE -24 $today|cut -c1-8`}
@@ -51,9 +50,7 @@ export PDYp2=`$NDATE +48 ${PDY}${cyc} | cut -c1-8`
 export PDYp3=`$NDATE +72 ${PDY}${cyc} | cut -c1-8`
  
 export COMOUT=${usr_tmp}/com/aqm/${envir}/${RUN}.${PDY}
-if [ ! -s $COMOUT ]; then
 mkdir -p $COMOUT
-fi
 
 export pid=`od -An -N2 -i /dev/random | sed 's/^[ \t]*//'`
 
@@ -64,6 +61,7 @@ export pid=`od -An -N2 -i /dev/random | sed 's/^[ \t]*//'`
 export job=aqm_prep_cs
 export DATA=${usr_tmp}/tmpnwprd/${job}.$pid
 export jlogfile=${usr_tmp}/com/logs/jlogfiles/jlogfile.$pid
+mkdir -p ${usr_tmp}/com/logs/jlogfiles
 
 export COMIN=$COMOUT
 export COMINm1=${usr_tmp}/com/aqm/${envir}/${RUN}.${PDYm1}
@@ -186,12 +184,8 @@ export job=aqm_cmaq_cs
 export pid=`od -An -N2 -i /dev/random | sed 's/^[ \t]*//'`
 export DATA=${usr_tmp}/tmpnwprd/${job}.$pid #define working directory
 export jlogfile=${COMROOT}/logs/jlogfile.${pid}
-if [ ! -s ${COMROOT}/logs ]; then
- mkdir -p ${COMROOT}/logs
-fi 
-if [ ! -s $DATA ]; then
- mkdir -p $DATA
-fi
+mkdir -p ${COMROOT}/logs
+mkdir -p $DATA
 cd $DATA 
 bsub < ${HOMEaqm}/working/jaqm_fcst_cs.ksh
 err=$?
@@ -225,6 +219,18 @@ fi
 fi
 
 # POST
+module load PrgEnv-intel
+module load cray-netcdf/4.3.2
+module load cray-hdf5/1.8.13
+module load cray-mpich/7.2.0
+module load nemsio-intel/2.2.2
+module load nemsiogfs-intel
+module load bacio-intel/2.0.1
+module load w3emc-intel/2.2.0  w3nco-intel/2.0.6
+module load jasper-gnu-haswell/1.900.1
+module load png-intel-sandybridge
+module use /gpfs/hps/nco/ops/nwtest/lib/modulefiles
+module load g2-intel/3.1.0
 if [ ! -s $COMOUT/aqm.$cycle.aconc_sfc.ncf ]; then
 export pid=`od -An -N2 -i /dev/random | sed 's/^[ \t]*//'`
 export DATA=${usr_tmp}/tmpnwprd/aqm_post1.$pid #define working directory
