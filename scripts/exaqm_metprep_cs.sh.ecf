@@ -43,6 +43,7 @@ EYYYY=`echo $endday |cut -c1-4`
 EMM=`echo $endday |cut -c5-6`
 EDD=`echo $endday |cut -c7-8`
 
+### ALERT_HHC hardwire NTIMES=73 for all cycle???
 NTIMES=73
 #export NODES=$penodes
 
@@ -51,6 +52,11 @@ if [ ! -s $InMetDir ]; then
   exit 1
 fi
 
+###
+### Check hourly GFS output for both atm and sfc files
+###
+### ALERT_HHC should count as fhr=endfhr+1
+###
 export fhr=00
 while [ $fhr -le $endfhr ]; do
  if [ ! -s $InMetDir/gfs.$cycle.atmf0$fhr.nc ]; then

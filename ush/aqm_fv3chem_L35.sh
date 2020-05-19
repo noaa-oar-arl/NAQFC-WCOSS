@@ -17,7 +17,9 @@ cdate=`echo $cycledate | cut -c7-8`
 cjulian=`/bin/date --date=$cyear'/'$cmonth'/'$cdate +%j`
 typeset -Z3 cjulian
 
-#FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.$cyear$cmonth$cdate/00
+### ALERT_HHC check GEFS-aerosol output naming
+### FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.$cyear$cmonth$cdate/00
+### geaer.t00z.atmf081.nemsio  geaer.t00z.logf051.nemsio  geaer.t00z.sfcf021.nemsio
 if [ ! -s $FV3CHEMFOLDER/gfs.t${cyc}z.atmf120.nemsio ]; then
 if [ -s ${FV3CHEM_DIR}/gfs.${PDY}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
   FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.${PDY}/00
@@ -30,6 +32,8 @@ else
  exit 1
 fi 
 fi
+### ALERT_HHC use -d for checking directory path OR simply one statement mkdir -p $outdir
+### ALERT_HHC replace all $outdir with ${COMOUT}, it is created in ~/jobs/JAQM_PREP_CS
 outdir=$COMOUT
 if [ ! -s $outdir ]; then
  mkdir -p $outdir
