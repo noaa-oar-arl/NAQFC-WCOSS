@@ -229,7 +229,8 @@
      &             MEDC_AVAIL,              ! file INIT_MEDC_1 is available
      &             E2C_CHEM_AVAIL,          ! file E2C_CHEM is available
      &             GMN_AVAIL,               ! variable GMN exist or not
-     &             LUCRO_AVAIL              ! file LUFRAC_CRO is available
+     &             LUCRO_AVAIL,             ! file LUFRAC_CRO is available
+     &             L1_SW_AVAIL              ! variable L1_SW_AVAIL exist or not (NAQFC)
 
 ! Met data is large enough to cover boundary and no MET_BDY_3D will be used
         logical :: window
@@ -1629,11 +1630,13 @@ C Read the various categories of normalized emissions
      &               STAT=STAT )
 
           vname = 'L1_SW'
+          L1_SW_AVAIL = .true. ! Fest-C v1.4
           If ( .Not. Xtract3 (E2C_CHEM, vname, 1, e2c_cats, STRTROWSTD, ENDROWSTD, 
      &                        STRTCOLSTD, ENDCOLSTD, cio_model_sdate, 0, wep1)) Then
              MESG = 'Could not read "' // TRIM( vname ) //
      &              '" from file "' // TRIM( E2C_CHEM ) // '"'
-             CALL M3EXIT( PNAME, 0, 0, MESG, XSTAT2 )
+!             CALL M3EXIT( PNAME, 0, 0, MESG, XSTAT2 ) 
+              L1_SW_AVAIL = .false. ! NAQFC Fest-C run does not have L1_SW (for ABFLUX)
           End If
 
           vname = 'L2_SW'
@@ -1641,7 +1644,7 @@ C Read the various categories of normalized emissions
      &                        STRTCOLSTD, ENDCOLSTD, cio_model_sdate, 0, wep2)) Then
              MESG = 'Could not read "' // TRIM( vname ) //
      &              '" from file "' // TRIM( E2C_CHEM ) // '"'
-             CALL M3EXIT( PNAME, 0, 0, MESG, XSTAT2 )
+!             CALL M3EXIT( PNAME, 0, 0, MESG, XSTAT2 ) ! NAQFC Fest-C run also does not have L2_SW
           End If
 
           vname = 'L2_DEP'
