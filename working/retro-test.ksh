@@ -24,6 +24,7 @@ export FRPRATIO=1.0
 BASE=`pwd`
 export HOMEaqm="$(dirname ${BASE})"
 export NWROOT=="$(dirname ${HOMEaqm})"
+
 export EXECaqm=$HOMEaqm/exec
 export cmaq_ver=v5.3.1
 export usrdir=/gpfs/hps3/emc/naqfc/noscrub/${USER}
@@ -33,7 +34,8 @@ export model=cmaq
 export RUN=aqm
 export NET=aqm
 ## export FIXaqm=$HOMEaqm/fix
-export FIXaqm=/gpfs/hps3/emc/naqfc/noscrub/Youhua.Tang/nwdev/NAQFC-WCOSS/fix
+export FIXaqm=/gpfs/hps3/emc/naqfc/noscrub/Ho-Chun.Huang/nwpara/AQMv6_COM_FIX
+
 export COMROOT=${usr_tmp}/com
 
 export PDY=${1:-`$NDATE -24 $today|cut -c1-8`}
@@ -68,7 +70,7 @@ export COMINm1=${usr_tmp}/com/aqm/${envir}/${RUN}.${PDYm1}
 export FV3CHEMFOLDER=$COMIN
 export FV3CHEM_DIR=$FV3CHEMFOLDER
 export InMetDir=$COMIN
-if [ ! -s $InMetDir/gfs.$cycle.atmf072.nc ] && [ ! -s $COMOUT/aqm.t$cycle.metcro3d.ncf ] ; then
+if [ ! -s $InMetDir/gfs.$cycle.atmf072.nc ] && [ ! -s $COMOUT/aqm.$cycle.metcro3d.ncf ] ; then
  if [ $PDY -le 20190728 ]; then
  hsi<<EOF
  lcd $COMIN
@@ -253,6 +255,7 @@ put aqm*t${cyc}z.cgrid.ncf
 put aqm*t${cyc}z.rj_1.ncf
 put aqm*t${cyc}z.pmdiag.ncf
 put aqm*soil*ncf
+put aqm*lufraccro*ncf
 put aqm*fire*ncf
 put aqm*t${cyc}z.*conc*.ncf
 bye
