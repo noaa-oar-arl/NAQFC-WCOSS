@@ -79,7 +79,8 @@ C-------------------------------------------------------------------------------
          Use UTILIO_DEFN         
          Use Bidi_Mod, Only: gamma1, gamma2, MHp1, MHp2
          Use depv_data_module
-
+         Use ASX_DATA_MOD,  Only: MET_DATA
+         USE CENTRALIZED_IO_MODULE, Only: L1_SW_AVAIL
          Implicit None 
 ! Includes
          Include SUBST_CONST     ! constants
@@ -187,7 +188,10 @@ C-------------------------------------------------------------------------------
      &                       pHs2( c,r,l )   .Lt. 9.0       .And.
      &                       NH4ps1( c,r,l ) .Gt. 0.0       .And.
      &                       NH4ps2( c,r,l ) .Gt. 0.0     ) Then
-   
+                         If (.not. L1_SW_AVAIL) then ! NAQFC Fest-C run does not have L1_SW 
+                           wep1(c,r,l) = MET_DATA%SOIM1( c,r )*d1*1000. ! NAQFC Approximate L1_SW = Met Data Top Layer Soil Moisture
+                           wep2(c,r,l) = MET_DATA%SOIM1( c,r )*dep2(c,r,l)*1000. ! NAQFC Approximate L2_SW = Met Data Top Layer Soil Moisture
+                         End If
                            wep1(c,r,l) = min (wep1(c,r,l),d1*1000.*por1(c,r,l)) ! don't let SM exceed saturation  
                            wep2(c,r,l) = min (wep2(c,r,l),dep2(c,r,l)*1000.*por2(c,r,l)) 
                            wres1       = 0.0065757 + 0.24909 * wp1(c,r,l) 
