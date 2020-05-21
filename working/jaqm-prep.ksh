@@ -1,6 +1,6 @@
 #!/bin/ksh -x
-#BSUB -o jaqm_prep_5x.out
-#BSUB -e jaqm_prep_5x.err
+#BSUB -o /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.out
+#BSUB -e /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.err
 #BSUB -J aqm_prep_5x
 #BSUB -W 00:30
 #BSUB -q debug

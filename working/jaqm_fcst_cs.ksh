@@ -1,7 +1,7 @@
 #!/bin/ksh
 #BSUB -J jaqm_fcst_v531_cs 
-#BSUB -o jaqm_fcst_cs.out 
-#BSUB -e jaqm_fcst_cs.err 
+#BSUB -o /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.out 
+#BSUB -e /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.err 
 #BSUB -q dev 
 ##BSUB -q debug 
 #BSUB -M 3000

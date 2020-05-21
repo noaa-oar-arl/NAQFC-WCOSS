@@ -16,6 +16,7 @@ export SINGLECYC=YES # one cycle run
 export FCST=YES  # for forecast or "NO" for analysis
 
 today=`$NDATE`
+logdate=`date +%Y%m%d%H`
 ## hardwire date for now
 today=2019071512
 
@@ -131,7 +132,18 @@ if [ ! -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] && \
  fi
 fi
 cd $COMIN
-rm -f jaqm_prep_5x.err  jaqm_prep_5x.out 
+if [ -s /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.out ]; then
+   mv /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.out /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.out_${logdate}
+fi
+if [ -s /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.err ]; then
+  mv /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.err /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_fcst_cs.err_${logdate}
+fi
+if [ -s /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.out ]; then
+  mv /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.out /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.out_${logdate}
+fi
+if [ -s /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.err ]; then
+  mv /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.err /gpfs/hps3/ptmp/Ho-Chun.Huang/com/output/para6/today/jaqm_prep_5x.err_${logdate}
+fi
 bsub< $HOMEaqm/working/jaqm-prep.ksh
 
  ic=0
