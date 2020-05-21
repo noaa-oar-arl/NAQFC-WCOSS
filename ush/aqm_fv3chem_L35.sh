@@ -18,26 +18,21 @@ cjulian=`/bin/date --date=$cyear'/'$cmonth'/'$cdate +%j`
 typeset -Z3 cjulian
 
 ### ALERT_HHC check GEFS-aerosol output naming
-### FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.$cyear$cmonth$cdate/00
+### LBCDIR=${LBCIN}/gfs.$cyear$cmonth$cdate/00
 ### geaer.t00z.atmf081.nemsio  geaer.t00z.logf051.nemsio  geaer.t00z.sfcf021.nemsio
-if [ ! -s $FV3CHEMFOLDER/gfs.t${cyc}z.atmf120.nemsio ]; then
-if [ -s ${FV3CHEM_DIR}/gfs.${PDY}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.${PDY}/00
-elif [ -s ${FV3CHEM_DIR}/gfs.${PDYm1}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.${PDYm1}/00
-elif [ -s ${FV3CHEM_DIR}/gfs.${PDYm2}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.${PDYm2}/00
+LBCDIR=${LBCIN}/gfs.$cyear$cmonth$cdate/00
+if [ ! -s ${LBCDIR}/gfs.t${cyc}z.atmf120.nemsio ]; then
+if [ -s ${LBCIN}/gfs.${PDY}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
+  LBCDIR=${LBCIN}/gfs.${PDY}/00
+elif [ -s ${LBCIN}/gfs.${PDYm1}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
+  LBCDIR=${LBCIN}/gfs.${PDYm1}/00
+elif [ -s ${LBCIN}/gfs.${PDYm2}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
+  LBCDIR=${LBCIN}/gfs.${PDYm2}/00
 else
- echo " can not find $FV3CHEMFOLDER/gfs.t${cyc}z.atmf120.nemsio "
+ echo " can not find ${LBCDIR}/gfs.t${cyc}z.atmf120.nemsio "
  exit 1
 fi 
 fi
-### ALERT_HHC use -d for checking directory path OR simply one statement mkdir -p $outdir
-### ALERT_HHC replace all $outdir with ${COMOUT}, it is created in ~/jobs/JAQM_PREP_CS
-outdir=$COMOUT
-if [ ! -s $outdir ]; then
- mkdir -p $outdir
-fi 
  
 cat > ngac-bnd-nemsio.ini <<EOF
 &control
@@ -52,7 +47,7 @@ cat > ngac-bnd-nemsio.ini <<EOF
  'ASO4J','ASO4I','ASOIL','NH3','NUMATKN','NUMACC','NUMCOR',
  'SRFATKN','SRFACC','AOTHRJ',AECJ,APOCJ
  checkname='AOTHRJ','ASOIL','AECJ','APOCJ'
- mofile='$FV3CHEMFOLDER/gfs.t${cyc}z.atmf','.nemsio'
+ mofile='${LBCDIR}/gfs.t${cyc}z.atmf','.nemsio'
  checklayer=1    
 &end
 
@@ -77,29 +72,29 @@ Species converting Factor
 
 EOF
 
-if [ -s $COMIN/aqm.t${cyc}z.metcro3d.ncf ] ; then
- export METEO3D=$COMIN/aqm.t${cyc}z.metcro3d.ncf
- export TOPO=$COMIN/aqm.t${cyc}z.grdcro2d.ncf
+if [ -s ${COMIN}/aqm.t${cyc}z.metcro3d.ncf ] ; then
+ export METEO3D=${COMIN}/aqm.t${cyc}z.metcro3d.ncf
+ export TOPO=${COMIN}/aqm.t${cyc}z.grdcro2d.ncf
 else
- export METEO3D=$COMINm1/aqm.t12z.metcro3d.ncf
- export TOPO=$COMINm1/aqm.t12z.grdcro2d.ncf
+ export METEO3D=${COMINm1}/aqm.t12z.metcro3d.ncf
+ export TOPO=${COMINm1}/aqm.t12z.grdcro2d.ncf
 fi
 
 if [ $RUN = 'aqm' ]; then
- export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
- export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf        # output bnd files
+ export BND1=${FIXaqm}/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
+ export BND2=${COMOUT}/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf        # output bnd files
 elif [ $RUN = 'HI' ]; then
- export BND1=$FIXaqm/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.fv3.ncf
- export BND2=$outdir/aqm_HI_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
+ export BND1=${FIXaqm}/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.fv3.ncf
+ export BND2=${COMOUT}/aqm_HI_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 elif [ $RUN = 'AK' ]; then
- export BND1=$FIXaqm/aqm_AK_cb05_ae4_mean_${cmonth}.35L.ncf
- export BND2=$outdir/aqm_AK_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
+ export BND1=${FIXaqm}/aqm_AK_cb05_ae4_mean_${cmonth}.35L.ncf
+ export BND2=${COMOUT}/aqm_AK_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 else
  echo " unknown domain $RUN "
  exit 1
 fi
-#export CHECK2D=$outdir/check_ngac_dust_${cyear}${cmonth}${cdate}_35L.ncf
-export CHECK2D=$outdir/check_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
+#export CHECK2D=${COMOUT}/check_ngac_dust_${cyear}${cmonth}${cdate}_35L.ncf
+export CHECK2D=${COMOUT}/check_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 
 rm -rf chkreads.log
 

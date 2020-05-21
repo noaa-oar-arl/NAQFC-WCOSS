@@ -1,32 +1,53 @@
 #!/bin/ksh -x
 
-if [ $FCST = "NO" ] ; then
- if [ -s $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
-  FIREDATE=$PDYm1
-  emisfile=GBBEPx_all01GRID.emissions_v003_$PDYm1.nc
-  COMIN9=$COMINm1
- else
-  echo "can not find $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc"
-  exit
- fi 
-elif [ -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDY.nc ]; then
- COMIN9=$COMIN
- emisfile=GBBEPx_all01GRID.emissions_v003_$PDY.nc
- FIREDATE=$PDY
-elif [ -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
- COMIN9=$COMIN
- emisfile=GBBEPx_all01GRID.emissions_v003_$PDYm1.nc
- FIREDATE=$PDYm1
-else
- echo "can not find fire emission"
- exit
+#
+# Today's GBBEPx FIRE EMISSION directory only has PDYm1 and PDYm2's fire emission
+if [ ${FCST} = "NO" ] ; then  ## For Analysis Run
+   if [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc ]; then
+      FIREDATE=${PDYm1}
+      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc
+      COMIN9=${EMIFIREIN}
+   elif [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
+      FIREDATE=${PDYm2}
+      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      COMIN9=${EMIFIREIN}
+   elif [ -s ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
+      cp -p ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ${COMIN}
+      FIREDATE=${PDYm2}
+      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      COMIN9=${EMIFIREINm1}
+   else
+      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc"
+      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
+      echo "can not find ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
+      exit
+   fi 
+else   ## For Forecast Run
+   if [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc ]; then
+      FIREDATE=${PDYm1}
+      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc
+      COMIN9=${EMIFIREIN}
+   elif [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
+      FIREDATE=${PDYm2}
+      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      COMIN9=${EMIFIREIN}
+   elif [ -s ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
+      FIREDATE=${PDYm2}
+      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      COMIN9=${EMIFIREINm1}
+   else
+      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc"
+      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
+      echo "can not find ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
+      exit
+   fi 
 fi
 
 
 FRPRATIO=${FRPRATIO:-1.0}
 cat>gbbepx2pts.ini<<!
 &control
-efilein='$COMIN9/$emisfile'
+efilein='${COMIN9}/$emisfile'
 markutc=18
 burnarea_ratio=0.1
 frpfactor=$FRPRATIO
@@ -62,50 +83,50 @@ Species Converting Factor
 !
 
 export IOAPI_ISPH=20 # make consistent with met-preprocessor R_earth=6370000m
-if [ $RUN = 'aqm' ]; then
- export GRIDDESC=$PARMaqm/aqm_griddesc05
- export GRID_NAME=AQF_CONUS_5x
- export TOPO=$FIXaqm/aqm_gridcro2d.landfac.5x.ncf
- DD='cs'
-elif [ $RUN = 'HI' ]; then
- export GRIDDESC=$PARMaqm/aqm_griddescHI
- export GRID_NAME=AQF_HI
- export TOPO=$FIXaqm/aqm_gridcro2d.landfac.HI.ncf
- DD=$RUN
-elif [ $RUN = 'AK' ]; then
- export GRIDDESC=$PARMaqm/aqm_griddescAK
- export GRID_NAME=AQF_AK
- export TOPO=$FIXaqm/aqm_gridcro2d.landfac.AK.ncf
- DD=$RUN
+if [ ${RUN} = 'aqm' ]; then
+   export GRIDDESC=$PARMaqm/aqm_griddesc05
+   export GRID_NAME=AQF_CONUS_5x
+   export TOPO=$FIXaqm/aqm_gridcro2d.landfac.5x.ncf
+   DD='cs'
+elif [ ${RUN} = 'HI' ]; then
+   export GRIDDESC=$PARMaqm/aqm_griddescHI
+   export GRID_NAME=AQF_HI
+   export TOPO=$FIXaqm/aqm_gridcro2d.landfac.HI.ncf
+   DD=${RUN}
+elif [ ${RUN} = 'AK' ]; then
+   export GRIDDESC=$PARMaqm/aqm_griddescAK
+   export GRID_NAME=AQF_AK
+   export TOPO=$FIXaqm/aqm_gridcro2d.landfac.AK.ncf
+   DD=${RUN}
 else
- echo " unknown domain $RUN "
- exit 1
+   echo " unknown domain ${RUN} "
+   exit 1
 fi
 
 # output
-export STACK_GROUP=aqm.$cycle.fire_location_$DD.ncf
-export PTFIRE=aqm.$cycle.fire_emi_$DD.ncf
+export STACK_GROUP=aqm.${cycle}.fire_location_${DD}.ncf
+export PTFIRE=aqm.${cycle}.fire_emi_${DD}.ncf
 
 startmsg
-$EXECaqm/aqm_gbbepx2pts.x
+${EXECaqm}/aqm_gbbepx2pts.x
 export err=$?;err_chk
 
-if [ "$FCST" = "YES" ]; then
- CHK_DIR=$COMIN
+if [ "${FCST}" = "YES" ]; then
+   CHK_DIR=${COMIN}
 else
- CHK_DIR=$COMINm1
+   CHK_DIR=${COMINm1}
 fi
 
-if [ -s $PTFIRE -a -s $STACK_GROUP ]; then
+if [ -s ${PTFIRE} -a -s {$STACK_GROUP} ]; then
 
- if [ "$FCST" = "YES" ]; then
-  cp -rp $DATA/aqm*fire*ncf $CHK_DIR
- else
-  mv $DATA/aqm.$cycle.fire_location_cs.ncf $CHK_DIR/aqm.$cycle.fire_location_${DD}_r.ncf
-  mv $DATA/aqm.$cycle.fire_emi_cs.ncf $CHK_DIR/aqm.$cycle.fire_emi_${DD}_r.ncf
- fi
+   if [ "${FCST}" = "YES" ]; then
+      cp -rp ${DATA}/aqm*fire*ncf ${CHK_DIR}
+   else
+      mv ${DATA}/aqm.${cycle}.fire_location_cs.ncf ${CHK_DIR}/aqm.${cycle}.fire_location_${DD}_r.ncf
+      mv ${DATA}/aqm.${cycle}.fire_emi_cs.ncf ${CHK_DIR}/aqm.${cycle}.fire_emi_${DD}_r.ncf
+   fi
 
 else
- echo "gbbepx2emis run failed"
- exit 1
+   echo "gbbepx2emis run failed"
+   exit 1
 fi

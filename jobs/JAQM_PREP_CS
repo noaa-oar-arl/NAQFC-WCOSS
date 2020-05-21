@@ -4,8 +4,8 @@ date
 export PS4=' $SECONDS + '
 
 export DATA=${DATA:-${DATAROOT:?}/$jobid}
-mkdir -p $DATA
-cd $DATA
+mkdir -p ${DATA}
+cd ${DATA}
 
 export cycle=${cycle:-t${cyc}z}
 setpdy.sh
@@ -18,69 +18,68 @@ export SENDECF=${SENDECF:-YES}
 export SENDCOM=${SENDCOM:-YES}
 
 export HOMEaqm=${HOMEaqm:-${NWROOT}/cmaq.${cmaq_ver}}
-export EXECaqm=$HOMEaqm/exec
-
-export USHaqm=$HOMEaqm/ush
-export PARMaqm=$HOMEaqm/parm
-## Temporary using Youhua's fix directory
-export FIXaqm=${FIXaqm:-$HOMEaqm/fix}
-## export FIXaqm=$HOMEaqm/fix
-export UTILaqm=$HOMEaqm/util
+export EXECaqm=${EXECaqm:-${HOMEaqm}/exec}
+export USHaqm=${USHaqm:-${HOMEaqm}/ush}
+export PARMaqm=${PARMaqm:-${HOMEaqm}/parm}
+export FIXaqm=${FIXaqm:-${HOMEaqm}/fix}
+export UTILaqm=${UTILaqm:-${HOMEaqm}/util}
 
 export NET=${NET:-aqm}
 export RUN=${RUN:-aqm}
 
-SYYYY=`echo $PDY |cut -c1-4`
-SMM=`echo $PDY |cut -c5-6`
-SDD=`echo $PDY |cut -c7-8`
-export DAYOFYEAR=`date -d $SYYYY/$SMM/$SDD +%j`
+SYYYY=`echo ${PDY} |cut -c1-4`
+SMM=`echo ${PDY} |cut -c5-6`
+SDD=`echo ${PDY} |cut -c7-8`
+export DAYOFYEAR=`date -d ${SYYYY}/${SMM}/${SDD} +%j`
 
-export COMIN=${COMIN:-$COMROOT/$NET/$envir/$RUN.$PDY}
-export COMINm1=${COMINm1:-$COMROOT/$NET/$envir/$RUN.$PDYm1}
-export InMetDir=${InMetDir:-$COMIN}
+export COMIN=${COMIN:-${COMROOT}/${NET}/${envir}/${RUN}.${PDY}}
+export COMINm1=${COMINm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 
-export COMOUT=${COMOUT:-$COMROOT/$NET/$envir/$RUN.$PDY}
-export COMOUTm1=${COMOUTm1:-$COMROOT/$NET/$envir/$RUN.$PDYm1}
+export COMOUT=${COMOUT:-${COMROOT}/${NET}/${envir}/${RUN}.${PDY}}
+export COMOUTm1=${COMOUTm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 
-export FV3CHEM_DIR=${FV3CHEM_DIR:-$COMROOTp2/ngac/prod}
-export FV3CHEMFOLDER=${FV3CHEMFOLDER:-$COMIN}
+export METIN=${METIN:-${COMROOT}/gfs/prod/gfs.${PDY}}
+export LBCIN=${LBCIN:-${COMROOT}/gefs/prod/gefs.${PDY}}
+## /gpfs/dell1/nco/ops/dcom/dev/$PDY/firewx
+export EMIFIREIN=${EMIFIREIN:-/gpfs/dell1/nco/ops/dcom/prod/${PDY}/firewx}
+export EMIFIREINm1=${EMIFIREINm1:-/gpfs/dell1/nco/ops/dcom/prod/${PDYm1}/firewx}
 
-mkdir -p $COMOUT
+mkdir -p ${COMOUT}
 
 export pgmout=OUTPUT.$$
  
 env
 
-if [ ! -s $COMOUT/aqm.$cycle.metcro3d.ncf ]; then
-$HOMEaqm/scripts/exaqm_metprep_cs.sh.ecf
-export  err=$?; err_chk
+if [ ! -s ${COMOUT}/aqm.${cycle}.metcro3d.ncf ]; then
+   ${HOMEaqm}/scripts/exaqm_metprep_cs.sh.ecf
+   export  err=$?; err_chk
 fi
 
-if ( [ "$FCST" = "YES" ] && [ ! -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] ) ||\
-  ( [ "$FCST" = "NO" ] && [ ! -s $COMOUTm1/aqm.$cycle.fire_emi_cs_r.ncf ] ) ; then
-aprun -n 1 $USHaqm/gbbepx2pts.ksh 
-export err=$?; err_chk
+if ( [ "${FCST}" = "YES" ] && [ ! -s ${COMOUT}/aqm.${cycle}.fire_emi_cs.ncf ] ) ||\
+  ( [ "${FCST}" = "NO" ] && [ ! -s ${COMOUTm1}/aqm.${cycle}.fire_emi_cs_r.ncf ] ) ; then
+   aprun -n 1 ${USHaqm}/gbbepx2pts.ksh 
+   export err=$?; err_chk
 fi
 
-if [ ! -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
- ic=0
- while [ $ic -le 40 ]; do
-  if [ -s $COMOUT/aqm.$cycle.metcro3d.ncf ]; then
-   break
-  else
-   let ic=ic+1
-   sleep 10
-  fi
- done 
-  if [ $ic -gt 40 ]; then
-   err_exit *****FATAL ERROR***** - COULD NOT LOCATE: $COMOUT/aqm.$cycle.metcro3d.ncf
-  fi 
-  aprun -n 1 $USHaqm/aqm_fv3chem_L35.sh $PDY
-  err=$?; err_chk
+if [ ! -s ${COMOUT}/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
+   ic=0
+   while [ ${ic} -le 40 ]; do
+      if [ -s ${COMOUT}/aqm.${cycle}.metcro3d.ncf ]; then
+         break
+      else
+         let ic=ic+1
+         sleep 10
+      fi
+   done 
+   if [ ${ic} -gt 40 ]; then
+      err_exit *****FATAL ERROR***** - COULD NOT LOCATE: ${COMOUT}/aqm.${cycle}.metcro3d.ncf
+   fi 
+   aprun -n 1 ${USHaqm}/aqm_fv3chem_L35.sh ${PDY}
+   err=$?; err_chk
 fi
 
 
 msg="JOB $job HAS COMPLETED NORMALLY."
-postmsg "$jlogfile" "$msg"
+postmsg "${jlogfile}" "${msg}"
 
 date
