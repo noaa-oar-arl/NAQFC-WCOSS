@@ -1,6 +1,6 @@
 #!/bin/ksh -x
 ##
-## For operational/NRT and development retro-run, one should use day-1 fire emissions to mimic
+## For operational/NRT and developmental retro-run, one should use day-1 fire emissions to mimic
 ##     operational environment. Using a day-2 fire emissions is a fail-over option during operational run.
 ## Add warning message to alert NCO for missing fire emission files in 
 ##     /gpfs/dell1/nco/ops/dcom/prod/${PDY}/firewx
@@ -99,19 +99,19 @@ Species Converting Factor
 
 export IOAPI_ISPH=20 # make consistent with met-preprocessor R_earth=6370000m
 if [ ${RUN} = 'aqm' ]; then
-   export GRIDDESC=$PARMaqm/aqm_griddesc05
+   export GRIDDESC=${PARMaqm}/aqm_griddesc05
    export GRID_NAME=AQF_CONUS_5x
-   export TOPO=$FIXaqm/aqm_gridcro2d.landfac.5x.ncf
+   export TOPO=${FIXaqm}/aqm_gridcro2d.landfac.5x.ncf
    DD='cs'
 elif [ ${RUN} = 'HI' ]; then
-   export GRIDDESC=$PARMaqm/aqm_griddescHI
+   export GRIDDESC=${PARMaqm}/aqm_griddescHI
    export GRID_NAME=AQF_HI
-   export TOPO=$FIXaqm/aqm_gridcro2d.landfac.HI.ncf
+   export TOPO=${FIXaqm}/aqm_gridcro2d.landfac.HI.ncf
    DD=${RUN}
 elif [ ${RUN} = 'AK' ]; then
-   export GRIDDESC=$PARMaqm/aqm_griddescAK
+   export GRIDDESC=${PARMaqm}/aqm_griddescAK
    export GRID_NAME=AQF_AK
-   export TOPO=$FIXaqm/aqm_gridcro2d.landfac.AK.ncf
+   export TOPO=${FIXaqm}/aqm_gridcro2d.landfac.AK.ncf
    DD=${RUN}
 else
    echo " unknown domain ${RUN} "
