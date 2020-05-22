@@ -43,6 +43,8 @@ export COMOUTm1=${COMOUTm1:-$COMROOT/$NET/$envir/$RUN.$PDYm1}
 export FV3CHEM_DIR=${FV3CHEM_DIR:-$COMROOTp2/ngac/prod}
 export FV3CHEMFOLDER=${FV3CHEMFOLDER:-$COMIN}
 
+export FLAG_TODAY_FIRE=${FLAG_TODAY_FIRE:-NO} 
+
 mkdir -p $COMOUT
 
 export pgmout=OUTPUT.$$

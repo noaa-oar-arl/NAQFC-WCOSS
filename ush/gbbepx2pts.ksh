@@ -1,15 +1,21 @@
 #!/bin/ksh -x
 
 if [ $FCST = "NO" ] ; then
- if [ -s $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
+ if [ -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
+  FIREDATE=$PDYm1
+  emisfile=GBBEPx_all01GRID.emissions_v003_$PDYm1.nc
+  COMIN9=$COMIN
+ elif [ -s $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
   FIREDATE=$PDYm1
   emisfile=GBBEPx_all01GRID.emissions_v003_$PDYm1.nc
   COMIN9=$COMINm1
+  echo "WARNING GBBEPx_all01GRID.emissions_v003_$PDYm1.nc found in $COMINm1, should be in $COMIN"
  else
-  echo "can not find $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc"
+  echo "can not find fire emission $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc""
+  echo "can not find fire emission $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc"
   exit
  fi 
-elif [ -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDY.nc ]; then
+elif [ -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDY.nc ] && [ "${FLAG_TODAY_FIRE}" == "YES" ]; then
  COMIN9=$COMIN
  emisfile=GBBEPx_all01GRID.emissions_v003_$PDY.nc
  FIREDATE=$PDY
@@ -17,8 +23,14 @@ elif [ -s $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
  COMIN9=$COMIN
  emisfile=GBBEPx_all01GRID.emissions_v003_$PDYm1.nc
  FIREDATE=$PDYm1
+elif [ -s $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
+  FIREDATE=$PDYm1
+  emisfile=GBBEPx_all01GRID.emissions_v003_$PDYm1.nc
+  COMIN9=$COMINm1
+  echo "WARNING GBBEPx_all01GRID.emissions_v003_$PDYm1.nc found in $COMINm1, should be in $COMIN"
 else
- echo "can not find fire emission"
+ echo "can not find fire emission $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc""
+ echo "can not find fire emission $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc""
  exit
 fi
 
