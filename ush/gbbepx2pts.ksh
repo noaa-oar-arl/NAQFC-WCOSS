@@ -11,7 +11,7 @@ if [ $FCST = "NO" ] ; then
   COMIN9=$COMINm1
   echo "WARNING GBBEPx_all01GRID.emissions_v003_$PDYm1.nc found in $COMINm1, should be in $COMIN"
  else
-  echo "can not find fire emission $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc""
+  echo "can not find fire emission $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc"
   echo "can not find fire emission $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc"
   exit
  fi 
@@ -29,8 +29,8 @@ elif [ -s $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc ]; then
   COMIN9=$COMINm1
   echo "WARNING GBBEPx_all01GRID.emissions_v003_$PDYm1.nc found in $COMINm1, should be in $COMIN"
 else
- echo "can not find fire emission $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc""
- echo "can not find fire emission $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc""
+ echo "can not find fire emission $COMIN/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc"
+ echo "can not find fire emission $COMINm1/GBBEPx_all01GRID.emissions_v003_$PDYm1.nc"
  exit
 fi
 

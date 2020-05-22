@@ -20,6 +20,7 @@ export CYC=$cyc
 cycle=t${cyc}z
 export SINGLECYC=YES # one cycle run
 export FCST=YES  # for forecast or "NO" for analysis
+export FLAG_TODAY_FIRE=YES
 
 today=`$NDATE`
 
@@ -80,15 +81,11 @@ if [ ! -s $InMetDir/gfs.$cycle.atmf072.nc ] && [ ! -s $COMOUT/aqm.$cycle.metcro3
  bye
 EOF
 else
- hsi<<EOF
- lcd $COMIN
- cd /NCEPDEV/emc-global/2year/emc.glopara/WCOSS_D/gfsv16/fv3cmaq/$PDY$cyc
- get gfs_netcdfb?.tar
- !tar xvf gfs_netcdfb1.tar
- !tar xvf gfs_netcdfb2.tar
- !tar xvf gfs_netcdfb3.tar
-bye
-EOF
+ cd $COMIN
+ hpsstar get /NCEPDEV/emc-global/2year/emc.glopara/WCOSS_D/gfsv16/fv3cmaq/$PDY$cyc/gfs_netcdfb1.tar 
+ hpsstar get /NCEPDEV/emc-global/2year/emc.glopara/WCOSS_D/gfsv16/fv3cmaq/$PDY$cyc/gfs_netcdfb2.tar
+ hpsstar get /NCEPDEV/emc-global/2year/emc.glopara/WCOSS_D/gfsv16/fv3cmaq/$PDY$cyc/gfs_netcdfb3.tar
+ ln -s gfs.$PDY/$cyc/*.nc .
 fi
 if [ ! -s $InMetDir/gfs.$cycle.atmf072.nc ]; then
  echo " can not find $InMetDir/gfs.$cycle.atmf072.nc "
@@ -259,6 +256,6 @@ fi
 fi
 # delete the big GFS files
 cd $COMIN
-rm gfs*.nc gfs.$PDY/00/*.nemsio
+rm gfs*.nc gfs.$PDY/12/*.nc gfs.$PDY/00/*.nemsio
 export PDY=`$NDATE +24 ${PDY}${cyc} | cut -c1-8`
 done
