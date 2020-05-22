@@ -1,44 +1,59 @@
 #!/bin/ksh -x
-
-#
-# Today's GBBEPx FIRE EMISSION directory only has PDYm1 and PDYm2's fire emission
-if [ ${FCST} = "NO" ] ; then  ## For Analysis Run
-   if [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc ]; then
+##
+## For operational/NRT and development retro-run, one should use day-1 fire emissions to mimic
+##     operational environment. Using a day-2 fire emissions is a fail-over option during operational run.
+## Add warning message to alert NCO for missing fire emission files in 
+##     /gpfs/dell1/nco/ops/dcom/prod/${PDY}/firewx
+## Today's GBBEPx FIRE EMISSION directory only has PDYm1 and PDYm2's fire emission
+##
+fire_emission_hdr=GBBEPx_all01GRID.emissions_v003
+if [ ${FCST} = "NO" ] ; then  ## For 24-hour-back analysis run using PDYm1 fire emission
+   if [ -s ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc ]; then
       FIREDATE=${PDYm1}
-      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc
+      emisfile=${fire_emission_hdr}_${PDYm1}.nc
       COMIN9=${EMIFIREIN}
-   elif [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
+   elif [ -s ${EMIFIREIN}/${fire_emission_hdr}_${PDYm2}.nc ]; then
       FIREDATE=${PDYm2}
-      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      emisfile=${fire_emission_hdr}_${PDYm2}.nc
       COMIN9=${EMIFIREIN}
-   elif [ -s ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
-      cp -p ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ${COMIN}
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc"
+   elif [ -s ${EMIFIREINm1}/${fire_emission_hdr}_${PDYm2}.nc ]; then
       FIREDATE=${PDYm2}
-      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      emisfile=${fire_emission_hdr}_${PDYm2}.nc
       COMIN9=${EMIFIREINm1}
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc"
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm2}.nc"
    else
-      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc"
-      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
-      echo "can not find ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc"
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm2}.nc"
+      echo "WARNING NO ${EMIFIREINm1}/${fire_emission_hdr}_${PDYm2}.nc"
       exit
    fi 
-else   ## For Forecast Run
-   if [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc ]; then
+else   ## For day1, day2, and day3 forecast runs using PDYm1 fire emission OR create control run
+   if [ -s ${EMIFIREIN}/${fire_emission_hdr}_${PDY}.nc ] && [ "${FLAG_TODAY_FIRE}" == "YES" ]; then
+      FIREDATE=${PDY}
+      emisfile=${fire_emission_hdr}_${PDY}.nc
+      COMIN9=${EMIFIREIN}
+      echo "WARNING using current day fire emission in forecast mode only for analysis run only"
+   elif [ -s ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc ]; then
       FIREDATE=${PDYm1}
-      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc
+      emisfile=${fire_emission_hdr}_${PDYm1}.nc
       COMIN9=${EMIFIREIN}
-   elif [ -s ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
+   elif [ -s ${EMIFIREIN}/${fire_emission_hdr}_${PDYm2}.nc ]; then
       FIREDATE=${PDYm2}
-      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      emisfile=${fire_emission_hdr}_${PDYm2}.nc
       COMIN9=${EMIFIREIN}
-   elif [ -s ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc ]; then
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc"
+   elif [ -s ${EMIFIREINm1}/${fire_emission_hdr}_${PDYm2}.nc ]; then
       FIREDATE=${PDYm2}
-      emisfile=GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc
+      emisfile=${fire_emission_hdr}_${PDYm2}.nc
       COMIN9=${EMIFIREINm1}
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc"
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm2}.nc"
    else
-      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm1}.nc"
-      echo "can not find ${EMIFIREIN}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
-      echo "can not find ${EMIFIREINm1}/GBBEPx_all01GRID.emissions_v003_${PDYm2}.nc"
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc"
+      echo "WARNING NO ${EMIFIREIN}/${fire_emission_hdr}_${PDYm2}.nc"
+      echo "WARNING NO ${EMIFIREINm1}/${fire_emission_hdr}_${PDYm2}.nc"
       exit
    fi 
 fi

@@ -43,6 +43,7 @@ export LBCIN=${LBCIN:-${COMROOT}/gefs/prod/gefs.${PDY}}
 ## /gpfs/dell1/nco/ops/dcom/dev/$PDY/firewx
 export EMIFIREIN=${EMIFIREIN:-/gpfs/dell1/nco/ops/dcom/prod/${PDY}/firewx}
 export EMIFIREINm1=${EMIFIREINm1:-/gpfs/dell1/nco/ops/dcom/prod/${PDYm1}/firewx}
+export FLAG_TODAY_FIRE=${FLAG_TODAY_FIRE:-NO}
 
 mkdir -p ${COMOUT}
 
