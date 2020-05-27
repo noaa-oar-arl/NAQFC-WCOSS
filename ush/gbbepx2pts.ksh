@@ -136,11 +136,13 @@ export err=$?;err_chk
 
 if [ -s ${PTFIRE} ] && [ -s ${STACK_GROUP} ]; then
    if [ "${FCST}" = "YES" ]; then
-      cp -p ${DATA}/aqm*fire*ncf ${COMIN}
+      cp -p ${DATA}/${PTFIRE}      ${COMIN}
+      cp -p ${DATA}/${STACK_GROUP} ${COMIN}
    else
-      cp -p ${DATA}/aqm*fire*ncf ${COMINm1}
+      cp -p ${DATA}/${PTFIRE}      ${COMINm1}
+      cp -p ${DATA}/${STACK_GROUP} ${COMINm1}
    fi
 else
-   echo "can not find both ${PTFIRE} and ${STACK_GROUP}.  gbbepx2emis run failed. FCST=${FCST}"
+   echo "can not find both ${DATA}/${PTFIRE} and ${DATA}/${STACK_GROUP}.  gbbepx2emis run failed. FCST=${FCST}"
    exit 1
 fi
