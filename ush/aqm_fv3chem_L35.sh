@@ -6,12 +6,11 @@
 # Script description:  derive regional AQM LBC from operational global aerosol model
 #
 # 05/26/2020  Ho-Chun Huang  LBC only derived at 06Z and 12Z
-# 05/26/2020  Ho-Chun Huang  GEFS-aerosol 06Z run used day-1 fire emission and
-#                            LBC for CMAQ PDY cycle runs.  But GEFS 06Z runs
-#                            after CMAQ 06Z start, thus CMAQ 06Z can only used
-#                            GEFS 00Z output for PDY's LBC at 06Z. Starting 12Z,
-#                            re-calculate LBC using GEFS 06Z data for CMAQ PDY
-#                            12Z and 18Z & PDY+1 00Z
+# 05/26/2020  Ho-Chun Huang  GEFS-aerosol 06Z run uses day-1 fire emission.
+#                            But GEFS 06Z runs after CMAQ 06Z start, thus CMAQ 06Z
+#                            can only use GEFS 00Z output (using day-2 fire emission)
+#                            for CMAQ LBC at PDY 06Z.  At 12Z, re-calculate LBC using
+#                            GEFS 06Z data for CMAQ PDY 12Z and 18Z & PDY+1 00Z
 #
 ################################################################################
 
@@ -32,10 +31,9 @@ if [ "${cycle}" == "t06z" ]; then
 else
    lbc_cyc=t06z
 fi
-# LBC_INI, LBC_END, and LBC_FREQ are defined in ~/jobs/JAQM_PREP_CS
-let ic=${LBC_INI}
-let endhour=${LBC_END}
-let lbc_int=${LBC_FREQ}
+let ic=0
+let lbc_int=6
+let endhour=120
 let num_file=${endhour}/${lbc_int}+1
 while [ ${ic} -le ${endhour} ]; do
    icnt=`printf %3.3d ${ic}`
