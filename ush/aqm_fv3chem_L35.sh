@@ -32,9 +32,10 @@ if [ "${cycle}" == "t06z" ]; then
 else
    lbc_cyc=t06z
 fi
-let ic=0
-let lbc_int=6
-let endhour=120
+# LBC_INI, LBC_END, and LBC_FREQ are defined in ~/jobs/JAQM_PREP_CS
+let ic=${LBC_INI}
+let endhour=${LBC_END}
+let lbc_int=${LBC_FREQ}
 let num_file=${endhour}/${lbc_int}+1
 while [ ${ic} -le ${endhour} ]; do
    icnt=`printf %3.3d ${ic}`
