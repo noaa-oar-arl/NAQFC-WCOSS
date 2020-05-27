@@ -3,7 +3,7 @@
 date
 export PS4=' $SECONDS + '
 
-export DATA=${DATA:-${DATAROOT:?}/$jobid}
+export DATA=${DATA:-${DATAROOT:?}/${jobid}}
 mkdir -p ${DATA}
 cd ${DATA}
 
@@ -11,15 +11,13 @@ export cycle=${cycle:-t${cyc}z}
 setpdy.sh
 . PDY
 
-export Mn=`echo ${PDY} | cut -c5-6`
-
 export SENDDBN=${SENDDBN:-YES}
 export SENDECF=${SENDECF:-YES}
 export SENDCOM=${SENDCOM:-YES}
 
 export HOMEaqm=${HOMEaqm:-${NWROOT}/cmaq.${cmaq_ver}}
-export EXECaqm=${EXECaqm:-${HOMEaqm}/exec}
 export USHaqm=${USHaqm:-${HOMEaqm}/ush}
+export EXECaqm=${EXECaqm:-${HOMEaqm}/exec}
 export PARMaqm=${PARMaqm:-${HOMEaqm}/parm}
 export FIXaqm=${FIXaqm:-${HOMEaqm}/fix}
 export UTILaqm=${UTILaqm:-${HOMEaqm}/util}
@@ -38,11 +36,14 @@ export COMINm1=${COMINm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 export COMOUT=${COMOUT:-${COMROOT}/${NET}/${envir}/${RUN}.${PDY}}
 export COMOUTm1=${COMOUTm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 
-export METIN=${METIN:-${COMROOT}/gfs/prod/gfs.${PDY}}
-export LBCIN=${LBCIN:-${COMROOT}/gefs/prod/gefs.${PDY}}
+export met_envir=${met_envir:-prod}
+export METIN=${METIN:-$(compath.py gfs/${met_envir}/gfs.${PDY})}
+export lbc_envir=${lbc_envir:-prod}
+export LBCIN=${LBCIN:-$(compath.py gefs/${lbc_envir}/gefs.${PDY})}
 ## /gpfs/dell1/nco/ops/dcom/dev/$PDY/firewx
-export EMIFIREIN=${EMIFIREIN:-/gpfs/dell1/nco/ops/dcom/prod/${PDY}/firewx}
-export EMIFIREINm1=${EMIFIREINm1:-/gpfs/dell1/nco/ops/dcom/prod/${PDYm1}/firewx}
+export dcom_envir=${dcom_envir:-prod}
+export EMIFIREIN=${EMIFIREIN:-${DCOMROOT}/${dcom_envir}/${PDY}/firewx}
+export EMIFIREINm1=${EMIFIREINm1:-${DCOMROOT}/${dcom_envir}/${PDYm1}/firewx}
 export FLAG_TODAY_FIRE=${FLAG_TODAY_FIRE:-NO}
 
 mkdir -p ${COMOUT}
@@ -51,36 +52,39 @@ export pgmout=OUTPUT.$$
  
 env
 
-if [ ! -s ${COMOUT}/aqm.${cycle}.metcro3d.ncf ]; then
-   ${HOMEaqm}/scripts/exaqm_metprep_cs.sh.ecf
-   export  err=$?; err_chk
+if [ "${FCST}" == "YES" ]; then
+   if [ ! -s ${COMOUT}/aqm.${cycle}.metcro3d.ncf ]; then
+      ${HOMEaqm}/scripts/exaqm_metprep_cs.sh.ecf
+      export  err=$?; err_chk
+   fi
+   if [ ! -s ${COMOUT}/aqm.${cycle}.fire_emi_cs.ncf ]; then
+      aprun -n 1 ${USHaqm}/gbbepx2pts.ksh 
+      export err=$?; err_chk
+   fi
+   ##
+   ## GEFS 06Z runs after CMAQ 06z Start, can only used GEFS 00Z output for PDY's LBC at 06Z
+   ## GEFS 06Z runs using day-1 fire emission, will re-calculate LBC using GEFS 06Z data for PDY [12Z,18Z] & PDY+1 00Z
+   ##
+   if [ "${cycle}" == "t06z" ] || [ "${cycle}" == "t12z" ] ; then
+      aprun -n 1 ${USHaqm}/aqm_fv3chem_L35.sh ${PDY}
+      err=$?; err_chk
+   fi
+elif [ "${FCST}" == "NO" ] && [ ! -s ${COMOUTm1}/aqm.${cycle}.fire_emi_cs_r.ncf ]; then
+   if [ "${cycle}" == "t06z" ]; then
+      aprun -n 1 ${USHaqm}/gbbepx2pts.ksh 
+      export err=$?; err_chk
+   fi
 fi
 
-if ( [ "${FCST}" = "YES" ] && [ ! -s ${COMOUT}/aqm.${cycle}.fire_emi_cs.ncf ] ) ||\
-  ( [ "${FCST}" = "NO" ] && [ ! -s ${COMOUTm1}/aqm.${cycle}.fire_emi_cs_r.ncf ] ) ; then
-   aprun -n 1 ${USHaqm}/gbbepx2pts.ksh 
-   export err=$?; err_chk
-fi
-
-if [ ! -s ${COMOUT}/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
-   ic=0
-   while [ ${ic} -le 40 ]; do
-      if [ -s ${COMOUT}/aqm.${cycle}.metcro3d.ncf ]; then
-         break
-      else
-         let ic=ic+1
-         sleep 10
-      fi
-   done 
-   if [ ${ic} -gt 40 ]; then
-      err_exit *****FATAL ERROR***** - COULD NOT LOCATE: ${COMOUT}/aqm.${cycle}.metcro3d.ncf
-   fi 
-   aprun -n 1 ${USHaqm}/aqm_fv3chem_L35.sh ${PDY}
-   err=$?; err_chk
-fi
-
-
-msg="JOB $job HAS COMPLETED NORMALLY."
+msg="JOB ${job} HAS COMPLETED NORMALLY."
 postmsg "${jlogfile}" "${msg}"
+
+if [ -e "${pgmout}" ]; then
+   cat ${pgmout}
+fi
+
+if [ "${KEEPDATA}" != "YES" ]; then
+   rm -rf ${DATA}
+fi
 
 date

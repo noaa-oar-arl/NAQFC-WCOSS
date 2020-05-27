@@ -58,14 +58,17 @@ else   ## For day1, day2, and day3 forecast runs using PDYm1 fire emission OR cr
    fi 
 fi
 
+echo "=========================================================="
+echo "Current cycle uses fire emission from ${COMIN9}/${emisfile}"
+echo "=========================================================="
 
 FRPRATIO=${FRPRATIO:-1.0}
 cat>gbbepx2pts.ini<<!
 &control
-efilein='${COMIN9}/$emisfile'
+efilein='${COMIN9}/${emisfile}'
 markutc=18
 burnarea_ratio=0.1
-frpfactor=$FRPRATIO
+frpfactor=${FRPRATIO}
 startdate=${FIREDATE}06
 nduration=127
 tdiurnal=0.03033772, 0.03033772, 0.03033772, 0.03033772, 0.03033772,
@@ -102,46 +105,42 @@ if [ ${RUN} = 'aqm' ]; then
    export GRIDDESC=${PARMaqm}/aqm_griddesc05
    export GRID_NAME=AQF_CONUS_5x
    export TOPO=${FIXaqm}/aqm_gridcro2d.landfac.5x.ncf
-   DD='cs'
+   regid='cs'
 elif [ ${RUN} = 'HI' ]; then
    export GRIDDESC=${PARMaqm}/aqm_griddescHI
    export GRID_NAME=AQF_HI
    export TOPO=${FIXaqm}/aqm_gridcro2d.landfac.HI.ncf
-   DD=${RUN}
+   regid=${RUN}
 elif [ ${RUN} = 'AK' ]; then
    export GRIDDESC=${PARMaqm}/aqm_griddescAK
    export GRID_NAME=AQF_AK
    export TOPO=${FIXaqm}/aqm_gridcro2d.landfac.AK.ncf
-   DD=${RUN}
+   regid=${RUN}
 else
    echo " unknown domain ${RUN} "
    exit 1
 fi
 
 # output
-export STACK_GROUP=aqm.${cycle}.fire_location_${DD}.ncf
-export PTFIRE=aqm.${cycle}.fire_emi_${DD}.ncf
+if [ "${FCST}" = "YES" ]; then
+   export STACK_GROUP=aqm.${cycle}.fire_location_${regid}.ncf
+   export PTFIRE=aqm.${cycle}.fire_emi_${regid}.ncf
+else
+   export STACK_GROUP=aqm.${cycle}.fire_location_${regid}_r.ncf
+   export PTFIRE=aqm.${cycle}.fire_emi_${regid}_r.ncf
+fi
 
 startmsg
 ${EXECaqm}/aqm_gbbepx2pts.x
 export err=$?;err_chk
 
-if [ "${FCST}" = "YES" ]; then
-   CHK_DIR=${COMIN}
-else
-   CHK_DIR=${COMINm1}
-fi
-
-if [ -s ${PTFIRE} -a -s {$STACK_GROUP} ]; then
-
+if [ -s ${PTFIRE} ] && [ -s ${STACK_GROUP} ]; then
    if [ "${FCST}" = "YES" ]; then
-      cp -rp ${DATA}/aqm*fire*ncf ${CHK_DIR}
+      cp -p ${DATA}/aqm*fire*ncf ${COMIN}
    else
-      mv ${DATA}/aqm.${cycle}.fire_location_cs.ncf ${CHK_DIR}/aqm.${cycle}.fire_location_${DD}_r.ncf
-      mv ${DATA}/aqm.${cycle}.fire_emi_cs.ncf ${CHK_DIR}/aqm.${cycle}.fire_emi_${DD}_r.ncf
+      cp -p ${DATA}/aqm*fire*ncf ${COMINm1}
    fi
-
 else
-   echo "gbbepx2emis run failed"
+   echo "can not find both ${PTFIRE} and ${STACK_GROUP}.  gbbepx2emis run failed. FCST=${FCST}"
    exit 1
 fi
