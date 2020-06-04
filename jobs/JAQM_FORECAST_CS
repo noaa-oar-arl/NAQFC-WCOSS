@@ -38,7 +38,16 @@ export COMINm3=${COMINm3:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm3}}
 export COMOUT=${COMOUT:-${COMROOT}/${NET}/${envir}/${RUN}.${PDY}}
 export COMOUTm1=${COMOUTm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 
-export EMISpath=${EMISpath:-${COMIN}}  #> emissions input directory
+## Define Input directories for various information
+YM=`echo ${PDY} | cut -c1-6`
+export EMISpath=${EMISpath:-/gpfs/hps/nco/ops/com/aqm/prod/emission/${YM}}  #> emissions input directory
+if [ "${FCST}" = "YES" ] ; then
+   METpath=${COMIN} #> meteorology input directory
+else
+   METpath=${COMINm1}
+fi
+export METpath=${METpath:-${COMIN}} #> CMAQ processed meteorology directory
+export BCpath=${BCpath:-${METpath}} #> boundary conditions input  directory
 
 export jlogfile=${jlogfile:-${COMROOT}/logs/jlogfiles/jlogfile.${jobid}}
 
@@ -47,6 +56,8 @@ mkdir -p ${COMOUT}
 export pgmout=OUTPUT.$$
 
 export KEEPDATA=${KEEPDATA:-YES}
+## ALERT HHC remove for NCO delivery
+export SINGLECYC=${SINGLECYC:-NO}
 
 env
 
@@ -68,7 +79,6 @@ postmsg "${jlogfile}" "${msg}"
 # Remove temp directories
 ###################################
 if [ "${KEEPDATA}" != "YES" ] ; then
-  cd ${DATAROOT}
   rm -rf ${DATA}
 fi
 

@@ -249,12 +249,12 @@ C-----------------------------------------------------------------------
 C Determine last timestamp
          EDATE = STDATE; ETIME = STTIME
 c         CALL NEXTIME( EDATE, ETIME, RUNLEN )   ! end date & time
-         CALL NEXTIME( EDATE, ETIME, 060000 )
+         CALL NEXTIME( EDATE, ETIME, 060000 )    ! end date & time for 4-cyc run
          MSTEPS = TIME2SEC( RUNLEN ) / TIME2SEC( TSTEP( 1 ) )
-  ! get customized SOILOUT ending time
+! get customized SOILOUT ending time
          SODATE = ENVINT( 'SOILOUT_EDATE', 'SOILOUT END DATE (YYYYJJJ)',0, IOS )
-	 SOTIME = ENVINT( 'SOILOUT_ETIME', 'SOILOUT END TIME (HHMMSS)', 0, IOS ) 
-  ! Output SOILOUT at the end if SOILOUT_EDATE/SOILOUT_ETIME not set 
+         SOTIME = ENVINT( 'SOILOUT_ETIME', 'SOILOUT END TIME (HHMMSS)', 0, IOS ) 
+! Output SOILOUT at the end if SOILOUT_EDATE/SOILOUT_ETIME not set 
          if((SODATE.eq.0) .and. (SOTIME.eq.0)) then
            SODATE=EDATE 
            SOTIME=ETIME 

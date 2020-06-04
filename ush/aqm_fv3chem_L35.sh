@@ -16,6 +16,7 @@
 
 set -xa 
 
+export pgm=aqm_prep_cs_lbc
 cd ${DATA}
 
 cyc=00
@@ -30,6 +31,8 @@ if [ "${cycle}" == "t06z" ]; then
    lbc_cyc=t00z
 else
    lbc_cyc=t06z
+   ## ALERT HHC for 1 cycle testing
+   if [ "${FLAG_ONE_CYCLE}" == "YES" ]; then lbc_cyc=t00z; fi ## for one cycle testing
 fi
 # LBC_INI, LBC_END, and LBC_FREQ are defined in ~/jobs/JAQM_PREP_CS
 let ic=${LBC_INI}
@@ -89,16 +92,22 @@ EOF
 ##  Ideally the MET should already be created ahead of LBC computation
 ##  Simply a fail-safe option in case odd things occurred
 ##
-if [ -s ${COMIN}/aqm.t${cyc}z.metcro3d.ncf ] ; then  ## using current cycle CMAQ MET
-   export METEO3D=${COMIN}/aqm.t${cyc}z.metcro3d.ncf
-   export TOPO=${COMIN}/aqm.t${cyc}z.grdcro2d.ncf
+if [ -s ${COMIN}/aqm.${lbc_cyc}.metcro3d.ncf ] ; then  ## using current cycle CMAQ MET
+   export METEO3D=${COMIN}/aqm.${lbc_cyc}.metcro3d.ncf
+   export TOPO=${COMIN}/aqm.${lbc_cyc}.grdcro2d.ncf
 else
    if [ "${cycle}" == "t06z" ]; then  ## using previous LONG cycle CMAQ MET
       export METEO3D=${COMINm1}/aqm.t12z.metcro3d.ncf
       export TOPO=${COMINm1}/aqm.t12z.grdcro2d.ncf
    else
-      export METEO3D=${COMIN}/aqm.t06z.metcro3d.ncf
-      export TOPO=${COMIN}/aqm.t06z.grdcro2d.ncf
+      ## ALERT HHC for 1 cycle testing
+      if [ "${FLAG_ONE_CYCLE}" == "YES" ]; then 
+         export METEO3D=${COMIN}/aqm.t12z.metcro3d.ncf
+         export TOPO=${COMIN}/aqm.t12z.grdcro2d.ncf
+      else
+         export METEO3D=${COMIN}/aqm.t06z.metcro3d.ncf
+         export TOPO=${COMIN}/aqm.t06z.grdcro2d.ncf
+      fi
    fi
 fi
 

@@ -11,6 +11,12 @@
 #
 #####################################################################
 
+msg="JOB $job HAS BEGUN"
+postmsg "$jlogfile" "$msg"
+
+export pgm=aqm_prep_cs
+
+cd $DATA
 
 case $cyc in 
  00) export endfhr=06
@@ -43,7 +49,7 @@ EYYYY=`echo ${endday} |cut -c1-4`
 EMM=`echo ${endday} |cut -c5-6`
 EDD=`echo ${endday} |cut -c7-8`
 
-if [ ! -s ${METIN} ]; then
+if [ ! -d ${METIN} ]; then
    echo "No such input directory ${METIN}"
    exit 1
 fi
@@ -60,24 +66,25 @@ while [ ${icnt} -le ${tend} ]; do
    if [ ! -s ${METIN}/gfs.${cycle}.atmf${fhr}.nc ]; then
       echo "file does not exist: ${METIN}/gfs.${cycle}.atmf${fhr}.nc"
       exit 1
+   else
+      ln -s ${METIN}/gfs.${cycle}.atmf${fhr}.nc gfs.${cycle}.atmf${fhr}.nc
    fi 
    if [ ! -s ${METIN}/gfs.${cycle}.sfcf${fhr}.nc ]; then
       echo "file does not exist: ${METIN}/gfs.${cycle}.sfcf${fhr}.nc"
       exit 1
+   else
+      ln -s ${METIN}/gfs.${cycle}.sfcf${fhr}.nc gfs.${cycle}.sfcf${fhr}.nc
    fi 
    ((icnt++))
 done
 
-if [ ! -d ${COMOUT} ]; then
-   echo "No such output directory...will try to create one"
-   mkdir -p ${COMOUT}
-fi
+if [ ! -d ${COMOUT} ]; then mkdir -p ${COMOUT}; fi
 
 cat>namelist.mcip<<!
 &FILENAMES
   file_gd    = 'GRIDDESC'
-  file_mm    = '${METIN}/gfs.${cycle}.atmf','.nc'
-  file_sfc   = '${METIN}/gfs.${cycle}.sfcf','.nc'
+  file_mm    = './gfs.${cycle}.atmf','.nc'
+  file_sfc   = './gfs.${cycle}.sfcf','.nc'
   file_geo   = '$FIXaqm/gfs.t12z.geo.$SMM.nc'
   ioform     =  1
  &END

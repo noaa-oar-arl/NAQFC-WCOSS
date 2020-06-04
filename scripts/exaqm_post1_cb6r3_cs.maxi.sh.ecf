@@ -13,6 +13,13 @@
 ######################################################################
 set -xa
 
+msg="JOB $job HAS BEGUN"
+postmsg "$jlogfile" "$msg"
+
+export pgm=aqm_cs_post1_maxi
+
+cd $DATA
+
 export DBNALERT_TYPE=${DBNALERT_TYPE:-GRIB_HIGH}
 
 cd $DATA
