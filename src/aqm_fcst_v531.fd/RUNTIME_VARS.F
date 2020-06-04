@@ -71,7 +71,7 @@
       INTEGER :: TOTPE  = 1   ! Number of Total Processors
       INTEGER :: NPROCS = 1   ! Number of Total Processors
       INTEGER :: MYPE   = -1  ! Processor Number
-      CHARACTER( 3 ) :: CMYPE  = ""  ! Processor Number
+      CHARACTER( 4 ) :: CMYPE  = ""  ! Processor Number
 
       !-----------------------------------------------------------------------------------
       !>> Parameters for formatting output log files
