@@ -168,9 +168,9 @@ C...  build description of output file
       STIME3D = startTime
       NVARS3D = numSpec
       if( Klayer .gt. 0)  then
-        NLAYS3D = 1
-        NLAYS = 1
-        endif
+        NLAYS3D = klayer
+        NLAYS = klayer
+       endif
 
       do n = 1, numSpec
         VNAME3D( n ) = specName( n )
