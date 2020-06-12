@@ -66,6 +66,7 @@ id_gribdomain=148
 EOF5
 
 startmsg
+### ALERT HHC use aqm_post_maxi_CHA_grib2_v2 for NCO delivery -- consistent with executable creation script
 $EXECaqm/aqm_post_maxi_CHA_grib2_v2.x   >> ${pgmout} 2>errfile
 export err=$?;err_chk
 
@@ -92,6 +93,7 @@ id_gribdomain=148
 EOF5
 
 startmsg
+### ALERT HHC use aqm_post_maxi_CHA_grib2_v2 for NCO delivery -- consistent with executable creation script
 $EXECaqm/aqm_post_maxi_CHA_grib2_v2.x  >> ${pgmout} 2>errfile
 export err=$?;err_chk
 

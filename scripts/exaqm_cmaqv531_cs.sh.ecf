@@ -52,6 +52,7 @@ SMM=`echo ${PDY}| cut -c5-6`
 #export NETCDF_FFIOSPEC='cachea:75:3'
 
 APPL=v531
+### ALERT HHC use aqm_fcst_${APPL} for NCO delivery -- consistent with executable creation script
 EXEC=aqm_fcst_${APPL}.x
 CFG=CCTM_${APPL}
 MECH=cb6r3_ae7_aq
@@ -86,7 +87,8 @@ num_node=${NODES}
 extract=$(echo ${LSB_SUB_RES_REQ} | awk -F"ptile=" '{print $2}')
 num_ptile=$(echo ${extract} | awk -F"]" '{print $1}')
 let num_proc=${LSB_MAX_NUM_PROCESSORS}-1
-export NPCOL_NPROW="${num_node} ${num_ptile}"
+## export NPCOL_NPROW="${num_node} ${num_ptile}"
+## let nprocs=${num_node}*${num_ptile}
 export nprocs=${num_proc}
 
 ### CMAQ v5.0.2 setting
@@ -681,7 +683,44 @@ startmsg
 echo "EXECUTE X.u2c"
 export MEMORY_AFFINITY=MCM
 ## aprun -n${nprocs} -N${num_ptile} ${EXECaqm}/${EXEC} >> ${pgmout} 2>errfile
-aprun -n${nprocs} ${EXECaqm}/${EXEC} >> ${pgmout} 2>errfile
+## aprun -n${nprocs} ${EXECaqm}/${EXEC} >> ${pgmout} 2>errfile
+## MIN NODES need 1) 48 2) 47 3) 38 4) 46 5) 47 6) 43 7) 49
+echo "TRY ${imethod}"
+case ${imethod} in
+    1)  num_col=48
+        num_row=24 ;;
+    2)  num_col=221
+        num_row=5 ;;
+    3)  num_col=17
+        num_row=53 ;;
+    4)  num_col=32
+        num_row=34 ;;
+    5)  num_col=33
+        num_row=34 ;;
+    6)  num_col=32
+        num_row=32 ;;
+    7)  num_col=34
+        num_row=34 ;;
+    8)  num_col=12
+        num_row=12 ;;
+    9)  num_col=18
+        num_row=20 ;;
+    10)  num_col=26
+        num_row=53 ;;
+    11)  num_col=34
+        num_row=53 ;;
+esac
+let total_procs=${num_col}*${num_row}
+echo "exp method = ${imethod} ncol=${num_col} nrow=${num_row} total procs need=${total_procs} avail procs=${nprocs}"
+if [ ${total_procs} -gt ${nprocs} ]; then
+   echo "exceeds max processors requested"
+   exit
+fi
+export NPCOL_NPROW="${num_col} ${num_row}"
+## aprun -n${total_procs} -N 24 ${EXECaqm}/${EXEC} >> ${pgmout} 2>errfile
+aprun -n${total_procs} ${EXECaqm}/${EXEC} >> ${pgmout} 2>errfile
+
+##
 #aprun -n576 -N24 /usr/bin/valgrind --leak-check=yes --track-origins=yes --read-var-info=yes ${EXECaqm}/aqm_fcst_v502.debug >> $pgmout 2>errfile
 export err=$?
 
