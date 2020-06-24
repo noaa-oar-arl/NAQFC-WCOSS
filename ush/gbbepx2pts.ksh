@@ -6,6 +6,7 @@
 ##     /gpfs/dell1/nco/ops/dcom/prod/${PDY}/firewx
 ## Today's GBBEPx FIRE EMISSION directory only has PDYm1 and PDYm2's fire emission
 ##
+export pgm=aqm_prep_cs_fire_emi
 fire_emission_hdr=GBBEPx_all01GRID.emissions_v003
 if [ ${FCST} = "NO" ] ; then  ## For 24-hour-back analysis run using PDYm1 fire emission
    if [ -s ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc ]; then
@@ -34,7 +35,8 @@ else   ## For day1, day2, and day3 forecast runs using PDYm1 fire emission OR cr
       FIREDATE=${PDY}
       emisfile=${fire_emission_hdr}_${PDY}.nc
       COMIN9=${EMIFIREIN}
-      echo "WARNING using current day fire emission in forecast mode only for analysis run only"
+      echo "WARNING using current day fire emission in forecast mode is only for estabilishing a refernce case"
+      echo "WARNING in operational environment, only day-1 fire emission is available for current day forecast"
    elif [ -s ${EMIFIREIN}/${fire_emission_hdr}_${PDYm1}.nc ]; then
       FIREDATE=${PDYm1}
       emisfile=${fire_emission_hdr}_${PDYm1}.nc
@@ -58,14 +60,16 @@ else   ## For day1, day2, and day3 forecast runs using PDYm1 fire emission OR cr
    fi 
 fi
 
+
 echo "=========================================================="
 echo "Current cycle uses fire emission from ${COMIN9}/${emisfile}"
 echo "=========================================================="
+ln -s ${COMIN9}/${emisfile} ${emisfile}
 
 FRPRATIO=${FRPRATIO:-1.0}
 cat>gbbepx2pts.ini<<!
 &control
-efilein='${COMIN9}/${emisfile}'
+efilein='./${emisfile}'
 markutc=18
 burnarea_ratio=0.1
 frpfactor=${FRPRATIO}

@@ -36,35 +36,52 @@ export COMINm1=${COMINm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 export COMOUT=${COMOUT:-${COMROOT}/${NET}/${envir}/${RUN}.${PDY}}
 export COMOUTm1=${COMOUTm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 
+##
+## met_envir, lbc_envir, and dcom_envir enable flexible testing for downstream
+## implementation, where upstream input data is still in para or dev directories.
+##
+## Location of FV3GFS output
 export met_envir=${met_envir:-prod}
 export METIN=${METIN:-$(compath.py gfs/${met_envir}/gfs.${PDY})}
 
+## Location of FV3GEFS-Aerosol output
 export lbc_envir=${lbc_envir:-prod}
 export LBCIN=${LBCIN:-$(compath.py gefs/${lbc_envir}/gefs.${PDY})}
 export LBC_INI=${LBC_INI:-0}     ## 1st  LBC file FCST time
 export LBC_END=${LBC_END:-120}   ## Last LBC file FCST time
 export LBC_FREQ=${LBC_FREQ:-3}   ## LBC file output frequency
+
+## Location of GBBEPx fire emissiob files
 ## /gpfs/dell1/nco/ops/dcom/dev/$PDY/firewx
 export dcom_envir=${dcom_envir:-prod}
 export EMIFIREIN=${EMIFIREIN:-${DCOMROOT}/${dcom_envir}/${PDY}/firewx}
 export EMIFIREINm1=${EMIFIREINm1:-${DCOMROOT}/${dcom_envir}/${PDYm1}/firewx}
+
 export FLAG_TODAY_FIRE=${FLAG_TODAY_FIRE:-NO}
 
 mkdir -p ${COMOUT}
 
 export pgmout=OUTPUT.$$
  
+## ALERT HHC remove lines for code delivery, for 1 cycle situation
+export FLAG_ONE_CYCLE=YES
+export FLAG_ONE_CYCLE=${FLAG_ONE_CYCLE:-NO}
+cp ${FIXaqm}/aqm.t12z.lufraccro.ncf ${DATA}/aqm.${cycle}.lufraccro.ncf
+cp ${FIXaqm}/aqm.t12z.lufraccro.ncf ${COMIN}/aqm.${cycle}.lufraccro.ncf
+cp ${FIXaqm}/aqm.t12z.lufraccro.ncf ${COMINm1}/aqm.${cycle}.lufraccro.ncf
+## ALERT HHC remove lines for code delivery, for 1 cycle situation
+
 env
 
 if [ "${FCST}" == "YES" ]; then
-   if [ ! -s ${COMOUT}/aqm.${cycle}.metcro3d.ncf ]; then
+   ## if [ ! -s ${COMOUT}/aqm.${cycle}.metcro3d.ncf ]; then
       ${HOMEaqm}/scripts/exaqm_metprep_cs.sh.ecf
       export  err=$?; err_chk
-   fi
-   if [ ! -s ${COMOUT}/aqm.${cycle}.fire_emi_cs.ncf ]; then
+   ## fi
+   ## if [ ! -s ${COMOUT}/aqm.${cycle}.fire_emi_cs.ncf ]; then
       aprun -n 1 ${USHaqm}/gbbepx2pts.ksh 
       export err=$?; err_chk
-   fi
+   ## fi
    ##
    ## GEFS 06Z runs after CMAQ 06z Start, can only used GEFS 00Z output for PDY's LBC at 06Z
    ## GEFS 06Z runs using day-1 fire emission, will re-calculate LBC using GEFS 06Z data for PDY [12Z,18Z] & PDY+1 00Z

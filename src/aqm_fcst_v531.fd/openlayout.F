@@ -81,7 +81,7 @@ C Local variables:
       CHARACTER( 256 ) :: XMSG      !  buffer for M3EXIT() messages
       CHARACTER(  16 ) :: PNAME = 'OPENLAYOUT'   ! procedure name
 
-      CHARACTER(   3 ) :: CMYPE
+      CHARACTER(   4 ) :: CMYPE
       CHARACTER(   4 ) :: POSTSTR = '.ncf'
       CHARACTER(  96 ) :: PLAY_EQ
       CHARACTER(  96 ) :: EQNAME
@@ -142,7 +142,7 @@ C Set up and open diagnostic file(s)
       FDESC3D( 2 ) = '/FROM/ '    // PNAME
       FDESC3D( 3 ) = '/VERSION/ Inline'
 
-      WRITE( CMYPE,'(I3.3)' ) MYPE
+      WRITE( CMYPE,'(I4.4)' ) MYPE
       DO N = 1, NPTGRPS
 
          IF ( MY_NSRC( N ) .GT. 0 ) THEN

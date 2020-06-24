@@ -1,91 +1,68 @@
-#!/bin/ksh -x
+#!/bin/ksh
+source /opt/modules/default/init/ksh
+module load iobuf
+module load prod_util
+
 
 date
 export PS4=' $SECONDS + '
+set -x
 
 export DATA=${DATA:-${DATAROOT:?}/$jobid}
-mkdir -p $DATA
-cd $DATA
+mkdir -p ${DATA}
+cd ${DATA}
 
 export cycle=${cycle:-t${cyc}z}
 setpdy.sh
 . PDY
-
-export Mn=`echo ${PDY} | cut -c5-6`
 
 export SENDDBN=${SENDDBN:-YES}
 export SENDECF=${SENDECF:-YES}
 export SENDCOM=${SENDCOM:-YES}
 
 export HOMEaqm=${HOMEaqm:-${NWROOT}/cmaq.${cmaq_ver}}
-export EXECaqm=$HOMEaqm/exec
-
-export USHaqm=$HOMEaqm/ush
-export PARMaqm=$HOMEaqm/parm
-## Temporary using Youhua's fix directory
-export FIXaqm=${FIXaqm:-$HOMEaqm/fix}
-## export FIXaqm=$HOMEaqm/fix
-export UTILaqm=$HOMEaqm/util
+export USHaqm=${USHaqm:-${HOMEaqm}/ush}
+export EXECaqm=${EXECaqm:-${HOMEaqm}/exec}
+export PARMaqm=${PARMaqm:-${HOMEaqm}/parm}
+export FIXaqm=${FIXaqm:-${HOMEaqm}/fix}
+export UTILaqm=${UTILaqm:-${HOMEaqm}/util}
 
 export NET=${NET:-aqm}
 export RUN=${RUN:-aqm}
 
-SYYYY=`echo $PDY |cut -c1-4`
-SMM=`echo $PDY |cut -c5-6`
-SDD=`echo $PDY |cut -c7-8`
-export DAYOFYEAR=`date -d $SYYYY/$SMM/$SDD +%j`
+export COMIN=${COMIN:-${COMROOT}/${NET}/${envir}/${RUN}.${PDY}}
+export COMINm1=${COMINm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
+export COMINm2=${COMINm2:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm2}}
+export COMINm3=${COMINm3:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm3}}
 
-export COMIN=${COMIN:-$COMROOT/$NET/$envir/$RUN.$PDY}
-export COMINm1=${COMINm1:-$COMROOT/$NET/$envir/$RUN.$PDYm1}
-### ALERT_HHC InMetDir should be set for GFSv16 output
-export InMetDir=${InMetDir:-$COMIN}
+export COMOUT=${COMOUT:-${COMROOT}/${NET}/${envir}/${RUN}.${PDY}}
+export COMOUTm1=${COMOUTm1:-${COMROOT}/${NET}/${envir}/${RUN}.${PDYm1}}
 
-export COMOUT=${COMOUT:-$COMROOT/$NET/$envir/$RUN.$PDY}
-export COMOUTm1=${COMOUTm1:-$COMROOT/$NET/$envir/$RUN.$PDYm1}
+#export PCOM=${PCOM:-${PCOMROOT}/$NET}
+export PCOM=${PCOM:-${COMOUT}/wmo}
 
-### ALERT_HHC Need a better naming for FV3CHEM_DIR the output directory for GEFS-Aerosol
-### /gpfs/dell3/ptmp/Li.Pan/o/GEFS/com/gens/dev/gefs.20200513/00/sfcsig
-export FV3CHEM_DIR=${FV3CHEM_DIR:-$COMROOTp2/ngac/prod}
-export FV3CHEMFOLDER=${FV3CHEMFOLDER:-$COMIN}
+export jlogfile=${jlogfile:-${COMROOT}/logs/jlogfiles/jlogfile.${jobid}}
 
-mkdir -p $COMOUT
+mkdir -p ${COMOUT} ${PCOM}
 
 export pgmout=OUTPUT.$$
- 
+
 env
 
-if [ ! -s $COMOUT/aqm.$cycle.metcro3d.ncf ]; then
-$HOMEaqm/scripts/exaqm_metprep_cs.sh.ecf
-export  err=$?; err_chk
-fi
-
-if ( [ "$FCST" = "YES" ] && [ ! -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] ) ||\
-  ( [ "$FCST" = "NO" ] && [ ! -s $COMOUTm1/aqm.$cycle.fire_emi_cs_r.ncf ] ) ; then
-aprun -n 1 $USHaqm/gbbepx2pts.ksh 
+${HOMEaqm}/scripts/exaqm_post1_cb6r3_cs.sh.ecf
 export err=$?; err_chk
+
+## if [ ${cyc} -eq 06 -o ${cyc} -eq 12 ] ; then
+if [ "${cyc}" == "06" ] || [ "${cyc}" == "12" ]; then
+  ${HOMEaqm}/scripts/exaqm_post1_cb6r3_cs.maxi.sh.ecf
+  export err=$?; err_chk
 fi
 
-if [ ! -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
- ic=0
- while [ $ic -le 40 ]; do
-  if [ -s $COMOUT/aqm.$cycle.metcro3d.ncf ]; then
-   break
-  else
-   let ic=ic+1
-   sleep 10
-  fi
- done 
-  if [ $ic -gt 40 ]; then
-   err_exit *****FATAL ERROR***** - COULD NOT LOCATE: $COMOUT/aqm.$cycle.metcro3d.ncf
-  fi 
-## ALERT_HHC if can not find metcro3d for current cycle (00Z?) $COMIN/aqm.t${cyc}z.metcro3d.ncf
-## ALERT_HHC perform LBC computation using $COMINm1/aqm.t12z.metcro3d.ncf
-  aprun -n 1 $USHaqm/aqm_fv3chem_L35.sh $PDY
-  err=$?; err_chk
-fi
-
+if [ -s ${pgmout} ]; then cat ${pgmout}; fi
 
 msg="JOB $job HAS COMPLETED NORMALLY."
 postmsg "$jlogfile" "$msg"
+
+if [ "$KEEPDATA" != "YES" ] ; then rm -rf ${DATA}; fi
 
 date

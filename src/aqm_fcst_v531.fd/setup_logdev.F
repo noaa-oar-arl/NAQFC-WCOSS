@@ -68,7 +68,7 @@ C   12 Aug 15 D.Wong:   Replaced SUBST_MPI with mpif.h
 
       ! Create Log Filename using the processor rank and initialize
       ! I/O-API and Logs
-      WRITE ( CMYPE, '(I3.3)' ) MYPE
+      WRITE ( CMYPE, '(I4.4)' ) MYPE
       IOLOGEQ = PRESTR // CMYPE // '.' // TRIM( APPL_NAME )
       IF ( .NOT. SETENVVAR ( 'LOGFILE', IOLOGEQ ) ) THEN
          WRITE( *,* ) '*** Could not set environment variable for ' // IOLOGEQ
