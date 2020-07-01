@@ -81,18 +81,15 @@ else
  export TOPO=$COMINm1/aqm.t12z.grdcro2d.ncf
 fi
 
-if [ $RUN = 'aqm' ]; then
- export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
- export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf        # output bnd files
-elif [ $RUN = 'HI' ]; then
+if [ $RUN = 'HI' ]; then
  export BND1=$FIXaqm/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.fv3.ncf
  export BND2=$outdir/aqm_HI_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 elif [ $RUN = 'AK' ]; then
  export BND1=$FIXaqm/aqm_AK_cb05_ae4_mean_${cmonth}.35L.ncf
  export BND2=$outdir/aqm_AK_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 else
- echo " unknown domain $RUN "
- exit 1
+ export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
+ export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf # output BND file
 fi
 #export CHECK2D=$outdir/check_ngac_dust_${cyear}${cmonth}${cdate}_35L.ncf
 export CHECK2D=$outdir/check_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
