@@ -410,7 +410,7 @@ fi
 #------------------------------------------------------
 
 if [[ "$NEW_START" = "N" ]]; then
-   export ICFILE=$COMINm1/$restart_file
+   export ICFILE=$restart_file
 else    
    export ICFILE=$FIXaqm/aqm_conus_12km_cgrid_v531_init.35L.ncf
 fi
