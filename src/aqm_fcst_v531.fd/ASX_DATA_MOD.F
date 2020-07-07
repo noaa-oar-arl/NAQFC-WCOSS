@@ -129,6 +129,12 @@ C-------------------------------------------------------------------------------
          Real,    Allocatable :: PBL      ( :,: )  ! pbl height (m)
 !         Real,    Allocatable :: NACL_EMIS( :,: )  ! NACL mass emission rate of particles with d <10 um (g/m2/s)
          Real,    Allocatable :: COSZEN   ( :,: )  ! Cosine of the zenith angle
+!> Inline Fengsha Windblown Dust
+         Real,    Allocatable :: CLAYF    ( :,: )  ! Fractional Clay content - Fengsha
+         Real,    Allocatable :: SANDF    ( :,: )  ! Fractional Sand content - Fengsha
+         Real,    Allocatable :: DRAG     ( :,: )  ! Drag Partition - Fengsha
+         Real,    Allocatable :: SSM      ( :,: )  ! Erosion Potential - Fengsha
+         Real,    Allocatable :: UTHR     ( :,: )  ! Threshold Velocity for Fengsha
 !> U and V wind components on the cross grid points
          Real,    Allocatable :: UWIND    ( :,:,: )  ! [m/s]
          Real,    Allocatable :: VWIND    ( :,:,: )  ! [m/s]                    
@@ -505,6 +511,11 @@ C-----------------------------------------------------------------------
      &             Met_Data%LPBL     ( NCOLS,NROWS ),
      &             Met_Data%CONVCT   ( NCOLS,NROWS ),
      &             Met_Data%PBL      ( NCOLS,NROWS ),
+     &             Met_Data%CLAYF    ( NCOLS,NROWS ),
+     &             Met_Data%SANDF    ( NCOLS,NROWS ),
+     &             Met_Data%SSM      ( NCOLS,NROWS ),
+     &             Met_Data%DRAG     ( NCOLS,NROWS ),
+     &             Met_Data%UTHR     ( NCOLS,NROWS ),
 !     &             Met_Data%NACL_EMIS( NCOLS,NROWS ),
      &             Met_Data%COSZEN   ( NCOLS,NROWS ),
      &             Met_Data%UWIND    ( NCOLS+1,NROWS+1,NLAYS ),
@@ -762,6 +773,16 @@ C Soil vars
          call interpolate_var ('SOIT1', jdate, jtime, Met_Data%SOIT1)
 
          call interpolate_var ('SEAICE', jdate, jtime, Met_Data%SEAICE)
+
+         call interpolate_var ('SSM', jdate, jtime, Met_Data%SSM)
+         
+         call interpolate_var ('DRAG', jdate, jtime, Met_Data%DRAG)
+
+         call interpolate_var ('UTHR', jdate, jtime, Met_Data%UTHR)
+
+         call interpolate_var ('SANDF', jdate, jtime, Met_Data%SANDF)
+
+         call interpolate_var ('CLAYF', jdate, jtime, Met_Data%CLAYF)
 
 C met vars
 
