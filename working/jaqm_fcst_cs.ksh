@@ -5,7 +5,7 @@
 #BSUB -q dev 
 ##BSUB -q debug 
 #BSUB -M 3000
-#BSUB -W 02:00
+#BSUB -W 02:30
 #BSUB -P CMAQ-T2O 
 #BSUB -cwd .
 #BSUB -extsched 'CRAYLINUX[]'

@@ -46,8 +46,8 @@ cat > ngac-bnd-nemsio.ini <<EOF
  'H2O2','CO','SO2','SULF','PAN','FACD','AACD','PACD','UMHP','MGLY',
  'OPEN','CRES','FORM','ALD2','PAR','OLE','TOL','ISOP','ETH','XYL',
  'ASO4J','ASO4I','ASOIL','NH3','NUMATKN','NUMACC','NUMCOR',
- 'SRFATKN','SRFACC','AOTHRJ',AECJ,APOCJ
- checkname='AOTHRJ','ASOIL','AECJ','APOCJ'
+ 'SRFATKN','SRFACC','AOTHRJ','AECJ','APOCJ','ANH4J','ANO3J','ANAJ','ACLJ'
+ checkname='AOTHRJ','ASOIL','AECJ','APOCJ','ASO4J','ANH4J','ANO3J','ANAJ','ACLJ'
  mofile='$FV3CHEMFOLDER/gfs.t${cyc}z.atmf','.nemsio'
  checklayer=1    
 &end
@@ -88,7 +88,8 @@ elif [ $RUN = 'AK' ]; then
  export BND1=$FIXaqm/aqm_AK_cb05_ae4_mean_${cmonth}.35L.ncf
  export BND2=$outdir/aqm_AK_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 else
- export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
+#export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
+ export BND1=$FIXaqm/lbc-gmi-adj2-${cmonth}.5x-L35.ncf
  export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf # output BND file
 fi
 #export CHECK2D=$outdir/check_ngac_dust_${cyear}${cmonth}${cdate}_35L.ncf
