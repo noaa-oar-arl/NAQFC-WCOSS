@@ -590,7 +590,6 @@ C-----------------------------------------------------------------------
      &                Met_Data%SSM      ( NCOLS,NROWS ),
      &                Met_Data%DRAG     ( NCOLS,NROWS ),
      &                Met_Data%UTHR     ( NCOLS,NROWS ),
-     &                Met_Data%UTHR     ( NCOLS,NROWS ),
      &                STAT = ALLOCSTAT )
             If ( ALLOCSTAT .Ne. 0 ) Then
                XMSG = 'Failure allocating Fengsha WB_DUST variables'
