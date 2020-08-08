@@ -1000,9 +1000,6 @@ C     &                                      Met_Data%dens1( c,r ) )
             utem    = 0.0
             utstar  = 0.0
             hflux   = 0.0
-            print*, 'fmoit = ', fmoit
-            print*, 'uthr = ', uthr
-            print*, 'uthr/drag = ', uthr/drag
             utstar = fmoit * uthr / drag 
             if ( ustar .gt. utstar ) then  ! wind erosion occurs only if U* > U*t
                   utem = ustar ** 3 * ( 1.0 - (utstar / ustar) ** 2)
@@ -1010,8 +1007,6 @@ C---Horiz. Flux from Owen (1964)
 !                 utem = ustr * ( ustr * ustr - utstar * utstar )
                   hflux = hflux + fac * ssm * utem !  [g/m/s]
             end if
-            print*, 'ustar = ', ustar
-            print*, 'hflux = ', hflux
          end function dust_hflux
 C==============================================================================
         function dust_volumetric_to_gravimetric(vsoilm,clay,sand)
