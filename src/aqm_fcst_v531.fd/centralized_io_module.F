@@ -1868,7 +1868,8 @@ C Read the various categories of normalized emissions
      &                              STRTROWSTD, ENDROWSTD, STRTCOLSTD, ENDCOLSTD,
      &                              0, 0, crop_ladut( :,:,m ) ) ) then
                    xmsg = 'Could not read ' // trim( crop_vnmld( m ) ) // ' from ' // dust_lu_1
-                   call m3exit ( pname, 0, 0, xmsg, xstat1 )
+!                   Updated Fengsha Dust does not read crop land fraction
+!                   call m3exit ( pname, 0, 0, xmsg, xstat1 ) 
                 end if
              end do
           end if
@@ -1879,7 +1880,8 @@ C Read the various categories of normalized emissions
              do i = 1, 3
                 if ( .not. open3( crname( i ), fsread3, pname ) ) then
                    xmsg = 'Could not open ' // crname( i )
-                   call m3exit( pname, cio_model_sdate, cio_model_stime, xmsg, xstat1 )
+!                   Updated Fengsha Dust does not open crop calendar
+!                   call m3exit( pname, cio_model_sdate, cio_model_stime, xmsg, xstat1 )
                 end if
                 n_opened_file = n_opened_file + 1
              end do
@@ -1891,7 +1893,8 @@ C Read the various categories of normalized emissions
      &                                 STRTROWSTD, ENDROWSTD, STRTCOLSTD, ENDCOLSTD,  
      &                                 0, 0, cropdt( 1,1,m,i ) ) ) then
                       xmsg = 'Could not read ' // trim( vcrop( m ) ) // ' from ' // crname( i )
-                      call m3exit ( pname, cio_model_sdate, cio_model_stime, xmsg, xstat1 )
+!                      Updated Fengsha Dust does not read crop calendar
+!                      call m3exit ( pname, cio_model_sdate, cio_model_stime, xmsg, xstat1 )
                    end if
                 end do
              end do
@@ -2596,7 +2599,7 @@ C Read the various categories of normalized emissions
                      if (file_sym_date(f_emis(fnum))) loc_jdate(f_emis(fnum)) = file_sdate(f_emis(fnum))
                    end if
                    data_jtime = loc_jtime(f_emis(fnum))
-
+       write(logdev,*)jdate,jtime,'e2d read ',cio_emis_file_name(fnum),loc_vname,data_jdate,data_jtime 
                    IF ( .NOT. XTRACT3( cio_emis_file_name(fnum), loc_vname,
      &                                 1, 1, STRTROWSTD, ENDROWSTD, STRTCOLSTD, ENDCOLSTD, 
      &                                 data_jdate, data_jtime, cio_grid_data(begin:end) ) ) THEN
@@ -2754,7 +2757,7 @@ C Read the various categories of normalized emissions
           Character( 40 ), parameter :: pname = 'retrieve_boundary_data'
 
           LOGICAL :: firstime = .true.
-          INTEGER :: STAT, i, j, begin, end, buf_loc, iterations,
+          INTEGER :: STAT, i, j, begin, end, buf_loc, iterations, loc_jdate_met,
      &               iter, loc_jdate, loc_jtime_met, loc_jtime, v, beg_v, end_v
 
           CHARACTER( 120 ) :: XMSG = ' '
@@ -2782,16 +2785,18 @@ C Read the various categories of normalized emissions
 
           loc_jdate     = jdate
           loc_jtime     = jtime
+	  loc_jdate_met = jdate
           loc_jtime_met = jtime
 
           do iter = 1, iterations
              do v = beg_v, end_v
                 buf_loc = mod((tail_bndy(v) + iter), 2)
 
-                cio_bndy_data_tstamp(1, buf_loc, v) = loc_jdate
                 if (cio_bndy_var_name(v,2) == 'mb') then
+		   cio_bndy_data_tstamp(1, buf_loc, v) = loc_jdate_met
                    cio_bndy_data_tstamp(2, buf_loc, v) = loc_jtime_met
                 else
+ 		   cio_bndy_data_tstamp(1, buf_loc, v) = loc_jdate
                    cio_bndy_data_tstamp(2, buf_loc, v) = loc_jtime
                 end if
 
@@ -2802,10 +2807,15 @@ C Read the various categories of normalized emissions
 #ifdef twoway
                    cio_bndy_data(begin:end) = 0.0
 #else
+                   write(logdev,*)'read MET_BDY_3D ',jdate,loc_jdate_met,loc_jtime_met,file_tstep(f_met)
+     &                 ,cio_bndy_var_name(v,1), cio_bndy_var_name(v,2)
                    if (.not. read3 (MET_BDY_3D, cio_bndy_var_name(v,1), -1,
-     &                              loc_jdate, loc_jtime_met, cio_bndy_data(begin:end) ) ) THEN
-                      XMSG = 'Could not read ' // MET_BDY_3D // ' file'
-                      CALL M3EXIT ( PNAME, loc_jdate, loc_jtime_met, XMSG, XSTAT1 )
+     &                              loc_jdate_met, loc_jtime_met, cio_bndy_data(begin:end) ) ) THEN
+!                    if (.not.interp3(MET_BDY_3D, cio_bndy_var_name(v,1), PNAME,
+!     &		       jdate,jtime,gl_nbndy*nlays, cio_bndy_data(begin:end) ) ) THEN
+		       XMSG = 'Could not read ' //MET_BDY_3D// ' file'
+!		       call m3exit(PNAME, jdate, jtime, XMSG, XSTAT1)		       
+                      CALL M3EXIT ( PNAME, loc_jdate_met, loc_jtime_met, XMSG, XSTAT1 )
                    END IF
 #endif
                 else if ((cio_bndy_var_name(v,2) == 'bc') .or.
@@ -2813,7 +2823,10 @@ C Read the various categories of normalized emissions
 
                    if (.not. read3 (BCFILE, cio_bndy_var_name(v,1), -1,
      &                              loc_jdate, loc_jtime, cio_bndy_data(begin:end) ) ) THEN
+!                    if (.not.interp3(BCFILE, cio_bndy_var_name(v,1), PNAME,
+!     &		       jdate,jtime,gl_nbndy*nlays, cio_bndy_data(begin:end) ) ) THEN
                       XMSG = 'Could not read ' // BCFILE // ' file'
+!		      call m3exit(PNAME, jdate, jtime, XMSG, XSTAT1)
                       CALL M3EXIT ( PNAME, loc_jdate, loc_jtime, XMSG, XSTAT1 )
                    END IF
                 else
@@ -2823,7 +2836,7 @@ C Read the various categories of normalized emissions
 
              end do
 
-             CALL NEXTIME ( loc_jdate, loc_jtime_met, file_tstep(f_met))
+             CALL NEXTIME ( loc_jdate_met, loc_jtime_met, file_tstep(f_met))
              CALL NEXTIME ( loc_jdate, loc_jtime, file_tstep(f_bcon))
 
           end do  ! end iter

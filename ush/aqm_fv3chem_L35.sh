@@ -61,9 +61,15 @@ cat > ngac-bnd-nemsio.ini <<EOF
  'H2O2','CO','SO2','SULF','PAN','FACD','AACD','PACD','UMHP','MGLY',
  'OPEN','CRES','FORM','ALD2','PAR','OLE','TOL','ISOP','ETH','XYL',
  'ASO4J','ASO4I','ASOIL','NH3','NUMATKN','NUMACC','NUMCOR',
+<<<<<<< HEAD
  'SRFATKN','SRFACC','AOTHRJ',AECJ,APOCJ
  checkname='AOTHRJ','ASOIL','AECJ','APOCJ'
  mofile='./geaer.${lbc_cyc}.atmf','.nemsio'
+=======
+ 'SRFATKN','SRFACC','AOTHRJ','AECJ','APOCJ','ANH4J','ANO3J','ANAJ','ACLJ'
+ checkname='AOTHRJ','ASOIL','AECJ','APOCJ','ASO4J','ANH4J','ANO3J','ANAJ','ACLJ'
+ mofile='$FV3CHEMFOLDER/gfs.t${cyc}z.atmf','.nemsio'
+>>>>>>> master
  checklayer=1    
 &end
 
@@ -111,18 +117,30 @@ else
    fi
 fi
 
+<<<<<<< HEAD
 if [ $RUN = 'aqm' ]; then
    export BND1=${FIXaqm}/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
    export BND2=${COMOUT}/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf        # output bnd files
 elif [ $RUN = 'HI' ]; then
    export BND1=${FIXaqm}/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.fv3.ncf
    export BND2=${COMOUT}/aqm_HI_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
+=======
+if [ $RUN = 'HI' ]; then
+ export BND1=$FIXaqm/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.fv3.ncf
+ export BND2=$outdir/aqm_HI_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
+>>>>>>> master
 elif [ $RUN = 'AK' ]; then
    export BND1=${FIXaqm}/aqm_AK_cb05_ae4_mean_${cmonth}.35L.ncf
    export BND2=${COMOUT}/aqm_AK_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 else
+<<<<<<< HEAD
    echo " unknown domain $RUN "
    exit 1
+=======
+#export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
+ export BND1=$FIXaqm/lbc-gmi-adj2-${cmonth}.5x-L35.ncf
+ export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf # output BND file
+>>>>>>> master
 fi
 export CHECK2D=${COMOUT}/check_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 
