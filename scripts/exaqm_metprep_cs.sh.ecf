@@ -148,6 +148,7 @@ cat>namelist.mcip<<!
   file_mm    = './gfs.${cycle}.atmf','.nc'
   file_sfc   = './gfs.${cycle}.sfcf','.nc'
   file_geo   = '${FIXaqm}/gfs.t12z.geo.${SMM}.nc'
+  file_viirs_gvf = '${netcdf_gvn}'
   ioform     =  1
  &END
 
@@ -161,6 +162,7 @@ cat>namelist.mcip<<!
   lwout      =  1
   luvbout    =  1
   ifdiag_pbl = .FALSE.
+  ifviirs_gvf = .TRUE.
   mcip_start = '${SYYYY}-${SMM}-${SDD}-${cyc}:00:00.0000'
   mcip_end   = '${EYYYY}-${EMM}-${EDD}-${endcyc}:00:00.0000'
   intvl      =  60
