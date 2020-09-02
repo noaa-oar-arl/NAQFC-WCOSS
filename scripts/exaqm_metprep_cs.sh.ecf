@@ -70,12 +70,18 @@ if [ ! -d $COMOUT ]; then
   mkdir -p $COMOUT
 fi
 
+#For reading/converting VIIRS GVF from GRIB2 to NC4:  Assuming -1 day latency (PDYm1)
+DCOMROOT=/gpfs/dell1/nco/ops/dcom
+ln -sf ${DCOMROOT}/prod/viirs/GVF-WKL-GLB_v2r3_j01_*_e${PDYm1}*.grib2 $InMetDir/VIIRS_GVFIN
+${USHaqm}/viirsgrib2nc4.py -vf $InMetDir/VIIRS_GVFIN
+
 cat>namelist.mcip<<!
 &FILENAMES
   file_gd    = 'GRIDDESC'
   file_mm    = '$InMetDir/gfs.$cycle.atmf','.nc'
   file_sfc   = '$InMetDir/gfs.$cycle.sfcf','.nc'
   file_geo   = '$FIXaqm/gfs.t12z.geo.$SMM.nc'
+  file_viirs_gvf = '$InMetDir/VIIRS_GVFIN.nc'
   ioform     =  1
  &END
 
@@ -89,6 +95,7 @@ cat>namelist.mcip<<!
   lwout      =  1
   luvbout    =  1
   ifdiag_pbl = .FALSE.
+  ifviirs_gvf = .TRUE.
   mcip_start = '$SYYYY-$SMM-$SDD-${cyc}:00:00.0000'
   mcip_end   = '$EYYYY-$EMM-$EDD-${endcyc}:00:00.0000'
   intvl      =  60
