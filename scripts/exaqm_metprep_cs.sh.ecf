@@ -125,7 +125,7 @@ echo "GVN input in netcdf format is ${netcdf_gvn}"
 # If possible I would like to see viirsgrib2nc4.py has an option to define output filename such as -o ${output_filename}
 # or using predefine environment variable such as FILEIN and FILEOUT in viirsgrib2nc4.py
 #
-python ${USHAQM}/viirsgrib2nc4.py -vf ${wgrib2_gvn}
+${USHAQM}/viirsgrib2nc4.py -vf ${wgrib2_gvn}
 # 
 if [ ! -s ${netcdf_gvn} ]; then
     echo "WARNING *** Can not find ${netcdf_gvn}"
