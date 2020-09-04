@@ -180,14 +180,14 @@ echo $START
 
 if [ "${FCST}" = "YES" ]; then
  STDATE=`date2julian $PDY`
+ yyyymm=`echo $PDY|cut -c1-6`
 else
  STDATE=`date2julian $PDYm1`
+ yyyymm=`echo $PDYm1|cut -c1-6`
 fi
 
 STTIME=${cyc}0000
 TSTEP=010000
-
-yyyymm=`echo $PDY|cut -c1-6`
 
 
 #CMAQv5.0.2 Options
