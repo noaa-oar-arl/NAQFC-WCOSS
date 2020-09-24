@@ -302,6 +302,7 @@ BIOG = \
 PLRISE = \
   delta_zs.o \
   fire_plmris.o \
+  plumeRiseSofiev.o \
   openlayout.o \
   oppt3d_diag.o \
   plmris.o \

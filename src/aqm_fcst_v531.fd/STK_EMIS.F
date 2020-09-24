@@ -29,6 +29,7 @@ C     16 Jan 2007 J.Young: initial implementation
 C     16 Feb 2011 S.Roselle: replaced I/O API include files with UTILIO_DEFN
 C     30 Apr 2016 J.Young: add multiple fire source capability, in affiliation with
 C                          Yongtao Hu (Georgia Tech)
+C     07 Jun 2020 Y.Li & D.Tong: add sofiev plume rise scheme 
 C-----------------------------------------------------------------------
 
       USE UDTYPES, ONLY: RARRY1, CARRY1
@@ -125,6 +126,14 @@ C-----------------------------------------------------------------------
                    FIREFLAG( N ) = .TRUE.
                    EM_FILE_FIRE( ISRM ) = .TRUE.
                END IF
+C ++ FIRE PLUME RISE OPTION Sofiev 2012 ++
+               ! Use FRP to determine Fire sources in PT3D_DEFN via
+               ! the FIRENAM variable
+               IF ( VNAME3D( I ) .EQ. 'FRP' ) THEN
+                   FIREFLAG( N ) = .TRUE.
+                   EM_FILE_FIRE( ISRM ) = .TRUE.
+               END IF
+C -- lyy & qt 2020.06
             END DO
             IF ( FIREFLAG( N ) ) THEN   ! subtract off 'HFLUX'
                LEN2 = LEN2 - NVARS_FIRE
@@ -146,7 +155,7 @@ C-----------------------------------------------------------------------
                CALL CHECKMEM( ASTAT, 'FIREVAR', PNAME )
                I = 0
                DO J = 1, NVARS3D
-                  IF ( VNAME3D( J ) .NE. 'HFLUX' ) THEN
+                  IF ( (VNAME3D( J ) .NE. 'HFLUX') .AND. (VNAME3D( J ) .NE. 'FRP') ) THEN
                      I = I + 1
                      EM_FILE_SURR( ISRM )%ARRY( I ) = VNAME3D( J )
                      EM_FILE_SURR( ISRM )%UNITS( I )= UNITS3D( J )
