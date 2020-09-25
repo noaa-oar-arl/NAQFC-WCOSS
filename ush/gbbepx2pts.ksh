@@ -57,7 +57,7 @@ emname='CO','NO','NO2','SO2','NH3','PEC','POC','PMOTHR','PNO3','PSO4',
 Species Converting Factor
 'CO'      1   # kg ->mole
 'CO'   35.7
-'NOX'    2   # 90% to NO (mw 30), 10% to NO2 (mw 46), mw 31.6 in average, kg->mole
+'NOx'    2   # 90% to NO (mw 30), 10% to NO2 (mw 46), mw 31.6 in average, kg->mole
 'NO'   28.481   'NO2'  3.164557
 'SO2'    1    # kg -> mole
 'SO2'  15.625
@@ -74,12 +74,8 @@ Species Converting Factor
 !
 
 export IOAPI_ISPH=20 # make consistent with met-preprocessor R_earth=6370000m
-if [ $RUN = 'aqm' ]; then
- export GRIDDESC=$PARMaqm/aqm_griddesc05
- export GRID_NAME=AQF_CONUS_5x
- export TOPO=$FIXaqm/aqm_gridcro2d.landfac.5x.ncf
- DD='cs'
-elif [ $RUN = 'HI' ]; then
+
+if [ $RUN = 'HI' ]; then
  export GRIDDESC=$PARMaqm/aqm_griddescHI
  export GRID_NAME=AQF_HI
  export TOPO=$FIXaqm/aqm_gridcro2d.landfac.HI.ncf
@@ -90,8 +86,11 @@ elif [ $RUN = 'AK' ]; then
  export TOPO=$FIXaqm/aqm_gridcro2d.landfac.AK.ncf
  DD=$RUN
 else
- echo " unknown domain $RUN "
- exit 1
+#echo " unknown domain $RUN "
+ export GRIDDESC=$PARMaqm/aqm_griddesc05
+ export GRID_NAME=AQF_CONUS_5x
+ export TOPO=$FIXaqm/aqm_gridcro2d.landfac.5x.ncf
+ DD='cs'
 fi
 
 # output
@@ -99,7 +98,7 @@ export STACK_GROUP=aqm.$cycle.fire_location_$DD.ncf
 export PTFIRE=aqm.$cycle.fire_emi_$DD.ncf
 
 startmsg
-$EXECaqm/aqm_gbbepx2pts.x
+$EXECaqm/aqm_gbbepx2pts_frp.x
 export err=$?;err_chk
 
 if [ "$FCST" = "YES" ]; then
