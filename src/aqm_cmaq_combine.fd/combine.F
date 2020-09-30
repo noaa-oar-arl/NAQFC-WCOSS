@@ -84,6 +84,7 @@ C...Local Variables
       Integer logdev, istat
       Integer n, isize, isph ,k,isize2
       Logical kswit
+      INTEGER :: Layer_beg, Layer_end
 
       Real, Allocatable :: buffer(:),buffer2(:)
 
@@ -157,21 +158,35 @@ C...check GENSPEC to generate new species definition file
 C...read and load species definition file
       Call readSpec( specFile, status )
       if( status.ne.0 ) then
-        Write(*,'(''**ERROR** Cannot open or read SPECIES_DEF file:'',a)')
-     &            TRIM(specFile)
+        Write(*,'(''**ERROR** Cannot open or read SPECIES_DEF file:'',
+     &            a)') TRIM(specFile)
         Stop
         endif
 
 C...  build description of output file
+      write(*, '('' Klayer setting = '', i3)') Klayer
       TSTEP3D = TSTEP
       SDATE3D = startDate
       STIME3D = startTime
       NVARS3D = numSpec
+!      write(*, '('' Before reset NLAYS3D = '', i3, TR5, '' NLAYS = '', i3)') NLAYS3D, NLAYS
       if( Klayer .gt. 0)  then
-        NLAYS3D = klayer
-        NLAYS = klayer
-       endif
-
+        NLAYS3D = 1
+        NLAYS = 1
+        Layer_beg=Klayer
+        Layer_end=Klayer
+      elseif (Klayer <= 0 ) then
+        Layer_beg=1
+        Layer_end=NLAYS3D
+      endif
+!      write(*, '('' After  reset NLAYS3D = '', i3, TR5, '' NLAYS = '', i3)') NLAYS3D, NLAYS
+!      write(*, '('' extarct layer from '', i3, '' to '', i3)') Layer_beg, Layer_end
+!! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+!! >>> Add control output list readin
+!! >>> Find corresponding location specName
+!! >>> Create a new list in do n loop below for output variable attributes
+!! >>> and use the new list in the output do loop below with nested do k loop
+!! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       do n = 1, numSpec
         VNAME3D( n ) = specName( n )
         UNITS3D( n ) = specUnits( n )
@@ -247,10 +262,14 @@ C...start time loop
      &    startDate, startTime
 
         DO n = 1, numSpec
-         do k=1, klayer
+         do k=layer_beg, layer_end
           Call evaluate(specExpression(n), startDate, startTime,
-     &                  Klayer, isize2, buffer2)
-           buffer(isize2*(k-1)+1:isize2*k)=buffer2
+     &                  k, isize2, buffer2)
+           if ( layer_beg == layer_end ) then
+              buffer(1:isize2)=buffer2
+           else
+              buffer(isize2*(k-1)+1:isize2*k)=buffer2
+           endif
          enddo
           ! write species record to outfile
           if(.NOT.WRITE3('OUTFILE', specName(n), startDate,
