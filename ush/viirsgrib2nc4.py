@@ -14,7 +14,7 @@ __license__ = 'GPL'
 
 '''
 Adapted utility to convert VIIRS GVF file into a netCDF4 file
-Utilizes wgrib2 utility from NWPROD -- P. Campbell
+Utilizes wgrib2 from input environmental variable path -- P. Campbell
 '''
 
 import os
