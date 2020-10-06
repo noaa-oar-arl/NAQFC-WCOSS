@@ -224,7 +224,7 @@ export CLD_DIAG=N            #> write cloud diagnostic file [ default: N ]
 export CTM_AERDIAG=Y #N         #> aerosol diagnostic file [ default: N ]
 export CTM_PHOTDIAG=Y        #> photolysis diagnostic file [ default: N ]
 export CTM_SSEMDIAG=N        #> sea-salt emissions diagnostic file [ default: N ]
-export CTM_WB_DUST=Y #Y         #> use NAQFC, NACC-CMAQ Fengsha inline windblown dust emissions [ default: Y ]
+export CTM_WB_DUST=N #Y         #> use NAQFC, NACC-CMAQ Fengsha inline windblown dust emissions [ default: Y ]
 export CTM_ERODE_AGLAND=N    #> use agricultural activity for windblown dust [ default: N ]; ignore if CTM_WB_DUST = N
 export CTM_DUSTEM_DIAG=N     #> windblown dust emissions diagnostic file [ default: N ]; ignore if CTM_WB_DUST = N
 export CTM_LTNG_NO=N #Y         #> turn on lightning NOx [ default: N ]
@@ -296,6 +296,7 @@ export CTM_APMDIAG=Y         #> Hourly-Average Aerosol Diagnostic File [ default
 export APMDIAG_BLEV_ELEV="1 1"  #> layer range for average pmdiag = NLAYS
 export VDIFF_DIAG_FILE=N     #> vdiff & possibly aero grav. sedimentation diagnostic file [ default: N ]
 export LTNGDIAG=N            #> lightning diagnostic file [ default: N ]
+export PLMRISE_OPT=2         # fire plume rise: 1 Briggs;2 Sofiev
 #------------------------------------------------------------------------------------------------------------
 
 DISP=delete
