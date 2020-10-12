@@ -296,7 +296,7 @@ export CTM_APMDIAG=Y         #> Hourly-Average Aerosol Diagnostic File [ default
 export APMDIAG_BLEV_ELEV="1 1"  #> layer range for average pmdiag = NLAYS
 export VDIFF_DIAG_FILE=N     #> vdiff & possibly aero grav. sedimentation diagnostic file [ default: N ]
 export LTNGDIAG=N            #> lightning diagnostic file [ default: N ]
-export PLMRISE_OPT=2         # fire plume rise: 1 Briggs;2 Sofiev
+export PLMRISE_OPT=${PLMRISE_OPT:-1}         # fire plume rise: 1 Briggs;2 Sofiev
 #------------------------------------------------------------------------------------------------------------
 
 DISP=delete
