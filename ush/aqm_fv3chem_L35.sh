@@ -18,15 +18,15 @@ cjulian=`/bin/date --date=$cyear'/'$cmonth'/'$cdate +%j`
 typeset -Z3 cjulian
 
 #FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.$cyear$cmonth$cdate/00
-if [ ! -s $FV3CHEMFOLDER/gfs.t${cyc}z.atmf120.nemsio ]; then
-if [ -s ${FV3CHEM_DIR}/gfs.${PDY}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.${PDY}/00
-elif [ -s ${FV3CHEM_DIR}/gfs.${PDYm1}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.${PDYm1}/00
-elif [ -s ${FV3CHEM_DIR}/gfs.${PDYm2}/00/gfs.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.${PDYm2}/00
+if [ ! -s $FV3CHEMFOLDER/geaer.t${cyc}z.atmf120.nemsio ]; then
+if [ -s ${FV3CHEM_DIR}/gefs.${PDY}/00/geaer.t${cyc}z.atmf120.nemsio ]; then
+  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDY}/00
+elif [ -s ${FV3CHEM_DIR}/gefs.${PDYm1}/00/geaer.t${cyc}z.atmf120.nemsio ]; then
+  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDYm1}/00
+elif [ -s ${FV3CHEM_DIR}/gefs.${PDYm2}/00/geaer.t${cyc}z.atmf120.nemsio ]; then
+  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDYm2}/00
 else
- echo " can not find $FV3CHEMFOLDER/gfs.t${cyc}z.atmf120.nemsio "
+ echo " can not find $FV3CHEMFOLDER/geaer.t${cyc}z.atmf120.nemsio "
  exit 1
 fi 
 fi
@@ -48,7 +48,7 @@ cat > ngac-bnd-nemsio.ini <<EOF
  'ASO4J','ASO4I','ASOIL','NH3','NUMATKN','NUMACC','NUMCOR',
  'SRFATKN','SRFACC','AOTHRJ','AECJ','APOCJ','ANH4J','ANO3J','ANAJ','ACLJ'
  checkname='AOTHRJ','ASOIL','AECJ','APOCJ','ASO4J','ANH4J','ANO3J','ANAJ','ACLJ'
- mofile='$FV3CHEMFOLDER/gfs.t${cyc}z.atmf','.nemsio'
+ mofile='$FV3CHEMFOLDER/geaer.t${cyc}z.atmf','.nemsio'
  checklayer=1    
 &end
 
@@ -89,7 +89,7 @@ elif [ $RUN = 'AK' ]; then
  export BND2=$outdir/aqm_AK_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 else
 #export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
- export BND1=$FIXaqm/lbc-gmi-adj2-${cmonth}.5x-L35.ncf
+ export BND1=$FIXaqm/lbc-gmi-adj3-${cmonth}.5x-L35.ncf
  export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf # output BND file
 fi
 #export CHECK2D=$outdir/check_ngac_dust_${cyear}${cmonth}${cdate}_35L.ncf
