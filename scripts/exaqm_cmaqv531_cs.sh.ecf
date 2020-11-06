@@ -232,7 +232,7 @@ export CTM_WVEL=Y            #> save derived vertical velocity component to conc
 export KZMIN=Y               #> use Min Kz option in edyintb [ default: Y ], otherwise revert to Kz0UT
 export CTM_ILDEPV=Y          #> calculate in-line deposition velocities [ default: Y ]
 export CTM_MOSAIC=N          #> landuse specific deposition velocities [ default: N ]
-export CTM_ABFLUX=N          #> Ammonia bi-directional flux for in-line deposition velocities [ default: N ]; ignore if CTM_ILDEPV = N
+export CTM_ABFLUX=Y          #> Ammonia bi-directional flux for in-line deposition velocities [ default: N ]; ignore if CTM_ILDEPV = N
 export CTM_HGBIDI=N          #> Mercury bi-directional flux for in-line deposition velocities [ default: N ]; ignore if CTM_ILDEPV = N
 export CTM_SFC_HONO=Y        #> Surface HONO interaction [ default: Y ]; ignore if CTM_ILDEPV = N
 export CTM_DEPV_FILE=Y #N       #> write diagnostic file for deposition velocities [ default: N ]
@@ -259,7 +259,7 @@ export CTM_ADV_CFL=0.95      #> max CFL [ default: 0.75]
 export CTM_OCEAN_CHEM=Y      #> Flag for ocean halogen chemistry and sea spray aerosol emissions [ default: Y ]
 export CTM_WBDUST_BELD=BELD3 #> landuse database for identifying dust source regions
 export CTM_FST=N             #> mosaic method to get land-use specific stomatal flux
-export CTM_BIDI_FERT_NH3=F   #> subtract fertilizer NH3 from emissions because it will be handled
+export CTM_BIDI_FERT_NH3=T   #> subtract fertilizer NH3 from emissions because it will be handled
 export CTM_GRAV_SETL=Y       #> vdiff aerosol gravitational sedimentation [ default: Y ]
 
 #> Vertical Extraction Options
@@ -452,6 +452,14 @@ fi
 
 #export OCEAN_1=$FIXaqm/ocean_US12_442X265_igbp_2010$SMM.ncf
 export OCEAN_1=$FIXaqm/SSMASK_US12_442X265_igbp2010.ncf
+
+#> Bidirectional ammonia configuration
+  if [ $CTM_ABFLUX == 'Y' ]; then
+     # need to modify for FEST-C v1.4.
+     export E2C_SOIL=$FIXaqm/test_soil_5x_new.nc
+     export E2C_CHEM=$COMIN/FERT_12km_5x_time${year}${month}.ncf
+     export E2C_LU=$FIXaqm/beld4_AQF_5x_output.ncf
+  fi
 
 #------------------------------------------------------
 # output files
