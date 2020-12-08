@@ -2673,8 +2673,8 @@ C Read the various categories of normalized emissions
                 else if (cio_grid_var_name(v,2) == 'bs') then
 
                    data_jdate = loc_jdate(f_bios)
-                   data_jtime = 0
-
+!                   data_jtime = 0
+                   data_jtime = loc_jtime(f_bios)  !NAQFC time-dependent bioseason "soft" switch
                    allocate (tdata((ENDCOLSTD-STRTCOLSTD+1)*(ENDROWSTD-STRTROWSTD+1)), stat=stat)
 
                    IF ( .NOT. XTRACT3( bio_season_fname, 'SEASON',

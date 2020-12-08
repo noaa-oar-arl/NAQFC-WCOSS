@@ -149,6 +149,7 @@ cat>namelist.mcip<<!
   file_sfc   = './gfs.${cycle}.sfcf','.nc'
   file_geo   = '${FIXaqm}/gfs.t12z.geo.${SMM}.nc'
   file_viirs_gvf = '${netcdf_gvn}'
+  file_viirs_lai = '${netcdf_lai}'
   ioform     =  1
  &END
 
@@ -163,6 +164,9 @@ cat>namelist.mcip<<!
   luvbout    =  1
   ifdiag_pbl = .FALSE.
   ifviirs_gvf = .TRUE.
+  ifviirs_lai = .FALSE.
+  iffengsha_dust = .FALSE.
+  ifbioseason = .TRUE.
   mcip_start = '${SYYYY}-${SMM}-${SDD}-${cyc}:00:00.0000'
   mcip_end   = '${EYYYY}-${EMM}-${EDD}-${endcyc}:00:00.0000'
   intvl      =  60
