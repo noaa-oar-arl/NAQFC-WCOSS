@@ -47,8 +47,8 @@ APPL=v531
 
 SINGLECYC=${SINGLECYC:-YES}
 
-export NPCOL_NPROW="24 24"
-export nprocs=576
+export NPCOL_NPROW="12 24"
+export nprocs=288
 
 if [ "${FCST}" = "YES" ]; then
 
@@ -117,7 +117,7 @@ esac
 #######################################################
 else
 
-yyyydddp1=`date2julian $PDY`
+yyyydddp1=$(date2julian $PDY)
 
 case $cyc in
  06) restart_file1=$COMINm1/aqm.t00z.cgrid.ncf
@@ -191,20 +191,10 @@ TSTEP=010000
 
 
 #CMAQv5.0.2 Options
-export GRIDDESC=$PARMaqm/aqm_griddesc05
-export GRID_NAME=AQF_CONUS_5x
+export GRIDDESC=$PARMaqm/aqm_griddescAK
+export GRID_NAME=AQF_AK
 
 export LOGFILE=$DATA/$APPL.log
-
-#> CMAQ v5.0.2 Output Species and Layer Options
-#SPCS_1="O3 CO SO2 NO NO2 NO3 N2O5 HONO HNO3 PAN PANX PNA NTR CRON CRNO CRN2 CRPX OPAN PAR ETH ETOH OLE TOL FORM XYL ALD2 ISOP ETHA IOLE ALDX TERP"
-#SPCS_2="AXYL1J AXYL2J AXYL3J ATOL1J ATOL2J ATOL3J ABNZ1J ABNZ2J ABNZ3J AISO1J AISO2J AISO3J ATRP1J ATRP2J ASQTJ AALKJ AORGCJ AOLGBJ AOLGAJ APOCI APOCJ APNCOMI APNCOMJ"
-#SPCS_3="ANO3I ANO3J ANO3K ASO4I ASO4J ASO4K ANH4I ANH4J  ANH4K AECI AECJ AOTHRI AOTHRJ"
-#SPCS_4="ANAI ANAJ ACLI ACLJ ACLK AFEJ ASIJ ATIJ ACAJ AMGJ AMNJ AALJ AKJ ASOIL ACORS ASEACAT"
-#export AVG_CONC_SPCS="$SPCS_1 $SPCS_2 $SPCS_3 $SPCS_4"
-#export ACONC_BLEV_ELEV="1 1"
-#export CONC_SPCS="$SPCS_1 $SPCS_2 $SPCS_3 $SPCS_4"
-
 
 #> CMAQ v5.3.1 test Output Species and Layer Options
 #> CONC file species; comment or set to "ALL" to write all species to CONC
@@ -232,7 +222,7 @@ export CTM_WVEL=Y            #> save derived vertical velocity component to conc
 export KZMIN=Y               #> use Min Kz option in edyintb [ default: Y ], otherwise revert to Kz0UT
 export CTM_ILDEPV=Y          #> calculate in-line deposition velocities [ default: Y ]
 export CTM_MOSAIC=N          #> landuse specific deposition velocities [ default: N ]
-export CTM_ABFLUX=Y          #> Ammonia bi-directional flux for in-line deposition velocities [ default: N ]; ignore if CTM_ILDEPV = N
+export CTM_ABFLUX=N          #> Ammonia bi-directional flux for in-line deposition velocities [ default: N ]; ignore if CTM_ILDEPV = N
 export CTM_HGBIDI=N          #> Mercury bi-directional flux for in-line deposition velocities [ default: N ]; ignore if CTM_ILDEPV = N
 export CTM_SFC_HONO=Y        #> Surface HONO interaction [ default: Y ]; ignore if CTM_ILDEPV = N
 export CTM_DEPV_FILE=Y #N       #> write diagnostic file for deposition velocities [ default: N ]
@@ -264,7 +254,6 @@ export CTM_GRAV_SETL=Y       #> vdiff aerosol gravitational sedimentation [ defa
 
 #> Vertical Extraction Options
 export VERTEXT=N
-export VERTEXT_COORD_PATH=${HOMEaqm}/scripts/lonlat.csv
 
 #> I/O Controls
 export IOAPI_CHECK_HEADERS=N #> check file headers [ options: Y | N ]
@@ -346,13 +335,13 @@ export GR_EM_SYM_DATE_002=F
 
 #>CMAQv5.3 In-Line Point Emissions Files
 ic=0
-for sectors in ptegu ptnonipm pt_oilgas cmv_c1c2_12 cmv_c3_12 othpt ; do
-  if [ -s $EMISpath/inln_mole_${sectors}_${yyyymm}_12US_5x_cmaq_cb6_2016fh_16j.ncf ] && \
-    [ -s $EMISpath/stack_groups_${sectors}_12US_5x_2016fh_16j.ncf ]; then
+for sectors in ptegu ptnonipm othpt pt_oilgas cmv_c1c2 cmv_c3 ; do
+  if [ -s $EMISpath/inln_mole_${sectors}_${yyyymm}_12AK_cmaq_cb6_2016fh_16j.ncf ] && \
+    [ -s $EMISpath/stack_groups_${sectors}_12AK_2016fh_16j.ncf ]; then
    let ic=$ic+1
    typeset -Z3 ic
-   export STK_GRPS_$ic=$EMISpath/stack_groups_${sectors}_12US_5x_2016fh_16j.ncf
-   export STK_EMIS_$ic=$EMISpath/inln_mole_${sectors}_${yyyymm}_12US_5x_cmaq_cb6_2016fh_16j.ncf
+   export STK_GRPS_$ic=$EMISpath/stack_groups_${sectors}_12AK_2016fh_16j.ncf
+   export STK_EMIS_$ic=$EMISpath/inln_mole_${sectors}_${yyyymm}_12AK_cmaq_cb6_2016fh_16j.ncf
    export STK_EMIS_LAB_$ic=$sectors
    export STK_EMIS_DIAG_$ic=2DSUM
    export STK_EM_SYM_DATE_$ic=F
@@ -378,19 +367,19 @@ else
   FIRE_SUFFIX=${cycle}
 fi
 
-if [ -s $FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_cs_r.ncf ] && [ "${FCST}" = "NO" ]; then
+if [ -s $FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK_r.ncf ] && [ "${FCST}" = "NO" ]; then
    let ic=$ic+1
    typeset -Z3 ic
-   export STK_GRPS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_location_cs_r.ncf
-   export STK_EMIS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_cs_r.ncf
+   export STK_GRPS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_location_AK_r.ncf
+   export STK_EMIS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK_r.ncf
    export STK_EMIS_LAB_$ic="WILDFIRE"
    export STK_EMIS_DIAG_$ic=3D
    export STK_EM_SYM_DATE_$ic=F   
- elif [ -s $FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_cs.ncf ] && [ "${FCST}" = "YES" ]; then
+ elif [ -s $FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK.ncf ] && [ "${FCST}" = "YES" ]; then
    let ic=$ic+1
    typeset -Z3 ic
-   export STK_GRPS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_location_cs.ncf
-   export STK_EMIS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_cs.ncf
+   export STK_GRPS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_location_AK.ncf
+   export STK_EMIS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK.ncf
    export STK_EMIS_LAB_$ic="WILDFIRE"
    export STK_EMIS_DIAG_$ic=3D
    export STK_EM_SYM_DATE_$ic=F
@@ -413,26 +402,25 @@ fi
 if [[ "$NEW_START" = "N" ]]; then
    export ICFILE=$restart_file
 else    
-   export ICFILE=$FIXaqm/aqm_conus_12km_cgrid_v531_init.35L.ncf
+   export ICFILE=$FIXaqm/aqm.AK12z.init.cgrid_2017.ncf
 fi
 
 # In-line biogenic emissions configuration
 
 if [ "$CTM_BIOGEMIS" = 'Y' ]; then
 export GSPRO=$FIXaqm/gspro_biog_static_2012_naqfc.txt
-export B3GRD=$FIXaqm/b3grd_CONUS_bv314.ncf
+export B3GRD=$FIXaqm/b3grd_AK_US12_bv314.ncf
 export BIOG_SPRO=B10C5 #< speciation profile to use > e.g. B10C5
 export BIOSW_YN=Y      #< use frost date switch? > defaults to Y
 export SUMMER_YN=N     #< Use summer normalized emissions? > defaults to Y 
 export PX_VERSION=N
 export B3GTS_DIAG=Y    
 export SOILINP=${soil_file}     #CCTM_D502b_Linux2_x86_64intel.SOILOUT.CMAQ-BENCHMARK_$PDYm1
-
+                                             #> Biogenic NO soil input file; ignore if NEW_START = Y
+#related to restart soil information file
 if [ $BIOSW_YN == 'Y' ]; then
  export BIOSEASON=$MET_CRO_2D #NAQFC/NACC_CMAQ bioseason soft switch based on season and T2
 fi
-                                             #> Biogenic NO soil input file; ignore if NEW_START = Y
-#related to restart soil information file
  if [ -s "${SOILINP}" ] ; then
   export NEW_START=N
  else
@@ -457,8 +445,7 @@ fi
 # OCEAN FILE FOR THE Aerosol run
 #-----------------------------------------------------------------
 
-#export OCEAN_1=$FIXaqm/ocean_US12_442X265_igbp_2010$SMM.ncf
-export OCEAN_1=$FIXaqm/SSMASK_US12_442X265_igbp2010.ncf
+export OCEAN_1=$FIXaqm/SSMASK_AK12_199X163.ncf
 
 #> Bidirectional ammonia configuration
   if [ $CTM_ABFLUX == 'Y' ]; then
@@ -502,16 +489,13 @@ if [ "$test" != "" ] ; then
 fi 
     
 if [[ ${cycle} = 't00z'  || "${FCST}" = "NO" ]] ; then    ## if FCST=NO then use previous day LBC for 24-rerun
- export BNDY_GASC_1=$COMINm1/aqm_conus_geos_fv3chem_aero_${PDYm1}_35L.ncf
+ export BNDY_GASC_1=$COMINm1/aqm_AK_geos_fv3chem_aero_${PDYm1}_35L.ncf
 else
- export BNDY_GASC_1=$COMIN/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf
+ export BNDY_GASC_1=$COMIN/aqm_AK_geos_fv3chem_aero_${PDY}_35L.ncf
 fi
 SMM=`echo $PDY|cut -c5-6`
 if [ ! -f ${BNDY_GASC_1}  ] ; then
-  export BNDY_GASC_1=$FIXaqm/aqm_conus_12km_geos_2006${SMM}_static_FV3_35L.ncf
-#   export BNDY_GASC_1=/gpfs/hps3/emc/naqfc/noscrub/Patrick.C.Campbell/cmaq/5.0.2/prod/fix_LBC_test/aqm_conus_12km_geos_2006${SMM}_static_35L.ncf
-#  export BNDY_GASC_1=/gpfs/hps3/emc/naqfc/noscrub/Patrick.C.Campbell/cmaq/5.0.2/prod/fix_LBC_test/aqm_conus_geos_ngac_dust_20190521_35L.ncf
-
+  export BNDY_GASC_1=$FIXaqm/aqm_AK_cb05_ae4_mean_${SMM}.35L.ncf
 fi
 
 export   BNDY_AERO_1=$BNDY_GASC_1
@@ -611,7 +595,7 @@ startmsg
 echo "EXECUTE X.u2c"
 export MEMORY_AFFINITY=MCM
 aprun -n$nprocs $EXECaqm/${EXEC} >> $pgmout 2>errfile
-#aprun -n576 -N24 /usr/bin/valgrind --leak-check=yes --track-origins=yes --read-var-info=yes $EXECaqm/aqm_fcst_v502.debug >> $pgmout 2>errfile
+
 export err=$?
 
 #------------------------------------------------------

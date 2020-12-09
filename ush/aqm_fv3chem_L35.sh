@@ -82,14 +82,14 @@ else
 fi
 
 if [ $RUN = 'HI' ]; then
- export BND1=$FIXaqm/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.fv3.ncf
+ export BND1=$FIXaqm/HI_80X52_mean_2002${cmonth}_GEOSCHEM-35L-tracer.nmmb.ncf
  export BND2=$outdir/aqm_HI_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 elif [ $RUN = 'AK' ]; then
  export BND1=$FIXaqm/aqm_AK_cb05_ae4_mean_${cmonth}.35L.ncf
  export BND2=$outdir/aqm_AK_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 else
-#export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
- export BND1=$FIXaqm/lbc-gmi-adj3-${cmonth}.5x-L35.ncf
+ export BND1=$FIXaqm/aqm_conus_12km_geos_2006${cmonth}_static_35L.ncf
+#export BND1=$FIXaqm/lbc-gmi-adj3-${cmonth}.5x-L35.ncf
  export BND2=$outdir/aqm_conus_geos_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf # output BND file
 fi
 #export CHECK2D=$outdir/check_ngac_dust_${cyear}${cmonth}${cdate}_35L.ncf

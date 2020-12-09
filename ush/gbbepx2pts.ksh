@@ -57,7 +57,7 @@ emname='CO','NO','NO2','SO2','NH3','PEC','POC','PMOTHR','PNO3','PSO4',
 Species Converting Factor
 'CO'      1   # kg ->mole
 'CO'   35.7
-'NOX'    2   # 90% to NO (mw 30), 10% to NO2 (mw 46), mw 31.6 in average, kg->mole
+'NOx'    2   # 90% to NO (mw 30), 10% to NO2 (mw 46), mw 31.6 in average, kg->mole
 'NO'   28.481   'NO2'  3.164557
 'SO2'    1    # kg -> mole
 'SO2'  15.625
@@ -98,7 +98,7 @@ export STACK_GROUP=aqm.$cycle.fire_location_$DD.ncf
 export PTFIRE=aqm.$cycle.fire_emi_$DD.ncf
 
 startmsg
-$EXECaqm/aqm_gbbepx2pts_frp.x
+$EXECaqm/aqm_gbbepx2pts.x
 export err=$?;err_chk
 
 if [ "$FCST" = "YES" ]; then
@@ -112,8 +112,8 @@ if [ -s $PTFIRE -a -s $STACK_GROUP ]; then
  if [ "$FCST" = "YES" ]; then
   cp -rp $DATA/aqm*fire*ncf $CHK_DIR
  else
-  mv $DATA/aqm.$cycle.fire_location_cs.ncf $CHK_DIR/aqm.$cycle.fire_location_${DD}_r.ncf
-  mv $DATA/aqm.$cycle.fire_emi_cs.ncf $CHK_DIR/aqm.$cycle.fire_emi_${DD}_r.ncf
+  mv $DATA/aqm.$cycle.fire_location_${DD}.ncf $CHK_DIR/aqm.$cycle.fire_location_${DD}_r.ncf
+  mv $DATA/aqm.$cycle.fire_emi_${DD}.ncf $CHK_DIR/aqm.$cycle.fire_emi_${DD}_r.ncf
  fi
 
 else

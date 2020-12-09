@@ -14,8 +14,36 @@
 msg="JOB $job HAS BEGUN"
 postmsg "$jlogfile" "$msg"
 
-export pgm=aqm_prep_cs
+export RUN=${RUN:-aqm}
+export pgm=aqm_prep
 
+if [ $RUN = 'HI' ]; then
+NCOLS=80
+NROWS=52
+PROJPARM=2.,19.,21.,-157.5,-157.5,20.53
+DOMAINS=-480000.,-312000.,12000.,12000.,80,52
+DD=$RUN
+GRDNAM='AQF_HI'
+elif [ $RUN = 'AK' ]; then
+NCOLS=199
+NROWS=163
+PROJPARM=2.,57.,63.,-148.6,-148.6,63.21
+DOMAINS=-1194000.,-978000.,12000.,12000.,199,163
+DD=$RUN
+GRDNAM='AQF_AK'
+elif [ $RUN = 'aqm' ]; then
+NCOLS=442
+NROWS=265
+PROJPARM=2.,33.,45.,-97.,-97.,40
+DOMAINS=-2508000.,-1716000.,12000.,12000.,442,265
+DD='05'
+GRDNAM='AQF_CONUS_5x'
+else
+ echo "unknown domain $RUN"
+ exit 1
+fi
+
+ 
 cd $DATA
 
 case $cyc in 
@@ -103,44 +131,43 @@ while [ ${NOW} -ge ${LASTDAY} ]; do
    NOW=$(${NDATE} -24 ${cdate} | cut -c1-8 )
 done
 ## end_day=$(tail tlist | awk -F"_e" '{print $2}' | cut -c1-8 )
-wgrib2_gvn=`tail tlist`
-if [ ! -s ${GVNIN}/${wgrib2_gvn} ]; then         ## sanitary check
+grib2_gvn=`tail tlist`
+if [ ! -s ${grib2_gvn} ]; then         ## sanitary check
    echo "Can not find any VIIRS Green Vegetation fraction file in ${GVNIN}"
    err=999
    err_chk
 else
-   echo "Found GVN input file - ${wgrib2_gvn}"
-   ln -s ${GVNIN}/${wgrib2_gvn} ${wgrib2_gvn}    ## link DCOM file to $DATA local filename
+   echo "Found GVN input file - ${grib2_gvn}"
+  ln -s ${grib2_gvn} DCOM_GVF_FILE 
 fi
 ##
 ## Either redefine GVN for CMAQ runtime output or follow NESDIS naming
 ##
 ## OR
-tmp1=$(echo ${wgrib2_gvn} | awk -F${SFHR} '{print $2}' )
+tmp1=$(echo ${grib2_gvn} | awk -F${SFHR} '{print $2}' )
 tmp2=$(echo ${tmp1} | awk -F'.' '{print $1}' )
 # should be the same with output of viirsgrib2nc4.py
-netcdf_gvn=${SFHR}${tmp2}.nc
-echo "GVN input in netcdf format is ${netcdf_gvn}"
 #
-# If possible I would like to see viirsgrib2nc4.py has an option to define output filename such as -o ${output_filename}
-# or using predefine environment variable such as FILEIN and FILEOUT in viirsgrib2nc4.py
+# output filename is -o option+".nc" by viirsgrib2nc4.py
+# WGRIB2 need to be defined by "module load grib_util/$version" in topest ecf script
 #
-${USHAQM}/viirsgrib2nc4.py -vf ${wgrib2_gvn}
+echo "before viirsgrib2nc4.py, wgrib2=${WGRIB2}"
+nacc_gvf_prefix="nacc_gvf"
+${USHaqm}/viirsgrib2nc4.py -v -f DCOM_GVF_FILE -o ${nacc_gvf_prefix} -x ${WGRIB2}
+NACC_GVF_IN=${nacc_gvf_prefix}.nc
 # 
-if [ ! -s ${netcdf_gvn} ]; then
-    echo "WARNING *** Can not find ${netcdf_gvn}"
+if [ ! -s $NACC_GVF_IN ]; then
+    echo "WARNING *** Can not find ${NACC_GVF_IN}"
     err=999
     err_chk
 else
-    echo "Found CMAQ GVN input file - ${netcdf_gvn}"
+    echo "Found CMAQ GVF input file - ${NACC_GVF_IN}"
 fi
+
 # save for future consideration
 #    export GVNOUT=CMAQ_GVN_${PDY}_nc
 #    mv ${netcdf_gvn} ${GVNOUT}
 # save for future consideration
-#
-# Patrick please use either netcdf_gvn or define GVNOUT and treat it as part of namelist input
-# avoid using predefine values or directory directly in aqm_nacc
 #
 cat>namelist.mcip<<!
 &FILENAMES
@@ -148,7 +175,8 @@ cat>namelist.mcip<<!
   file_mm    = './gfs.${cycle}.atmf','.nc'
   file_sfc   = './gfs.${cycle}.sfcf','.nc'
   file_geo   = '${FIXaqm}/gfs.t12z.geo.${SMM}.nc'
-  file_viirs_gvf = '${netcdf_gvn}'
+  file_viirs_gvf = '$NACC_GVF_IN'
+  file_viirs_lai = 'no_file'
   ioform     =  1
  &END
 
@@ -163,11 +191,14 @@ cat>namelist.mcip<<!
   luvbout    =  1
   ifdiag_pbl = .FALSE.
   ifviirs_gvf = .TRUE.
+  ifviirs_lai = .FALSE.
+  iffengsha_dust = .FALSE.
+  ifbioseason = .TRUE.
   mcip_start = '${SYYYY}-${SMM}-${SDD}-${cyc}:00:00.0000'
   mcip_end   = '${EYYYY}-${EMM}-${EDD}-${endcyc}:00:00.0000'
   intvl      =  60
-  coordnam   = 'FV3_RPO'
-  grdnam     = 'FV3_CONUS'
+  coordnam   = 'AQF_RPO'
+  grdnam     = '$GRDNAM'
   ctmlays    =  1.000000, 0.995253, 0.990479, 0.985679, 0.980781,
               0.975782, 0.970684, 0.960187, 0.954689, 0.936895, 
               0.930397, 0.908404, 0.888811, 0.862914, 0.829314, 
@@ -180,15 +211,15 @@ cat>namelist.mcip<<!
   lprt_row   =  0
   ntimes     = ${NTIMES}
   wrf_lc_ref_lat = 40.0
-  projparm = 2., 33.,45., -97., -97., 40.
-  domains = -2508000., -1716000., 12000., 12000., 442, 265
+  projparm = $PROJPARM
+  domains = $DOMAINS
  &END
 
  &WINDOWDEFS
   x0         =  1
   y0         =  1
-  ncolsin    =  442
-  nrowsin    =  265
+  ncolsin    =  $NCOLS
+  nrowsin    =  $NROWS
  &END
 !
 
@@ -206,8 +237,8 @@ export SOI_CRO=aqm.${cycle}.soicro.ncf
 export MOSAIC_CRO=aqm.${cycle}.mosaiccro.ncf
 
 ### ALERT HHC use aqm_nacc for NCO delivery -- consistent with executable creation script
-aprun -n${NTIMES} -m8000 ${EXECaqm}/aqm_nacc
+aprun -n${NTIMES} -m8000 ${EXECaqm}/aqm_nacc.x
 if [ "${SENDCOM}" = 'YES' ]; then
-  mv GRIDDESC  ${COMOUT}/aqm_griddesc05
+  mv GRIDDESC  ${COMOUT}/aqm_griddesc$DD
   mv *.ncf ${COMOUT}
 fi  

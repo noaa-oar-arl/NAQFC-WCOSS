@@ -395,7 +395,8 @@ C ... calculate the free troposphere layer and pblh
       P1=PRES(L500)
       P2=PRES(L500+1)
       laydepth=ZH(L500+1)-ZH(L500) !287.05*(T1+T2)/2.0/9.8*alog(P1/P2)
-      pblh = ZH(LPBL)
+!     pblh = amax1(ZH(LPBL),300.)
+      pblh =ZH(LPBL)
       FRP=BFLUX
 
 C ... calculate PT from T and P
@@ -421,5 +422,5 @@ C ... calculate first guess plume rise top height
         delta     = 0.7
         ZPLM = alpha*pblh + beta*(FRP/Pf0)**gama*exp(-delta*NFT/N0)
       end if
-
+      ZPLM=amax1(ZPLM,300.)
       END SUBROUTINE plumeRiseSofiev
