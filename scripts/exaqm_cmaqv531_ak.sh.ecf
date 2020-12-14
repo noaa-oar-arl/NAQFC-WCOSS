@@ -372,7 +372,7 @@ if [ -s $FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK_r.ncf ] && [ "${FCST}" = "NO" ]
    typeset -Z3 ic
    export STK_GRPS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_location_AK_r.ncf
    export STK_EMIS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK_r.ncf
-   export STK_EMIS_LAB_$ic="WILDFIRE"
+   export STK_EMIS_LAB_$ic="PT_FIRES"
    export STK_EMIS_DIAG_$ic=3D
    export STK_EM_SYM_DATE_$ic=F   
  elif [ -s $FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK.ncf ] && [ "${FCST}" = "YES" ]; then
@@ -380,7 +380,7 @@ if [ -s $FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK_r.ncf ] && [ "${FCST}" = "NO" ]
    typeset -Z3 ic
    export STK_GRPS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_location_AK.ncf
    export STK_EMIS_$ic=$FIRE_DIR/aqm.${FIRE_SUFFIX}.fire_emi_AK.ncf
-   export STK_EMIS_LAB_$ic="WILDFIRE"
+   export STK_EMIS_LAB_$ic="PT_FIRES"
    export STK_EMIS_DIAG_$ic=3D
    export STK_EM_SYM_DATE_$ic=F
 fi
