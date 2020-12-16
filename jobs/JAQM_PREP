@@ -28,6 +28,21 @@ export UTILaqm=$HOMEaqm/util
 export NET=${NET:-aqm}
 export RUN=${RUN:-aqm}
 
+if [ $RUN = 'HI' ]; then
+DD='HI'
+DOMAINS='HI'
+elif [ $RUN = 'AK' ]; then
+DD='AK'
+DOMAINS='AK'
+elif [ $RUN = 'aqm' ]; then
+DD='cs'
+DOMAINS='conus'
+else
+ echo "unknown domain $RUN"
+ exit 1
+fi
+
+
 SYYYY=`echo $PDY |cut -c1-4`
 SMM=`echo $PDY |cut -c5-6`
 SDD=`echo $PDY |cut -c7-8`
@@ -52,17 +67,17 @@ export pgmout=OUTPUT.$$
 env
 
 if [ ! -s $COMOUT/aqm.$cycle.metcro3d.ncf ]; then
-$HOMEaqm/scripts/exaqm_metprep_cs.sh.ecf
+$HOMEaqm/scripts/exaqm_metprep.sh.ecf
 export  err=$?; err_chk
 fi
 
-if ( [ "$FCST" = "YES" ] && [ ! -s $COMOUT/aqm.$cycle.fire_emi_cs.ncf ] ) ||\
-  ( [ "$FCST" = "NO" ] && [ ! -s $COMOUTm1/aqm.$cycle.fire_emi_cs_r.ncf ] ) ; then
+if ( [ "$FCST" = "YES" ] && [ ! -s $COMOUT/aqm.$cycle.fire_emi_$DD.ncf ] ) ||\
+  ( [ "$FCST" = "NO" ] && [ ! -s $COMOUTm1/aqm.$cycle.fire_emi_${DD}_r.ncf ] ) ; then
 aprun -n 1 $USHaqm/gbbepx2pts.ksh 
 export err=$?; err_chk
 fi
 
-if [ ! -s $COMOUT/aqm_conus_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
+if [ ! -s $COMOUT/aqm_${DOMAINS}_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
  ic=0
  while [ $ic -le 40 ]; do
   if [ -s $COMOUT/aqm.$cycle.metcro3d.ncf ]; then
