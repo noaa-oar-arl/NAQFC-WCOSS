@@ -709,7 +709,14 @@
                 CALL M3EXIT ( PNAME, 0, 0, XMSG, XSTAT1 )
              END IF
              begin = n_e2d+n_e3d-n_dust_vars
-             emis_name(begin:begin, 1) = vname3d(1)
+	     do idx=1,nvars3d
+	      if(vname3d(idx).eq.'PRSFC') exit
+	     enddo
+     	     if(idx.gt.nvars3d) then	     
+	      emis_name(begin:begin, 1) = vname3d(1)
+	     else
+	      emis_name(begin:begin, 1) = 'SEASON'
+	     endif 
              emis_name(begin:begin, 2) = 'bs'          ! bs denote bio season
              emis_name(begin:begin, 3) = ' '           ! denote non met data
           end if
