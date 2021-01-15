@@ -90,7 +90,7 @@ if [ ! -s $COMOUT/aqm_${DOMAINS}_geos_fv3chem_aero_${PDY}_35L.ncf ] ; then
   if [ $ic -gt 40 ]; then
    err_exit *****FATAL ERROR***** - COULD NOT LOCATE: $COMOUT/aqm.$cycle.metcro3d.ncf
   fi 
-  aprun -n 1 $USHaqm/aqm_fv3chem_L35.sh $PDY
+  $USHaqm/aqm_fv3chem_L35.sh $PDY
   err=$?; err_chk
 fi
 

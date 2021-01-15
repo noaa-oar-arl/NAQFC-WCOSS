@@ -4,7 +4,11 @@ set -xa
 
 cd $DATA
 
-cyc=00
+case ${cyc} in
+    06) gefscyc=00;;
+    12) gefscyc=06;;
+esac
+NUMTS=${NUMTS:-41}
 
 #nowdate=`${NDATE}| cut -c1-8`
 
@@ -18,15 +22,15 @@ cjulian=`/bin/date --date=$cyear'/'$cmonth'/'$cdate +%j`
 typeset -Z3 cjulian
 
 #FV3CHEMFOLDER=${FV3CHEM_DIR}/gfs.$cyear$cmonth$cdate/00
-if [ ! -s $FV3CHEMFOLDER/geaer.t${cyc}z.atmf120.nemsio ]; then
-if [ -s ${FV3CHEM_DIR}/gefs.${PDY}/00/geaer.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDY}/00
-elif [ -s ${FV3CHEM_DIR}/gefs.${PDYm1}/00/geaer.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDYm1}/00
-elif [ -s ${FV3CHEM_DIR}/gefs.${PDYm2}/00/geaer.t${cyc}z.atmf120.nemsio ]; then
-  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDYm2}/00
+if [ ! -s $FV3CHEMFOLDER/geaer.t${gefscyc}z.atmf120.nemsio ]; then
+if [ -s ${FV3CHEM_DIR}/gefs.${PDY}/${gefscyc}/geaer.t${gefscyc}z.atmf120.nemsio ]; then
+  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDY}/${gefscyc}
+elif [ -s ${FV3CHEM_DIR}/gefs.${PDYm1}/${gefscyc}/geaer.t${gefscyc}z.atmf120.nemsio ]; then
+  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDYm1}/${gefscyc}
+elif [ -s ${FV3CHEM_DIR}/gefs.${PDYm2}/${gefscyc}/geaer.t${gefscyc}z.atmf120.nemsio ]; then
+  FV3CHEMFOLDER=${FV3CHEM_DIR}/gefs.${PDYm2}/${gefscyc}
 else
- echo " can not find $FV3CHEMFOLDER/geaer.t${cyc}z.atmf120.nemsio "
+ echo " can not find $FV3CHEMFOLDER/geaer.t${gefscyc}z.atmf120.nemsio "
  exit 1
 fi 
 fi
@@ -39,16 +43,16 @@ cat > ngac-bnd-nemsio.ini <<EOF
 &control
  begyear=$cyear  
  begdate=$cjulian
- begtime=$cyc    
- dtstep=6        
- numts=21
+ begtime=$gefscyc    
+ dtstep=3        
+ numts=$NUMTS
  bndname='NO2','NO','O3','NO3','OH','HO2','N2O5','HNO3','HONO','PNA',
  'H2O2','CO','SO2','SULF','PAN','FACD','AACD','PACD','UMHP','MGLY',
  'OPEN','CRES','FORM','ALD2','PAR','OLE','TOL','ISOP','ETH','XYL',
  'ASO4J','ASO4I','ASOIL','NH3','NUMATKN','NUMACC','NUMCOR',
  'SRFATKN','SRFACC','AOTHRJ','AECJ','APOCJ','ANH4J','ANO3J','ANAJ','ACLJ'
  checkname='AOTHRJ','ASOIL','AECJ','APOCJ','ASO4J','ANH4J','ANO3J','ANAJ','ACLJ'
- mofile='$FV3CHEMFOLDER/geaer.t${cyc}z.atmf','.nemsio'
+ mofile='$FV3CHEMFOLDER/geaer.t${gefscyc}z.atmf','.nemsio'
  checklayer=1    
 &end
 
@@ -73,9 +77,9 @@ Species converting Factor
 
 EOF
 
-if [ -s $COMIN/aqm.t${cyc}z.metcro3d.ncf ] ; then
- export METEO3D=$COMIN/aqm.t${cyc}z.metcro3d.ncf
- export TOPO=$COMIN/aqm.t${cyc}z.grdcro2d.ncf
+if [ -s $COMIN/aqm.t${gefscyc}z.metcro3d.ncf ] ; then
+ export METEO3D=$COMIN/aqm.t${gefscyc}z.metcro3d.ncf
+ export TOPO=$COMIN/aqm.t${gefscyc}z.grdcro2d.ncf
 else
  export METEO3D=$COMINm1/aqm.t12z.metcro3d.ncf
  export TOPO=$COMINm1/aqm.t12z.grdcro2d.ncf
@@ -98,5 +102,5 @@ export CHECK2D=$outdir/check_fv3chem_aero_${cyear}${cmonth}${cdate}_35L.ncf
 rm -rf chkreads.log
 
 startmsg
-$EXECaqm/aqm_fv3chem_dlbc.x  >> $pgmout 2>errfile 
+aprun -n$NUMTS $EXECaqm/aqm_parallel_glbc.x  >> $pgmout 2>errfile 
 export err=$?;err_chk
