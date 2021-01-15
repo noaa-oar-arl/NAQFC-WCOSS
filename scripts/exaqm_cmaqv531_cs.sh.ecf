@@ -419,10 +419,10 @@ fi
 # In-line biogenic emissions configuration
 
 if [ "$CTM_BIOGEMIS" = 'Y' ]; then
-export GSPRO=$FIXaqm/gspro_biog_static_2012_naqfc.txt
-export B3GRD=$FIXaqm/b3grd_CONUS_bv314.ncf
-export BIOG_SPRO=B10C5 #< speciation profile to use > e.g. B10C5
-export BIOSW_YN=Y      #< use frost date switch? > defaults to Y
+export GSPRO=$FIXaqm/gspro_biogenics.txt
+export B3GRD=$FIXaqm/b3grd_CONUS_19Dec20.aggwndj.ncf
+export BIOG_SPRO=B10C6AE7 #< speciation profile to use > e.g. B10C5
+export BIOSW_YN=Y       #< use frost date switch? > defaults to Y
 export SUMMER_YN=N     #< Use summer normalized emissions? > defaults to Y 
 export PX_VERSION=N
 export B3GTS_DIAG=Y    
@@ -465,7 +465,7 @@ export OCEAN_1=$FIXaqm/SSMASK_US12_442X265_igbp2010.ncf
 # need to modify for FEST-C v1.4.
     export E2C_SOIL=$FIXaqm/test_soil_5x_new.nc
     export E2C_CHEM=$EMISpath/FERT_12km_5x_time$yyyymm.ncf
-    export E2C_LU=$FIXaqm/beld4_AQF_5x_output.ncf
+    export E2C_LU=$FIXaqm/beld5_CONUS_19Dec20.aggwndj.ncf
   fi
 #------------------------------------------------------
 # output files
