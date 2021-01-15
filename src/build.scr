@@ -18,9 +18,14 @@ export NETCDF_LDFLAGS="-L$NETCDF_DIR/lib -lnetcdff -lnetcdf"
 
 BASEDIR=$PWD
 
-#for src in nacc_parallel_v1 fcst_v531 fv3chem_dlbc fireemis cmaq_combine; do
-#for src in fcst_v531 fcst_v531_debug; do
-for src in cmaq2grib2_v2 cmaq2grib2_v3 post_maxi_CHA_grib2_v2; do
+for src in nacc_parallel_v1 fcst_v531 parallel_glbc fireemis cmaq_combine; do
+#for src in fcst_v531; do
+#for src in fcst_v531_debug; do
+#for src in fireemis; do
+#for src in cmaq_combine; do
+#for src in cmaq2grib2_v2 cmaq2grib2_v3 post_maxi_CHA_grib2_v2; do
+#for src in fcst_v531_isam; do
+#for src in nacc_parallel_v1 fcst_v531; do
  cd $BASEDIR/aqm_$src.fd
  make
  make install
