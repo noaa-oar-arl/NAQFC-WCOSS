@@ -876,7 +876,19 @@ C-----------------------------------------------------------------------
      &             CONVM( EMLAYS,NCOLS,NROWS ),
      &             CONVN( EMLAYS,NCOLS,NROWS )  )
       END IF    !FirstTime
-      
+
+!     Fugitive dust issue over snow in real-time forecasting (NAQFC; PCC)
+!     Reduce all mapped aerosol emissions streams by 90% over snow cover or precipiation (NAQFC; PCC)
+      DO R =1, NROWS
+      DO C =1, NCOLS
+       IF ( Met_Data%SNOCOV(C,R) .GT. 0.25 .OR. ( Met_Data%RN(C,R)+Met_Data%RC(C,R)) .GT. 0.01 ) THEN
+        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoAERO( ISTR ) .NE. 0 )  VDEMIS0( ISTR,1:NL,C,R ) = 0.01 * VDEMIS0( ISTR,1:NL,C,R )
+        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoSRF( ISTR ) .NE. 0 )   VDEMIS0( ISTR,1:NL,C,R ) = 0.01 * VDEMIS0( ISTR,1:NL,C,R ) 
+        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoNUM( ISTR ) .NE. 0 )   VDEMIS0( ISTR,1:NL,C,R ) = 0.01 * VDEMIS0( ISTR,1:NL,C,R )
+       END IF
+      END DO
+      END DO
+
       ! Convert All Emissions to Units Appropriate for the Dispersion Solver
       CNVTI( 1:NL ) = CNVTP * Grid_Data%RDX3F( 1:NL )
       DO L = 1,NL
@@ -900,7 +912,6 @@ C-----------------------------------------------------------------------
       FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoNUM( ISTR ) .NE. 0 )
      &    VDEMIS0( ISTR,1:NL,:,: ) = CONVN( 1:NL,:,: ) * VDEMIS0( ISTR,1:NL,:,: )
 
- 
       ! zero out emissions values for diffused species not included in emissions list.
       ! ...accounts for emissions species names as a subset of the vert. diffused species list
       VDEMIS( :,1:NL,:,: ) = 0.0
