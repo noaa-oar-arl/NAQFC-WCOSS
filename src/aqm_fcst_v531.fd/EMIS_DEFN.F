@@ -602,6 +602,7 @@ c    &                          * EM_REG_FAC(:,:,ISAMRGN_MAP(ITAG,RGN))
          USE ASX_DATA_MOD, ONLY: MET_DATA, GRID_DATA
          USE RXNS_DATA, ONLY: MECHNAME
          USE CENTRALIZED_IO_MODULE, ONLY: interpolate_var
+         USE AERO_EMIS, ONLY : MAP_EMtoAERO, MAP_EMtoSRF, MAP_EMtoNUM
 
          IMPLICIT NONE
 
@@ -673,6 +674,19 @@ C Store all emissions in mol/sec or g/sec and convert to ppmv/s later
            END IF
 
          END DO   ! ISTR
+
+
+!     Fugitive dust issue over snow in real-time forecasting (NAQFC; PCC)
+!     Reduce all gridded, mapped aerosol emissions streams by 90% over snow cover or precipiation (NAQFC; PCC)
+      DO R =1, NROWS
+      DO C =1, NCOLS
+       IF ( Met_Data%SNOCOV(C,R) .GT. 0.25 .OR. (Met_Data%RN(C,R)+Met_Data%RC(C,R)) .GT. 0.01 ) THEN
+        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoAERO( ISTR ) .NE. 0 ) VDEMIS( ISTR,1,C,R ) = 0.01 * VDEMIS( ISTR,1,C,R )
+        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoSRF( ISTR ) .NE. 0 ) VDEMIS( ISTR,1,C,R ) = 0.01 * VDEMIS( ISTR,1,C,R )
+        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoNUM( ISTR ) .NE. 0 ) VDEMIS( ISTR,1,C,R ) = 0.01 * VDEMIS( ISTR,1,C,R )
+       END IF
+      END DO
+      END DO
 
          RETURN
 
@@ -876,18 +890,6 @@ C-----------------------------------------------------------------------
      &             CONVM( EMLAYS,NCOLS,NROWS ),
      &             CONVN( EMLAYS,NCOLS,NROWS )  )
       END IF    !FirstTime
-
-!     Fugitive dust issue over snow in real-time forecasting (NAQFC; PCC)
-!     Reduce all mapped aerosol emissions streams by 90% over snow cover or precipiation (NAQFC; PCC)
-      DO R =1, NROWS
-      DO C =1, NCOLS
-       IF ( Met_Data%SNOCOV(C,R) .GT. 0.25 .OR. ( Met_Data%RN(C,R)+Met_Data%RC(C,R)) .GT. 0.01 ) THEN
-        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoAERO( ISTR ) .NE. 0 )  VDEMIS0( ISTR,1:NL,C,R ) = 0.01 * VDEMIS0( ISTR,1:NL,C,R )
-        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoSRF( ISTR ) .NE. 0 )   VDEMIS0( ISTR,1:NL,C,R ) = 0.01 * VDEMIS0( ISTR,1:NL,C,R ) 
-        FORALL ( ISTR = 1:N_EMIS_ISTR, MAP_EMtoNUM( ISTR ) .NE. 0 )   VDEMIS0( ISTR,1:NL,C,R ) = 0.01 * VDEMIS0( ISTR,1:NL,C,R )
-       END IF
-      END DO
-      END DO
 
       ! Convert All Emissions to Units Appropriate for the Dispersion Solver
       CNVTI( 1:NL ) = CNVTP * Grid_Data%RDX3F( 1:NL )
