@@ -51,6 +51,7 @@ export DAYOFYEAR=`date -d $SYYYY/$SMM/$SDD +%j`
 export COMIN=${COMIN:-$COMROOT/$NET/$envir/$RUN.$PDY}
 export COMINm1=${COMINm1:-$COMROOT/$NET/$envir/$RUN.$PDYm1}
 export InMetDir=${InMetDir:-$COMIN}
+export EMISpath=${EMISpath:-$COMIN}
 
 export COMOUT=${COMOUT:-$COMROOT/$NET/$envir/$RUN.$PDY}
 export COMOUTm1=${COMOUTm1:-$COMROOT/$NET/$envir/$RUN.$PDYm1}
