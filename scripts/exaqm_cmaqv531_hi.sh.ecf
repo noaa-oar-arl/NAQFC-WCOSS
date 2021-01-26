@@ -336,10 +336,10 @@ export LUFRAC_CRO=$METpath/aqm.${cycle}.lufraccro.ncf
 
 #> Gridded Emissions files
 export N_EMIS_GR=2
-export GR_EMIS_001=$EMISpath/emis-noRWC-cb6-$yyyymm.ncf #surface emission file
+export GR_EMIS_001=$EMISpath/HI-emis-noRWC-cb6-$yyyymm.ncf #surface emission file
 export GR_EMIS_LAB_001=GRIDDED_EMIS
 export GR_EM_SYM_DATE_001=F
-export GR_EMIS_002=$EMISpath/emis-RWC-cb6-$yyyymm.ncf #surface RWC file
+export GR_EMIS_002=$EMISpath/HI-emis-RWC-cb6-$yyyymm.ncf #surface RWC file
 export GR_EMIS_LAB_002=GRIDDED_RWC
 export GR_EM_SYM_DATE_002=F
 
