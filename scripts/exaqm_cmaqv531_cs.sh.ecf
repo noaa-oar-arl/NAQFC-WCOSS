@@ -321,7 +321,7 @@ if [ ! -s $METpath/aqm.${cycle}.metcro3d.ncf ]; then
    err_exit "****FATAL ERROR*** - COULD NOT LOCATE:$METpath/aqm.${cycle}.metcro3d.ncf"
 fi
 
-export EMISSCTRL_NML=$PARMaqm/EmissCtrl_${MECH}.nml
+export EMISSCTRL_NML=$PARMaqm/EmissCtrl_${MECH}_vivpo1.nml
 
  #> Spatial Masks For Emissions Scaling
   #export CMAQ_MASKS=$SZpath/12US1_surf.ncf
@@ -337,22 +337,22 @@ export LUFRAC_CRO=$METpath/aqm.${cycle}.lufraccro.ncf
 
 #> Gridded Emissions files
 export N_EMIS_GR=2
-export GR_EMIS_001=$EMISpath/emis-noRWC-cb6-$yyyymm.ncf #surface emission file
+export GR_EMIS_001=$EMISpath/emis-noRWC-nei17-$yyyymm.ncf #surface emission file
 export GR_EMIS_LAB_001=GRIDDED_EMIS
 export GR_EM_SYM_DATE_001=F
-export GR_EMIS_002=$EMISpath/emis-RWC-cb6-$yyyymm.ncf #surface RWC file
+export GR_EMIS_002=$EMISpath/emis-RWC-nei17-$yyyymm.ncf #surface RWC file
 export GR_EMIS_LAB_002=GRIDDED_RWC
 export GR_EM_SYM_DATE_002=F
 
 #>CMAQv5.3 In-Line Point Emissions Files
 ic=0
 for sectors in ptegu ptnonipm pt_oilgas cmv_c1c2_12 cmv_c3_12 othpt ; do
-  if [ -s $EMISpath/inln_mole_${sectors}_${yyyymm}_12US_5x_cmaq_cb6_2016fh_16j.ncf ] && \
-    [ -s $EMISpath/stack_groups_${sectors}_12US_5x_2016fh_16j.ncf ]; then
+  if [ -s $EMISpath/inln_mole_${sectors}_${yyyymm}_12US_5x_cmaq_cb6ae7_2017gb_17j.ncf ] && \
+    [ -s $EMISpath/stack_groups_${sectors}_12US_5x_2017gb_17j.ncf ]; then
    let ic=$ic+1
    typeset -Z3 ic
-   export STK_GRPS_$ic=$EMISpath/stack_groups_${sectors}_12US_5x_2016fh_16j.ncf
-   export STK_EMIS_$ic=$EMISpath/inln_mole_${sectors}_${yyyymm}_12US_5x_cmaq_cb6_2016fh_16j.ncf
+   export STK_GRPS_$ic=$EMISpath/stack_groups_${sectors}_12US_5x_2017gb_17j.ncf
+   export STK_EMIS_$ic=$EMISpath/inln_mole_${sectors}_${yyyymm}_12US_5x_cmaq_cb6ae7_2017gb_17j.ncf
    export STK_EMIS_LAB_$ic=$sectors
    export STK_EMIS_DIAG_$ic=2DSUM
    export STK_EM_SYM_DATE_$ic=F
