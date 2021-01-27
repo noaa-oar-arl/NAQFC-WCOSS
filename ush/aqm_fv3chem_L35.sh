@@ -39,7 +39,7 @@ if [ ! -s $outdir ]; then
  mkdir -p $outdir
 fi 
  
-cat > ngac-bnd-nemsio.ini <<EOF
+cat > gefs-bnd-nemsio.ini <<EOF
 &control
  begyear=$cyear  
  begdate=$cjulian
