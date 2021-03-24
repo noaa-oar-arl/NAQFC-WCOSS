@@ -1,6 +1,6 @@
 #SHELL=/bin/sh
 
-TARGET =  aqm_gbbepx2pts.x
+TARGET =  aqm_gbbepx2pts
 
 # Compiler Definitions
  FC = ifort

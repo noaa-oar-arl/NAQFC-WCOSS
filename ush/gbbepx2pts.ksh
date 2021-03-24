@@ -98,7 +98,7 @@ export STACK_GROUP=aqm.$cycle.fire_location_$DD.ncf
 export PTFIRE=aqm.$cycle.fire_emi_$DD.ncf
 
 startmsg
-$EXECaqm/aqm_gbbepx2pts.x
+$EXECaqm/aqm_gbbepx2pts
 export err=$?;err_chk
 
 if [ "$FCST" = "YES" ]; then
