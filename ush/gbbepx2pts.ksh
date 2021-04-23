@@ -50,13 +50,20 @@ tdiurnal=0.03033772, 0.03033772, 0.03033772, 0.03033772, 0.03033772,
        0.04006869, 0.03434459, 0.03033772, 0.03033772, 0.03033772,
        0.03033772, 0.03033772, 0.03033772, 0.03033772
 dfrac=1.0,0.25,0.25
-emname='CO','NO','NO2','SO2','NH3','PEC','POC','PMOTHR','PNO3','PSO4',
+emname='CO','ACET','ALD2','ALDX','BENZ','CH4','ETH','ETHA','ETHY',
+'ETOH','FORM','IOLE','ISOP','KET','MEOH','OLE','PAR','PRPA','TERP',
+'TOL','UNR','XYLMN','IVOC',
+'NO','NO2','SO2','NH3','PEC','POC','PMOTHR','PNO3','PSO4',
 'PAL','PCA','PCL','PFE','PK','PMG','PMN','PNA','PNCOM','PNH4','PSI','PTI'
 /
 
 Species Converting Factor
-'CO'      1   # kg ->mole
-'CO'   35.7
+'CO'     24   # kg ->mole
+'CO'   35.7  'ACET' 0.0189 'ALD2' 0.0223 'ALDX' 0.07   'BENZ' 0.0123
+'CH4'  0.5767 'ETH'  0.0786 'ETHA' 0.0393 'ETHY' 0.0204 'ETOH' 0.0008
+'FORM' 0.1443 'IOLE' 0.0087 'ISOP' 0.0029 'KET'  0.0148 'MEOH' 0.1229
+'OLE'  0.108  'PAR'  0.3553 'PRPA' 0.0111 'TERP' 0.0032 'TOL'  0.0142
+'UNR'  0.2747 'XYLMN' 0.0028 'UNR' 0.2747 'IVOC' 0.0872
 'NOx'    2   # 90% to NO (mw 30), 10% to NO2 (mw 46), mw 31.6 in average, kg->mole
 'NO'   28.481   'NO2'  3.164557
 'SO2'    1    # kg -> mole
