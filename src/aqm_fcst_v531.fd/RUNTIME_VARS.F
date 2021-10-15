@@ -211,6 +211,7 @@
       LOGICAL :: BEMIS_DIAG    = .TRUE.  ! true: write diagnostic emiss file
       LOGICAL :: MGEMDIAG      = .FALSE. ! flag for MGEM diagnostic file
       LOGICAL :: OCEAN_CHEM    = .TRUE.  ! Flag for ocean halogen chemistry and sea spray aerosol emissions
+      LOGICAL :: CANOPY_SHADE  = .FALSE. ! flag for On-Line Canopy Shade Calculation
       LOGICAL :: WB_DUST       = .FALSE. ! flag for On-Line Dust Emission Calculation
       LOGICAL :: ERODE_AGLAND  = .FALSE.  ! Account for Erodible Agricultural Land when 
                                                !   computing dust Emissions
@@ -709,6 +710,9 @@
  
       ! Flag for ocean halogen chemistry and sea spray aerosol emissions
       CALL GET_ENV ( OCEAN_CHEM, 'CTM_OCEAN_CHEM', OCEAN_CHEM, VARDEV )
+
+      ! Flag for Online Calculation of Canopy Shade
+      CALL GET_ENV ( CANOPY_SHADE, 'CTM_CANOPY_SHADE', CANOPY_SHADE, VARDEV )
 
       ! Flag for Online Calculation of Windblown dust emissions
       CALL GET_ENV ( WB_DUST, 'CTM_WB_DUST', WB_DUST, VARDEV )

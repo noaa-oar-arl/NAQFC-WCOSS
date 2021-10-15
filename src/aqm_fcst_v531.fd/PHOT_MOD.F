@@ -108,6 +108,13 @@ C-----------------------------------------------------------------------
       REAL, ALLOCATABLE  :: RJ      ( :, :, :, : ) ! average grid cell J-values (min-1)
       REAL, ALLOCATABLE  :: RJ_RES  ( :, :, :, : ) ! resolved cloud J-values (min-1)
       REAL, ALLOCATABLE  :: RJ_SUB  ( :, :, :, : ) ! subgrid cloud J-values (min-1)
+      REAL, ALLOCATABLE  :: RJ_CORR_C1R ( :, :)    ! canopy shading correction to J-values (hc to 0.75*hc) 
+      REAL, ALLOCATABLE  :: RJ_CORR_C2R ( :, :)    ! canopy shading correction to J-values (hc to 0.50*hc)
+      REAL, ALLOCATABLE  :: RJ_CORR_C3R ( :, :)    ! canopy shading correction to J-values (hc to 0.35*hc)
+      REAL, ALLOCATABLE  :: RJ_CORR_C4R ( :, :)    ! canopy shading correction to J-values (hc to 0.20*hc)
+      REAL, ALLOCATABLE  :: RJ_CORR_BOT ( :, :)    ! canopy shading correction to J-values (0.20*hc to bottom)
+      REAL, ALLOCATABLE  :: RJ_CORR ( :, :)        ! total/integrated canopy shading correction to J-values
+      
       REAL, ALLOCATABLE  :: ETOT_SFC_WL ( :,:,: )  ! total downward irradiance at sfc [ Watts / m**2  ]
       
       REAL, ALLOCATABLE  :: BLKHCHO( : )           ! formaldehyde concentration [ molecules/cm**3 ]
@@ -147,6 +154,7 @@ C-----------------------------------------------------------------------
           USE RXNS_DATA            ! chemistry variables and data
           USE GRID_CONF            ! horizontal & vertical domain specifications
           USE UTILIO_DEFN
+          USE RUNTIME_VARS, ONLY : CANOPY_SHADE     !Used for turning on Canopy Shade to reduce Photolysis
 ! Purpose: initialize data and arrays shared by other science processes      
           IMPLICIT NONE
 !Arguments: None
@@ -172,6 +180,19 @@ C-----------------------------------------------------------------------
               CALL M3EXIT ( 'INIT_PHOT_SHARED', 0, 0, XMSG, XSTAT1 )
           END IF
 
+          IF ( CANOPY_SHADE ) THEN ! allocate for compute canopy shade reduction
+           ALLOCATE( RJ_CORR_C1R  ( NCOLS, NROWS ),
+     &               RJ_CORR_C2R  ( NCOLS, NROWS ),
+     &               RJ_CORR_C3R  ( NCOLS, NROWS ), 
+     &               RJ_CORR_C4R  ( NCOLS, NROWS ),
+     &               RJ_CORR_BOT  ( NCOLS, NROWS ),
+     &               RJ_CORR      ( NCOLS, NROWS ), STAT = ALLOCSTAT )
+           IF ( ALLOCSTAT .NE. 0 ) THEN
+              XMSG = 'Failure allocating canopy photolysis rate correction arrays'
+              CALL M3EXIT ( 'INIT_PHOT_SHARED', 0, 0, XMSG, XSTAT1 )
+           END IF
+          END IF
+
           ALLOCATE( ETOT_SFC_WL( NCOLS,NROWS,NWL ), STAT = ALLOCSTAT )
           IF ( ALLOCSTAT .NE. 0 ) THEN
               XMSG = 'Failure allocating irradiance rate array'
@@ -179,6 +200,14 @@ C-----------------------------------------------------------------------
           END IF
 
           RJ = 0.0; RJ_RES = 0.0; RJ_SUB = 0.0
+          IF ( CANOPY_SHADE ) THEN 
+           RJ_CORR_C1R=0.0
+           RJ_CORR_C2R=0.0
+           RJ_CORR_C3R=0.0 
+           RJ_CORR_C4R=0.0
+           RJ_CORR_BOT=0.0
+           RJ_CORR=0.0
+          END IF
           ETOT_SFC_WL = 0.0
           
       END SUBROUTINE INIT_PHOT_SHARED
